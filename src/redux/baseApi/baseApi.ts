@@ -16,7 +16,7 @@ interface IRefreshResponse {
 const mutex = new Mutex();
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: process.env.NEXT_PUBLIC_API_URL,
+  baseUrl:`https://course-master-backend-ua5e.onrender.com/api`,
   credentials: "include",
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as any).cmAuth.token;
