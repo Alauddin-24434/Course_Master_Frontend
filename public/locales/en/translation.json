@@ -1,0 +1,197 @@
+{
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "login": "Login",
+    "signup": "Sign Up",
+    "logout": "Logout",
+    "instructors": "Instructors",
+    "about": "About Us",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Learn Anything, Anytime",
+    "subtitle": "Access thousands of courses from expert instructors worldwide",
+    "cta": "Explore Courses",
+    "featured": "Featured Courses",
+    "featured_desc":"Learn from the world's best teachers",
+    "view_all":"View All"
+
+  },
+  "hero": {
+    "featured": "Featured Courses",
+    "title": "Learn Anything, Anytime",
+    "subtitle": "Access thousands of courses from expert instructors worldwide",
+    "cta": "Explore Courses",
+    "watch_demo": "Watch Demo",
+    "stats": {
+      "courses": "Courses",
+      "students": "Students",
+      "instructors": "Instructors"
+    },
+    "floating_cards": {
+      "card1": {
+        "title": "Expert Instructors",
+        "subtitle": "Learn from best"
+      },
+      "card2": {
+        "title": "Lifetime Access",
+        "subtitle": "Learn forever"
+      },
+      "card3": {
+        "title": "4.9/5 Rating",
+        "subtitle": "Student rated"
+      }
+    },
+    "scroll_indicator": "Scroll to explore"
+  },
+
+  "courses": {
+    "search": "Search courses...",
+    "filter": "Filter",
+   
+    "price": "Price",
+    "all": "All Courses",
+    "enrolled": "Enrolled",
+    "enroll": "Enroll Now",
+    "description": "Discover and enroll in thousands of courses",
+    "search_placeholder": "Search by title or instructor",
+    "sort": {
+      "newest": "Newest",
+      "priceLow": "Price: Low to High",
+      "priceHigh": "Price: High to Low"
+    },
+    "category": {
+      "all": "All Categories",
+      "web": "Web Development",
+      "mobile": "Mobile Development",
+      "design": "Design",
+      "data": "Data Science",
+      "business": "Business"
+    },
+    "loading": "Loading courses...",
+    "no_results": "No courses found."
+  },
+  "pagination": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+  "auth": {
+    "welcome_back": "Welcome back",
+    "enter_credentials": "Enter your credentials to login",
+    "or_continue_with": "Or continue with",
+    "demo_credentials": "Demo credentials:",
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "invalid_credentials": "Invalid email or password",
+    "login_error": "Login failed. Please try again",
+    "demo_email": "Demo email",
+    "demo_password": "Demo password",
+    "remember_me": "Remember me",
+    "forgot_password": "Forgot password?",
+    "logging_in": "Logging in...",
+    "sign_in": "Sign In",
+    "no_account": "Don't have an account?",
+    "sign_up": "Sign Up",
+    "full_name": "Full Name",
+    "agree_terms": "I agree to the",
+    "terms": "Terms of Service",
+    "privacy": "Privacy Policy",
+    "and": "and",
+    "agree_terms_error": "Please agree to terms and conditions",
+    "password_mismatch": "Passwords do not match",
+    "weak_password": "Password is not strong enough",
+    "signup_error": "Sign up failed. Please try again.",
+    "creating_account": "Creating Account...",
+    "already_have_account": "Already have an account?",
+    "start_learning": "Start Learning Today!",
+    "create_account_desc": "Create your account to access thousands of courses from expert instructors."
+  },
+  "dashboard": {
+    "title": "My Dashboard",
+    "welcome": "Welcome back",
+    "subtitle": "Keep learning and achieving your goals.",
+    "enrolled": "Enrolled Courses",
+    "progress": "Progress",
+    "continue": "Continue Learning",
+    "recent_activity": "Recent Activity",
+    "enrolled_courses": "Enrolled Courses",
+    "hours_learned": "Hours Learned",
+    "certificates": "Certificates",
+    "completion_rate": "Completion Rate"
+  },
+  "admin": {
+    "title": "Admin Dashboard",
+    "subtitle": "Manage courses, users, and platform analytics",
+    "recent_courses": "Recent Courses",
+    "recent_users": "Recent Users",
+    "courses": "Manage Courses",
+    "students": "Manage Students",
+    "assignments": "Review Assignments"
+  },
+  "requirements": {
+    "title": "System Requirements",
+    "subtitle": "Ensure you have the necessary requirements to get the best learning experience on CourseMaster",
+    "need_help": "Need Help?"
+  },
+  "extra": {
+    "trust_title": "Trusted by the world's leading teams",
+    "instructors_title": "Our Expert Instructors",
+    "about_title": "About CourseMaster",
+    "contact_title": "Get in Touch",
+    "testimonials_title": "What our students say",
+    "become_instructor": "Become an Instructor",
+    "become_instructor_desc": "Join thousands of instructors and share your knowledge worldwide while earning money.",
+    "earnings_avg": "Average Earnings",
+    "start_teaching": "Start Teaching Now",
+    "unlock_potential": "Unlock your potential today.",
+    "quote": "\"The best investment you can make is in yourself.\"",
+    "price": "Price",
+    "loading": "Loading...",
+    "voices_success": "Voices of Success",
+    "testimonial_title": "Don't just take our word for it.",
+    "testimonial_subtitle": "Join 50,000+ students from 120+ countries globally.",
+    "for_instructors": "For Aspiring Instructors",
+    "instructor_cta_title": "Share your knowledge with",
+    "instructor_cta_millions": "millions",
+    "instructor_cta_desc": "Create a beautiful course in minutes. Get paid monthly. Reach students around the globe.",
+    "learn_how_works": "Learn How it Works",
+    "avg_earnings_label": "Average Monthly Earnings per Expert"
+  },
+  "footer": {
+    "explore": "Explore Courses",
+    "upcoming": "Upcoming Live",
+    "bundles": "Course Bundles",
+    "learning_path": "Learning Path",
+    "teach": "Teach on CM",
+    "instructor_dash": "Instructor Dashboard",
+    "revenue": "Revenue Share",
+    "help": "Help Center",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookie": "Cookie Settings",
+    "ip_policy": "IP Policy",
+    "status": "Status",
+    "support": "Support",
+    "links": "Useful Links",
+    "community": "Community",
+    "legal": "Legal"
+  },
+  "upcoming": {
+    "title": "Live Now & Upcoming",
+    "subtitle": "Live Learning Sessions"
+  },
+  "common": {
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next",
+    "more": "More pages",
+    "sidebar": "Sidebar",
+    "toggle_sidebar": "Toggle Sidebar"
+  }
+}
+
+
