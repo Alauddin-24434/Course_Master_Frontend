@@ -8,7 +8,7 @@ export default function AboutPage() {
   const { t } = useTranslation()
 
   return (
-    <main className="min-h-screen bg-slate-50/50 dark:bg-zinc-950/50 py-24 relative overflow-hidden">
+    <main className="min-h-screen py-24 relative overflow-hidden">
       {/* Decorative Orbs */}
       <div className="absolute top-0 left-0 w-[50rem] h-[50rem] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 -translate-x-1/2"></div>
       <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-purple-500/5 blur-[120px] rounded-full translate-y-1/2 translate-x-1/2"></div>
@@ -67,25 +67,7 @@ export default function AboutPage() {
             </div>
         </div>
 
-        {/* CTA Section */}
-        <div className="bg-zinc-900 rounded-[4rem] p-12 md:p-24 text-center space-y-10 relative overflow-hidden group">
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-            <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-                <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white italic">
-                    Ready to Start Your Journey?
-                </h2>
-                <p className="text-zinc-400 text-lg font-medium">Join 50,000+ others who have already accelerated their careers with CourseMaster.</p>
-                <div className="flex flex-wrap justify-center gap-4">
-                    <Link href="/signup" className="h-16 px-10 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center gap-3 shadow-xl shadow-primary/30 hover:scale-105 active:scale-95 transition-all">
-                        Create Account <ArrowRight className="w-4 h-4" />
-                    </Link>
-                    <Link href="/courses" className="h-16 px-10 bg-white/10 text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center gap-3 backdrop-blur-md hover:bg-white/20 transition-all">
-                        Browse Catalog
-                    </Link>
-                </div>
-            </div>
-        </div>
-
+      
       </div>
     </main>
   )

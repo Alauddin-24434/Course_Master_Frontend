@@ -51,9 +51,9 @@ const toggleLanguage = () => {
             <nav className="hidden items-center gap-1 xl:flex px-2 py-1 bg-secondary/50 rounded-2xl border border-border/50">
               <NavLink href="/" label={t("nav.home")} />
               <NavLink href="/courses" label={t("nav.courses")} />
-              <NavLink href="/instructors" label={t("nav.instructors") || t("extra.instructors_title")} />
+        
               <NavLink href="/about" label={t("nav.about") || t("extra.about_title")} />
-              <NavLink href="/#contact" label={t("nav.contact") || t("extra.contact_title")} />
+              <NavLink href="/contact" label={t("nav.contact") || t("extra.contact_title")} />
               {isAuthenticated && <NavLink href="/dashboard" label={t("nav.dashboard")} />}
               {isAuthenticated && user?.role === "admin" && <NavLink href="/admin" label={t("nav.admin")} />}
             </nav>
@@ -129,9 +129,8 @@ const toggleLanguage = () => {
         <div className="lg:hidden animate-in slide-in-from-top-4 duration-200 border-t bg-background p-4 grid gap-2">
           <MobileNavLink href="/" label={t("nav.home")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/courses" label={t("nav.courses")} onClick={() => setIsMenuOpen(false)} />
-          <MobileNavLink href="/instructors" label={t("nav.instructors") || t("extra.instructors_title")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/about" label={t("nav.about") || t("extra.about_title")} onClick={() => setIsMenuOpen(false)} />
-          <MobileNavLink href="/#contact" label={t("nav.contact") || t("extra.contact_title")} onClick={() => setIsMenuOpen(false)} />
+          <MobileNavLink href="/contact" label={t("nav.contact") || t("extra.contact_title")} onClick={() => setIsMenuOpen(false)} />
 
           {isAuthenticated && (
             <>

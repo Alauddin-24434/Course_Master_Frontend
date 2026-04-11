@@ -15,21 +15,25 @@ export const courseApi = baseApi.injectEndpoints({
       invalidatesTags: ["Course"],
     }),
 
-    getAllCourses: build.query<
-      ICoursesResponse,
-      { page?: number; limit?: number; search?: string; category?: string; sortBy?: string } | void >({
-      query: ({ page, limit, search, category, sortBy } = {}) => {
-        const params = new URLSearchParams();
-        if (page) params.append("page", page.toString());
-        if (limit) params.append("limit", limit.toString());
-        if (search) params.append("search", search);
-        if (sortBy) params.append("sortBy", sortBy);
-        if (category) params.append("category", category);
+   getAllCourses: build.query<
+  ICoursesResponse,
+  { page?: number; limit?: number; search?: string; category?: string; sort?: string } | void
+>({
+  query: ({ page, limit, search, category, sort } = {}) => {
+    const params = new URLSearchParams();
 
-        return `/courses?${params.toString()}`;
-      },
-      providesTags: ["Course"],
-    }),
+    if (page) params.append("page", page.toString());
+    if (limit) params.append("limit", limit.toString());
+    if (search) params.append("search", search);
+    if (category) params.append("category", category);
+
+    // 🔥 FIX: sort (NOT sortBy)
+    if (sort) params.append("sort", sort);
+
+    return `/courses?${params.toString()}`;
+  },
+  providesTags: ["Course"],
+}),
 
     // Get Single Course
     getCourseById: build.query<ICourseResponse, string>({

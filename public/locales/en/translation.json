@@ -57,7 +57,7 @@
     "enrolled": "Enrolled",
     "enroll": "Enroll Now",
     "description": "Discover and enroll in thousands of courses",
-    "search_placeholder": "Search by title or instructor",
+    "search_placeholder": "Search by title or category...",
     "sort": {
       "newest": "Newest",
       "priceLow": "Price: Low to High",
