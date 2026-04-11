@@ -34,7 +34,7 @@ export function FeaturedCourses() {
   const skeletons = Array.from({ length: limit });
 
   return (
-    <section className="py-24 bg-gradient-to-b from-transparent to-secondary/20">
+    <section className="py-24 bg-background from-transparent to-secondary/20">
       <div className="container mx-auto space-y-12 px-4 sm:px-6 lg:px-8">
         
         {/* Title Section */}
