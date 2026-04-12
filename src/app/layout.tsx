@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/ReduxProvider";
 import { cookies } from 'next/headers'; // next 13.4+
+import LenisProvider from "./LenisProvider";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
@@ -19,7 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang} suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+    <LenisProvider>{children}</LenisProvider>
       </body>
     </html>
   );
