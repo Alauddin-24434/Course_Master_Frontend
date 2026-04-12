@@ -29,16 +29,14 @@ import { logout } from "@/redux/features/auth/authSlice";
 // -------- COMMON MENU FOR ALL ROLES --------
 const commonItems = [
   { title: "Home", url: "/", icon: Home },
-  { title: "My Profile", url: "/dashboard/profile", icon: Settings },
+  { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ];
 
 // -------- MENU BY ROLE --------
 export const studentItems = [
   { title: "Overview", url: "/dashboard", icon: BarChart },
-  { title: "Analytics", url: "/dashboard/student/analytics", icon: BarChart },
-  { title: "My Learning", url: "/dashboard/student/my-courses", icon: Inbox },
-  { title: "Assignments", url: "/dashboard/student/assignments", icon: FileText },
-  { title: "Support", url: "/dashboard/support", icon: HelpCircle },
+  { title: "My Courses", url: "/dashboard/student/my-courses", icon: Inbox },
+
 ];
 
 export const instructorItems = [
@@ -107,16 +105,16 @@ export function AppSidebar() {
   const dispatch = useDispatch();
   const pathname = usePathname(); // current path
 
-  const getMenuByRole = () => {
-    switch (role) {
-      case "admin":
-        return [...commonItems, ...adminItems];
-      case "instructor":
-        return [...commonItems, ...instructorItems];
-      default:
-        return [...commonItems, ...studentItems];
-    }
-  };
+ const getMenuByRole = () => {
+  switch (role) {
+    case "admin":
+      return [...adminItems, ...commonItems];
+    case "instructor":
+      return [...instructorItems, ...commonItems];
+    default:
+      return [...studentItems, ...commonItems];
+  }
+};
 
   const menuItems = getMenuByRole();
 

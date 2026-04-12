@@ -17,6 +17,7 @@ export default function EnhancedCourseDetailsPage() {
    const { data: courseResponse, isLoading, refetch } = useGetCourseByIdQuery(courseId, {
       skip: !courseId
    });
+   console.log("res", courseResponse)
 
    const [enrollCourse, { isLoading: isEnrolling }] = useEnrollCourseMutation();
    const [activeModule, setActiveModule] = useState<string | null>(null);
@@ -43,6 +44,7 @@ export default function EnhancedCourseDetailsPage() {
 
    const course = courseResponse?.data;
    const isEnrolled = course?.isEnrolled;
+   console.log(isEnrolled)
 
    const handleEnrollment = async () => {
       console.log("click hooise")
@@ -323,22 +325,32 @@ export default function EnhancedCourseDetailsPage() {
                               </div>
                            )}
                         </div>
+{/* =======================
+   ENROLLED BUTTON
+======================= */}
+{isEnrolled ? (
+<button
+   onClick={() => router.push(`/dashboard/student/my-courses/${courseId}`)}
+   className="w-full h-16 rounded-[1.5rem] cursor-pointer flex items-center justify-center gap-3 font-black uppercase tracking-widest text-sm bg-secondary text-foreground hover:bg-muted border border-border transition-all"
+>
+   <CheckCircle className="w-5 h-5" />
+   Continue
+</button>
+) : (
+   <button
+      onClick={handleEnrollment}
+      disabled={isEnrolling}
+      className="w-full h-16 rounded-[1.5rem] flex items-center justify-center gap-3 font-black uppercase tracking-widest text-sm bg-primary text-white hover:scale-[1.03] active:scale-95 shadow-primary/30 transition-all"
+   >
+      {isEnrolling ? (
+         <Loader2 className="w-5 h-5 animate-spin" />
+      ) : (
+         <PlayCircle className="w-5 h-5" />
+      )}
 
-                        <button
-                           onClick={handleEnrollment}
-                           disabled={isEnrolling}
-                           className={`w-full h-16 rounded-[1.5rem] flex items-center justify-center gap-3 font-black uppercase tracking-widest text-sm transition-all shadow-2xl
-                            ${isEnrolled
-                                 ? 'bg-secondary text-foreground hover:bg-muted border border-border'
-                                 : 'bg-primary text-white hover:scale-[1.03] active:scale-95 shadow-primary/30'}
-                        `}
-                        >
-                           {isEnrolling ? <Loader2 className="w-5 h-5 animate-spin" /> : null}
-                           {!isEnrolling && isEnrolled && "Continue to Dashboard"}
-                           {!isEnrolling && !isEnrolled && isFree && "Enroll Now for Free"}
-                           {!isEnrolling && !isEnrolled && !isFree && "Buy Now for Instant Access"}
-                        </button>
-
+      {isFree ? "Enroll Now for Free" : "Buy Now for Instant Access"}
+   </button>
+)}
                         {/* Features checklist */}
                         <div className="pt-2 space-y-4 px-2">
                            <div className="flex items-center gap-4 text-sm font-bold text-foreground">
