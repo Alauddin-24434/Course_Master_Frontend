@@ -8,41 +8,48 @@ export function Footer() {
   const { t } = useTranslation();
 
   return (
-    // Border remove kore Shadow-xl ebong ektu darker background add kora hoyeche
-    <footer className="bg-background relative overflow-hidden pt-32 pb-16 ">
+    <footer className="footer-gradient relative overflow-hidden pt-32 pb-12 bg-card/30 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] border-t border-primary/5">
       
-   
+      {/* --- Decorative Background Elements --- */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-[30%] h-[30%] bg-primary/2 blur-[100px] rounded-full"></div>
+        <div className="absolute bottom-0 right-1/4 w-[30%] h-[30%] bg-primary/2 blur-[100px] rounded-full"></div>
+      </div>
+
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
           
           {/* Brand & Newsletter Column */}
-          <div className="lg:col-span-4 space-y-10">
+          <div className="lg:col-span-5 space-y-12">
             <div className="space-y-6">
                 <Link href="/" className="flex items-center gap-3 group">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary shadow-lg shadow-primary/30 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                    <span className="text-2xl font-black text-primary-foreground italic">C</span>
-                </div>
-                <span className="text-2xl font-black tracking-tighter text-foreground">
-                    Course<span className="text-primary italic">Master</span>
-                </span>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-tr from-primary to-indigo-500 shadow-lg shadow-primary/30 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500">
+                      <span className="text-2xl font-black text-white italic">C</span>
+                  </div>
+                  <span className="text-2xl font-black tracking-tighter text-foreground">
+                      Course<span className="text-primary italic">Master</span>
+                  </span>
                 </Link>
                 
-                <p className="max-w-xs text-muted-foreground text-sm font-medium leading-relaxed opacity-80">
-                {t("auth.create_account_desc") || "Empowering the next generation of world-class instructors and lifelong learners."}
+                <p className="max-w-xs text-muted-foreground text-sm font-medium leading-relaxed">
+                  {t("auth.create_account_desc") || "Transforming expertise into digital experiences. Join our global network of top-tier instructors and ambitious students."}
                 </p>
             </div>
 
             {/* Newsletter Input */}
-            <div className="max-w-xs space-y-4">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Newsletter</p>
+            <div className="max-w-sm space-y-5">
+              <div className="space-y-1">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Stay in the orbit</p>
+                <h3 className="text-lg font-black tracking-tight text-foreground">Subscribe to our newsletter</h3>
+              </div>
               <div className="relative group">
                 <input 
                   type="email" 
-                  placeholder="Email address" 
-                  className="w-full h-14 pl-6 pr-14 bg-card/30 border border-white/5 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-primary/20 focus:bg-card/50 outline-none transition-all shadow-inner"
+                  placeholder="name@email.com" 
+                  className="w-full h-16 pl-6 pr-16 bg-background/50 border border-primary/10 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/30 focus:bg-background outline-none transition-all shadow-sm"
                 />
-                <button className="absolute right-2 top-2 h-10 w-10 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:shadow-lg hover:shadow-primary/40 transition-all active:scale-95">
-                   <Send className="w-4 h-4" />
+                <button className="absolute right-2 top-2 h-12 w-12 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:shadow-lg hover:shadow-primary/40 transition-all active:scale-95 group-hover:rotate-6">
+                   <Send className="w-5 h-5" />
                 </button>
               </div>
             </div>
@@ -56,32 +63,46 @@ export function Footer() {
           </div>
 
           {/* Links Columns */}
-          <div className="lg:col-span-8 grid grid-cols-2 sm:grid-cols-3 gap-12 lg:gap-8">
-            <FooterColumn title={t("footer.links") || "Explore"}>
-                <li><Link href="/courses" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.explore")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.upcoming")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.bundles")}</Link></li>
-                <li><Link href="/how-it-works" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.learning_path") || "Methodology"}</Link></li>
+          <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-10 lg:gap-6 pt-4">
+            <FooterColumn title={t("footer.links") || "Platform"}>
+                <li><Link href="/" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("nav.home") || "Home"}</Link></li>
+                <li><Link href="/courses" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.explore") || "All Courses"}</Link></li>
+                <li><Link href="/about" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("nav.about") || "About Us"}</Link></li>
+                <li><Link href="/contact" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("nav.contact") || "Contact"}</Link></li>
+                <li><Link href="/how-it-works" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.learning_path") || "Methodology"}</Link></li>
             </FooterColumn>
 
-            <FooterColumn title={t("extra.for_instructors") || "Teach"}>
-                <li><Link href="/how-it-works" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.teach")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.instructor_dash")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.revenue")}</Link></li>
-                <li><Link href="/#contact" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.help")}</Link></li>
+            <FooterColumn title={t("extra.for_instructors") || "Educators"}>
+                <li><Link href="/signup" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("extra.become_instructor") || "Teach on CourseMaster"}</Link></li>
+                <li><Link href="/dashboard" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("nav.dashboard") || "Instructor Dash"}</Link></li>
+                <li><Link href="/how-it-works" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">Platform Guide</Link></li>
+                <li><Link href="/contact" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.help") || "Support Center"}</Link></li>
             </FooterColumn>
 
             <FooterColumn title={t("footer.legal") || "Legal"}>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.privacy")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.terms")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">{t("footer.cookie")}</Link></li>
-                <li><Link href="#" className="hover:text-primary transition-all hover:translate-x-1 inline-block">Safety</Link></li>
+                <li><Link href="/refund-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">Refund Policy</Link></li>
+                <li><Link href="/privacy-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.privacy") || "Privacy Policy"}</Link></li>
+                <li><Link href="/terms-of-service" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.terms") || "Terms of Service"}</Link></li>
+                <li><Link href="/cookie-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.cookie") || "Cookie Policy"}</Link></li>
             </FooterColumn>
           </div>
         </div>
 
-   
-       
+        {/* --- Bottom Bar --- */}
+        <div className="pt-10 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground/60">
+            © {new Date().getFullYear()} CourseMaster. All rights reserved.
+          </p>
+          <div className="flex items-center gap-8">
+             <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground">Systems Active</span>
+             </div>
+             <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground/60">
+               Handcrafted with ❤️ for Educators
+             </p>
+          </div>
+        </div>
       </div>
     </footer>
   );
@@ -89,7 +110,7 @@ export function Footer() {
 
 function SocialIcon({ icon }: { icon: React.ReactNode }) {
     return (
-        <a href="#" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-card border border-white/5 text-foreground transition-all hover:bg-primary hover:text-primary-foreground hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-1">
+        <a href="#" className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/5 border border-primary/10 text-primary transition-all hover:bg-primary hover:text-white hover:shadow-xl hover:shadow-primary/20 hover:-translate-y-1">
             {icon}
         </a>
     )
@@ -99,7 +120,7 @@ function FooterColumn({ title, children }: { title: string; children: React.Reac
     return (
         <div className="space-y-8">
             <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground/40">{title}</h4>
-            <ul className="space-y-4 text-sm font-bold text-muted-foreground">
+            <ul className="space-y-5 text-sm font-bold text-muted-foreground">
                 {children}
             </ul>
         </div>

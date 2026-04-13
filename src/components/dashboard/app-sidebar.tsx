@@ -3,113 +3,73 @@
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 import {
-  BarChart,
-  Calendar,
-  FileText,
-  HelpCircle,
-  Home,
-  Inbox,
+  BarChart3,
+  BookOpen,
+  LayoutDashboard,
   Settings,
   LogOut,
+  FolderKanban,
+  Files,
+  GraduationCap,
+  History,
+  ShieldCheck,
+  Zap,
 } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { logout } from "@/redux/features/auth/authSlice";
 
-// -------- COMMON MENU FOR ALL ROLES --------
+// -------- MENU BY ROLE --------
+const studentItems = [
+  { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
+  { title: "My Courses", url: "/dashboard/student/my-courses", icon: BookOpen },
+  { title: "Payments", url: "/dashboard/student/payments", icon: History },
+  // { title: "Certificates", url: "/dashboard/student/certificate", icon: GraduationCap },
+];
+
+const instructorItems = [
+  { title: "Overview", url: "/dashboard", icon: BarChart3 },
+  { title: "My Courses", url: "/dashboard/instructor/manage-courses", icon: FolderKanban },
+  { title: "Curriculum", url: "/dashboard/instructor/modules", icon: Files },
+  { title: "Lessons", url: "/dashboard/instructor/lessons", icon: Files },
+  { title: 'Assignments', url: "/dashboard/instructor/assignments", icon: Files },
+  { title: "Revenue", url: "/dashboard/instructor/revenue", icon: Zap },
+];
+
+const adminItems = [
+  { title: "Platform Hub", url: "/dashboard", icon: ShieldCheck },
+  { title: "Categories", url: "/dashboard/admin/manage-categories", icon: FolderKanban },
+  { title: "Revenue", url: "/dashboard/admin/revenue", icon: BarChart3 },
+  { title: "Legal", url: "/dashboard/admin/refund-policy", icon: History },
+];
+
 const commonItems = [
-  { title: "Home", url: "/", icon: Home },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
 ];
-
-// -------- MENU BY ROLE --------
-export const studentItems = [
-  { title: "Overview", url: "/dashboard", icon: BarChart },
-  { title: "My Courses", url: "/dashboard/student/my-courses", icon: Inbox },
-
-];
-
-export const instructorItems = [
-  { title: "Dashboard", url: "/dashboard", icon: BarChart },
-  {
-    title: "Manage Courses",
-    url: "/dashboard/instructor/manage-courses",
-    icon: Inbox,
-  },
-  {
-    title: "Manage Modules",
-    url: "/dashboard/instructor/modules",
-    icon: FileText,
-  },
-  {
-    title: "Manage Lessons",
-    url: "/dashboard/instructor/lessons",
-    icon: FileText,
-  },
-  {
-    title: "Manage Assignments",
-    url: "/dashboard/instructor/assignments",
-    icon: FileText,
-  },
-  {
-    title: "Analytics",
-    url: "/dashboard/instructor/analytics",
-    icon: BarChart,
-  },
-];
-
-export const adminItems = [
-  { title: "Dashboard", url: "/dashboard", icon: BarChart },
-
-  {
-    title: "Manage Categories",
-    url: "/dashboard/admin/manage-categories",
-    icon: Calendar,
-  },
-  {
-    title: "Site Analytics",
-    url: "/dashboard/admin/analytics",
-    icon: BarChart,
-  },
-  {
-    title: "Payments & Revenue",
-    url: "/dashboard/admin/payments",
-    icon: Calendar, 
-  },
-  {
-    title: "Refund Policy",
-    url: "/dashboard/admin/refund-policy",
-    icon: FileText,
-  },
-];
-
 
 export function AppSidebar() {
   const { user } = useSelector((state: RootState) => state.cmAuth);
   const role = user?.role || "student";
   const dispatch = useDispatch();
-  const pathname = usePathname(); // current path
+  const pathname = usePathname();
 
- const getMenuByRole = () => {
-  switch (role) {
-    case "admin":
-      return [...adminItems, ...commonItems];
-    case "instructor":
-      return [...instructorItems, ...commonItems];
-    default:
-      return [...studentItems, ...commonItems];
-  }
-};
+  const getMenuByRole = () => {
+    switch (role) {
+      case "admin": return [...adminItems, ...commonItems];
+      case "instructor": return [...instructorItems, ...commonItems];
+      default: return [...studentItems, ...commonItems];
+    }
+  };
 
   const menuItems = getMenuByRole();
 
@@ -119,47 +79,51 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar>
-      <SidebarContent className="flex flex-col h-full justify-between">
-        {/* PROFILE + MENU */}
-        <div>
-          {/* PROFILE HEADER */}
-          <div className="p-4 border-b flex items-center gap-3">
-            <div>
-              <p className="font-semibold text-sm">{user?.name || "User Name"}</p>
-              <p className="text-xs text-gray-500 capitalize">{role}</p>
-            </div>
-          </div>
+    <Sidebar className="border-r border-border bg-background/50 backdrop-blur-xl">
+      <SidebarContent className="flex flex-col h-full">
 
-          {/* Sidebar Group */}
+        {/* --- BRAND SECTION --- */}
+        <div className="p-8">
+          <Link href="/" className="group flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-indigo-500 shadow-lg shadow-primary/20 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+              <span className="text-xl font-black text-white italic">C</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-black tracking-tighter text-foreground leading-none">
+                Course<span className="text-primary italic">Master</span>
+              </span>
+              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">Management Pro</span>
+            </div>
+          </Link>
+        </div>
+
+        {/* --- NAVIGATION SECTION --- */}
+        <div className="flex-1 px-4">
           <SidebarGroup>
-            <SidebarGroupLabel>
-              {role === "admin"
-                ? "Admin Panel"
-                : role === "instructor"
-                ? "Instructor Panel"
-                : "Student Panel"}
-            </SidebarGroupLabel>
+            <div className="px-4 mb-4">
+              <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
+                {role} Console
+              </span>
+            </div>
 
             <SidebarGroupContent>
-              <SidebarMenu>
+              <SidebarMenu className="gap-1">
                 {menuItems.map((item) => {
                   const isActive = pathname === item.url;
                   return (
                     <SidebarMenuItem key={item.title}>
                       <SidebarMenuButton asChild>
-                        <a
+                        <Link
                           href={item.url}
-                          className={`flex items-center gap-2 px-3 py-2 rounded transition
-                          ${
-                            isActive
-                              ? "bg-primary text-white"
-                              : "hover:bg-gray-100 text-gray-700"
-                          }`}
+                          className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300
+                          ${isActive
+                              ? "bg-primary text-white shadow-lg shadow-primary/20 active:scale-95 translate-x-1"
+                              : "hover:bg-secondary text-muted-foreground hover:text-foreground hover:translate-x-1"
+                            }`}
                         >
-                          <item.icon className={isActive ? "text-white" : ""} />
-                          <span>{item.title}</span>
-                        </a>
+                          <item.icon className={`w-4.5 h-4.5 ${isActive ? "text-white" : "text-primary/60"}`} />
+                          <span className="text-[11px] font-black uppercase tracking-widest">{item.title}</span>
+                        </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
                   );
@@ -169,22 +133,27 @@ export function AppSidebar() {
           </SidebarGroup>
         </div>
 
-        {/* Logout Button at Bottom */}
-        <div className="p-4">
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <button
-                  onClick={handleLogout}
-                  className="flex items-center w-full gap-2 bg-red-500 text-white px-3 py-2 rounded cursor-pointer hover:bg-red-600 transition"
-                >
-                  <LogOut />
-                  <span>Logout</span>
-                </button>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
+        {/* --- USER & LOGOUT SECTION --- */}
+        <div className="p-6 border-t border-border/50 bg-secondary/20">
+          <div className="flex items-center gap-3 mb-6 px-2">
+            <div className="h-10 w-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary font-black text-sm uppercase">
+              {user?.name?.charAt(0)}
+            </div>
+            <div className="flex flex-col truncate">
+              <p className="text-xs font-black text-foreground truncate">{user?.name}</p>
+              <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest truncate">{user?.email}</p>
+            </div>
+          </div>
+
+          <button
+            onClick={handleLogout}
+            className="group flex w-full items-center justify-center gap-2 h-12 rounded-xl bg-destructive/5 border border-destructive/10 text-destructive text-[10px] font-black uppercase tracking-widest transition-all hover:bg-destructive hover:text-white shadow-sm active:scale-95"
+          >
+            <LogOut className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+            <span>End Session</span>
+          </button>
         </div>
+
       </SidebarContent>
     </Sidebar>
   );

@@ -1,27 +1,16 @@
-"use client"
+"use client";
 
+import { useMemo } from "react";
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
-import { Loader2 } from "lucide-react";
-
-interface User {
-  id: string
-  name: string
-  email: string
-  joinDate: string
-  courses: number
-  status: "active" | "inactive"
-}
+import { TableSkeleton } from "./dashboard/skeletons";
+import { IUser } from "@/interfaces/user.interface";
 
 export function AdminUsersTable() {
   const { data, isLoading } = useGetAllUsersQuery();
-  const users: User[] = data?.data || [];
+  const users = useMemo(() => data?.data || [], [data]);
 
   if (isLoading) {
-    return (
-      <div className="bg-card rounded-lg border border-border p-8 flex justify-center items-center">
-        <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
-      </div>
-    );
+    return <TableSkeleton rows={5} />;
   }
 
   return (
@@ -38,7 +27,7 @@ export function AdminUsersTable() {
             </tr>
           </thead>
           <tbody>
-            {users.length > 0 ? users.map((user, idx) => (
+            {users.length > 0 ? users.map((user: any, idx: number) => (
               <tr
                 key={user.id}
                 className={`border-b border-border last:border-0 ${idx % 2 === 0 ? "bg-transparent" : "bg-muted/30"}`}

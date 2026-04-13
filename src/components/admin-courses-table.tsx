@@ -1,36 +1,25 @@
 "use client"
 
-import { Eye, Edit, Trash2, Loader2 } from "lucide-react"
+import { useMemo } from "react"
+import { Eye, Edit, Trash2 } from "lucide-react"
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
-
-interface Course {
-  id: string
-  title: string
-  instructor: string
-  students: number
-  revenue: string
-  status: "published" | "draft"
-}
+import { TableSkeleton } from "./dashboard/skeletons";
 
 export function AdminCoursesTable() {
   const { data, isLoading } = useGetAllCoursesQuery({ limit: 5 });
-  const fetchedCourses = data?.data?.courses || [];
+  const fetchedCourses = useMemo(() => data?.data?.courses || [], [data]);
 
-  const courses: Course[] = fetchedCourses.map((c: any) => ({
+  const courses = useMemo(() => fetchedCourses.map((c: any) => ({
     id: c.id,
     title: c.title,
     instructor: c.instructor?.name || "Unknown",
     students: c._count?.enrolledUsers || 0,
     revenue: `$${(c.price * (c._count?.enrolledUsers || 0)).toLocaleString()}`,
     status: c.isPublished ? "published" : "draft",
-  }));
+  })), [fetchedCourses]);
 
   if (isLoading) {
-    return (
-      <div className="bg-card rounded-lg border border-border p-8 flex justify-center items-center">
-        <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
-      </div>
-    );
+    return <TableSkeleton rows={5} />;
   }
 
   return (

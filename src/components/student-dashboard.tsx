@@ -1,159 +1,214 @@
 "use client";
 
+import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { Loader2, BookOpen, Award, Clock, PlayCircle, ArrowRight } from "lucide-react";
+import { 
+  BookOpen, 
+  Award, 
+  PlayCircle, 
+  ArrowRight, 
+  Sparkles,
+  Zap,
+  Star,
+  Trophy
+} from "lucide-react";
 
 import { RootState } from "@/redux/store";
 import { useGetMyCoursesQuery } from "@/redux/features/course/courseAPi";
 import { ProgressBar } from "./progress-bar";
+import { WelcomeHeroSkeleton, StatCardSkeleton, CourseCardSkeleton } from "./dashboard/skeletons";
 
 export function StudentDashboard() {
   const { user } = useSelector((state: RootState) => state.cmAuth);
-
   const { data, isLoading, isError } = useGetMyCoursesQuery();
 
-  console.log("📦 My Courses:", data);
+  const myCourses = useMemo(() => Array.isArray(data?.data) ? data.data : [], [data]);
 
-  // ✅ NOW DATA IS FLAT ARRAY
-  const myCourses = Array.isArray(data?.data) ? data.data : [];
+  // ================= MEMOIZED STATS =================
+  const stats = useMemo(() => {
+    const totalEnrolled = myCourses.length;
+    const completedCount = myCourses.filter((c) => c.progressPercentage === 100).length;
+    const inProgressCount = myCourses.filter((c) => c.progressPercentage < 100).length;
+    const overallProgressVal = myCourses.reduce((acc, c) => acc + (c.progressPercentage || 0), 0) / (myCourses.length || 1);
+    
+    const continueCourses = [...myCourses]
+      .sort((a, b) => new Date(b.lastActivity).getTime() - new Date(a.lastActivity).getTime())
+      .slice(0, 4);
+
+    return {
+       totalEnrolled,
+       completedCount,
+       inProgressCount,
+       overallProgressVal,
+       continueCourses
+    };
+  }, [myCourses]);
 
   if (isLoading) {
     return (
-      <div className="flex items-center justify-center min-h-[400px]">
-        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      <div className="space-y-16 animate-pulse">
+        <WelcomeHeroSkeleton />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+           <StatCardSkeleton />
+           <StatCardSkeleton />
+           <StatCardSkeleton />
+           <StatCardSkeleton />
+        </div>
+        <div className="space-y-6">
+           <div className="flex justify-between items-center"><div className="h-8 bg-muted rounded-xl w-48"></div><div className="h-10 bg-muted rounded-xl w-32"></div></div>
+           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+              <CourseCardSkeleton />
+              <CourseCardSkeleton />
+           </div>
+        </div>
       </div>
     );
   }
 
   if (isError) {
-    return <p className="text-red-500">Failed to load courses</p>;
+    return (
+      <div className="p-12 bg-destructive/5 border border-destructive/10 rounded-[2rem] text-center">
+        <p className="text-destructive font-black uppercase tracking-widest text-xs">Failed to synchronize courses</p>
+      </div>
+    );
   }
 
-  // ================= STATS =================
-  const totalEnrolled = myCourses.length;
-
-  const completed = myCourses.filter(
-    (c) => c.progressPercentage === 100
-  ).length;
-
-  const inProgress = myCourses.filter(
-    (c) => c.progressPercentage < 100
-  ).length;
-
-  const overallProgress =
-    myCourses.reduce((acc, c) => acc + (c.progressPercentage || 0), 0) /
-    (myCourses.length || 1);
-
-  // ================= CONTINUE LEARNING =================
-  const continueCourses = [...myCourses]
-    .sort(
-      (a, b) =>
-        new Date(b.lastActivity).getTime() -
-        new Date(a.lastActivity).getTime()
-    )
-    .slice(0, 4);
+  const { totalEnrolled, completedCount, inProgressCount, overallProgressVal, continueCourses } = stats;
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8 space-y-10">
+    <div className="max-w-7xl mx-auto space-y-16 animate-in fade-in slide-in-from-bottom-6 duration-1000">
 
-      {/* ================= WELCOME ================= */}
-      <div className="bg-primary/10 rounded-3xl p-10 border border-primary/20">
-        <h1 className="text-4xl font-black">
-          Welcome, {user?.name?.split(" ")[0]} 👋
-        </h1>
+      {/* ================= PREMIUM WELCOME HERO ================= */}
+      <section className="relative overflow-hidden rounded-[3rem] bg-card border border-primary/10 p-10 md:p-16">
+        <div className="absolute top-0 right-0 w-[40rem] h-[40rem] bg-primary/5 blur-[120px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-indigo-500/5 blur-[100px] rounded-full pointer-events-none translate-y-1/2 -translate-x-1/2"></div>
+        
+        <div className="relative z-10 flex flex-col md:flex-row justify-between items-center gap-12">
+            <div className="space-y-8 max-w-2xl text-center md:text-left">
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-background shadow-sm border border-border rounded-full">
+                    <Sparkles className="w-4 h-4 text-primary" />
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Achievement Unlocked</span>
+                </div>
+                
+                <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
+                   Welcome Back, <br />
+                   <span className="text-primary italic font-serif">{user?.name?.split(" ")[0]}</span>
+                </h1>
 
-        <div className="mt-6">
-          <Link
-            href="/courses"
-            className="px-6 py-3 bg-primary text-white rounded-xl font-bold"
-          >
-            Browse Courses
-          </Link>
+                <p className="text-lg text-muted-foreground font-medium max-w-lg leading-relaxed">
+                   You have completed <span className="text-foreground font-bold">{Math.round(overallProgressVal)}%</span> of your current curriculum. Your next milestone is just a few lessons away.
+                </p>
+
+                <div className="flex flex-wrap gap-4 justify-center md:justify-start">
+                    <Link href="/courses" className="h-14 px-8 bg-primary text-white rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all">
+                       Explore Courses
+                       <ArrowRight className="w-5 h-5" />
+                    </Link>
+                    <Link href="/dashboard/student/certificate" className="h-14 px-8 bg-secondary border border-border text-foreground rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest hover:bg-background transition-all">
+                       View Certificates
+                       <Trophy className="w-4.5 h-4.5" />
+                    </Link>
+                </div>
+            </div>
+
+            {/* Circular Progress Display */}
+            <div className="relative w-48 h-48 md:w-64 md:h-64 flex items-center justify-center">
+                <svg className="w-full h-full transform -rotate-90">
+                    <circle cx="50%" cy="50%" r="45%" className="stroke-primary/5 fill-transparent" strokeWidth="12" />
+                    <circle cx="50%" cy="50%" r="45%" className="stroke-primary fill-transparent transition-all duration-1000" strokeWidth="12" strokeDasharray="100 100" strokeDashoffset={100 - (isNaN(overallProgressVal) ? 0 : overallProgressVal)} strokeLinecap="round" />
+                </svg>
+                <div className="absolute flex flex-col items-center">
+                    <span className="text-5xl font-black tracking-tighter">{isNaN(overallProgressVal) ? 0 : Math.round(overallProgressVal)}%</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mt-1">Consistency</span>
+                </div>
+            </div>
         </div>
-      </div>
+      </section>
 
-      {/* ================= STATS ================= */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-
+      {/* ================= STATS GRID ================= */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
-          label="Enrolled"
+          label="Total Enrolled"
           value={totalEnrolled}
-          icon={<BookOpen className="w-6 h-6 text-primary" />}
+          icon={<BookOpen className="w-5 h-5" />}
+          trend="+2 this month"
         />
-
         <StatCard
-          label="Completed"
-          value={completed}
-          icon={<Award className="w-6 h-6 text-primary" />}
+          label="Mastered"
+          value={completedCount}
+          icon={<Star className="w-5 h-5" />}
+          trend="Top 5% student"
         />
-
         <StatCard
-          label="In Progress"
-          value={inProgress}
-          icon={<Clock className="w-6 h-6 text-primary" />}
+          label="Engaged"
+          value={inProgressCount}
+          icon={<Zap className="w-5 h-5" />}
+          trend="Daily streak: 4"
+        />
+        <StatCard
+          label="Certificates"
+          value={completedCount} // Mocking match with completed
+          icon={<Award className="w-5 h-5" />}
+          trend="Verified assets"
         />
       </div>
 
-      {/* ================= PROGRESS ================= */}
-      <div className="bg-card border rounded-2xl p-6">
-        <h2 className="text-xl font-bold mb-4">Overall Progress</h2>
-
-        <div className="flex items-center gap-4">
-          <div className="text-3xl font-black text-primary">
-            {Math.round(overallProgress)}%
+      {/* ================= CONTINUE THE MISSION ================= */}
+      <div className="space-y-8">
+        <div className="flex justify-between items-end">
+          <div className="space-y-1">
+             <h2 className="text-3xl font-black tracking-tight text-foreground">Continue the Mission</h2>
+             <p className="text-muted-foreground font-medium text-sm">Pick up exactly where you left off.</p>
           </div>
-
-          <div className="flex-1">
-            <ProgressBar progress={overallProgress} />
-          </div>
-        </div>
-      </div>
-
-      {/* ================= CONTINUE LEARNING ================= */}
-      <div>
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-bold">Continue Learning</h2>
 
           <Link
             href="/dashboard/student/my-courses"
-            className="text-primary flex items-center gap-1 text-sm font-semibold"
+            className="group h-11 px-6 bg-secondary border border-border rounded-xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-foreground hover:bg-primary hover:text-white transition-all"
           >
-            View All <ArrowRight className="w-4 h-4" />
+            All Courses
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
         {myCourses.length === 0 ? (
-          <p className="text-muted-foreground">No courses found</p>
+          <div className="p-20 bg-secondary/30 border border-dashed border-border rounded-[3rem] text-center">
+             <p className="text-muted-foreground font-medium italic">Your learning library is currently empty.</p>
+          </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
             {continueCourses.map((course) => (
               <Link
                 key={course.id}
                 href={`/dashboard/student/my-courses/${course.id}`}
-                className="border rounded-2xl p-4 hover:shadow-lg transition"
+                className="group relative bg-card border border-border rounded-[2.5rem] p-6 hover:border-primary/50 transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(var(--primary),0.12)]"
               >
-                <div className="flex gap-4">
-
-                  <img
-                    src={course.thumbnail || "/placeholder.png"}
-                    className="w-32 h-24 object-cover rounded-xl"
-                  />
-
-                  <div className="flex-1">
-                    <h3 className="font-bold">{course.title}</h3>
-
-                  
-
-                    <div className="mt-3">
-                      <ProgressBar progress={course.progressPercentage || 0} />
-                      <p className="text-xs mt-1 text-muted-foreground">
-                        {course.progressPercentage || 0}% completed
-                      </p>
+                <div className="flex flex-col sm:flex-row gap-6">
+                  <div className="relative aspect-video w-full sm:w-56 shrink-0 overflow-hidden rounded-2xl">
+                    <img
+                      src={course.thumbnail || "/placeholder.png"}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors" />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                       <PlayCircle className="w-12 h-12 text-white shadow-2xl" />
                     </div>
                   </div>
 
-                  <PlayCircle className="w-6 h-6 text-primary" />
+                  <div className="flex-1 flex flex-col justify-between py-2">
+                    <div className="space-y-1">
+                      <span className="text-[9px] font-black uppercase tracking-widest text-primary leading-none">In Residence</span>
+                      <h3 className="text-xl font-black tracking-tight text-foreground line-clamp-1">{course.title}</h3>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-tighter">
+                         <span className="text-muted-foreground">Course Progress</span>
+                         <span className="text-primary">{course.progressPercentage || 0}%</span>
+                      </div>
+                      <ProgressBar progress={course.progressPercentage || 0} size="sm" />
+                    </div>
+                  </div>
                 </div>
               </Link>
             ))}
@@ -164,28 +219,34 @@ export function StudentDashboard() {
   );
 }
 
-/* ================= STATS CARD ================= */
+/* ================= PREMIUM STAT CARD ================= */
 function StatCard({
   label,
   value,
   icon,
+  trend,
 }: {
   label: string;
   value: string | number;
   icon: React.ReactNode;
+  trend: string;
 }) {
   return (
-    <div className="border rounded-2xl p-5 bg-card">
-      <div className="flex items-center gap-4">
-        <div className="w-10 h-10 flex items-center justify-center bg-muted rounded-xl">
+    <div className="group relative p-8 bg-card border border-border rounded-[2.5rem] transition-all duration-500 hover:border-primary/30 hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+      <div className="space-y-6">
+        <div className="w-12 h-12 flex items-center justify-center bg-primary/5 border border-primary/10 rounded-2xl text-primary transition-all duration-500 group-hover:bg-primary group-hover:text-white group-hover:scale-110">
           {icon}
         </div>
 
-        <div>
-          <p className="text-xs text-muted-foreground font-bold uppercase">
+        <div className="space-y-1">
+          <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">
             {label}
           </p>
-          <p className="text-xl font-black">{value}</p>
+          <p className="text-4xl font-black text-foreground tracking-tighter leading-none">{value}</p>
+        </div>
+
+        <div className="pt-4 border-t border-border/50">
+           <p className="text-[9px] font-black text-muted-foreground uppercase tracking-[0.2em]">{trend}</p>
         </div>
       </div>
     </div>
