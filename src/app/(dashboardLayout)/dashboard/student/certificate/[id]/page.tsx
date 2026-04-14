@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import { useParams, useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 import { useGetMyCoursesQuery } from "@/redux/features/course/courseAPi";
 
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
@@ -9,6 +10,7 @@ import { Loader2, Download, ChevronLeft, Award } from "lucide-react";
 import { useSelector } from "react-redux";
 
 export default function CertificatePage() {
+   const { t } = useTranslation();
    const params = useParams();
    const router = useRouter();
    const courseId = params.id as string;
@@ -23,7 +25,7 @@ export default function CertificatePage() {
       return (
          <div className="flex flex-col items-center justify-center min-h-[50vh]">
             <Loader2 className="w-10 h-10 animate-spin text-primary" />
-            <p className="mt-4 text-sm font-black uppercase tracking-widest text-muted-foreground animate-pulse">Verifying Credentials...</p>
+            <p className="mt-4 text-sm font-black uppercase tracking-widest text-muted-foreground animate-pulse">{t("student.certificate.verifying")}</p>
          </div>
       );
    }
@@ -32,9 +34,9 @@ export default function CertificatePage() {
    if (!course || course.progressPercentage < 100) {
       return (
          <div className="flex flex-col items-center justify-center min-h-[50vh] text-center space-y-4">
-            <h2 className="text-3xl font-black italic">Certificate Unavailable</h2>
-            <p className="text-muted-foreground max-w-md">You either haven't enrolled in this course or haven't completed it yet. Complete 100% of the lessons to earn your certificate.</p>
-            <button onClick={() => router.push("/dashboard/student/my-courses")} className="h-10 px-6 bg-primary text-white font-bold rounded-lg text-sm">Back to My Courses</button>
+            <h2 className="text-3xl font-black italic">{t("student.certificate.unavailable_title")}</h2>
+            <p className="text-muted-foreground max-w-md">{t("student.certificate.unavailable_desc")}</p>
+            <button onClick={() => router.push("/dashboard/student/my-courses")} className="h-10 px-6 bg-primary text-white font-bold rounded-lg text-sm">{t("student.certificate.back_to_courses")}</button>
          </div>
       );
    }
@@ -51,14 +53,14 @@ export default function CertificatePage() {
          {/* Actions Bar (Hidden on Print) */}
          <div className="print:hidden max-w-5xl mx-auto px-4 pt-10 flex items-center justify-between mb-12">
             <button onClick={() => router.push("/dashboard/student/my-courses")} className="h-12 px-6 flex items-center gap-2 text-sm font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all bg-card border border-border rounded-xl shadow-sm">
-               <ChevronLeft className="w-4 h-4" /> Back to Workspace
+               <ChevronLeft className="w-4 h-4" /> {t("student.certificate.back_to_workspace")}
             </button>
             <div className="flex gap-4">
                <button
                   onClick={handlePrint}
                   className="flex items-center gap-2 h-12 px-8 bg-black dark:bg-white text-white dark:text-black rounded-xl text-xs font-black uppercase tracking-[0.2em] shadow-xl hover:scale-105 active:scale-95 transition-all"
                >
-                  <Download className="w-4 h-4" /> Export as PDF
+                  <Download className="w-4 h-4" /> {t("student.certificate.export_pdf")}
                </button>
             </div>
          </div>
@@ -96,22 +98,22 @@ export default function CertificatePage() {
                         <div className="w-10 h-0.5 bg-amber-600/30"></div>
                         <div className="w-2 h-2 bg-amber-600 rounded-full"></div>
                      </div>
-                     <h1 className="text-xl font-black uppercase tracking-[0.5em] text-zinc-800">CourseMaster</h1>
-                     <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-700">Academy of Professional Excellence</p>
+                     <h1 className="text-xl font-black uppercase tracking-[0.5em] text-zinc-800">{t("student.certificate.academy_name")}</h1>
+                     <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-amber-700">{t("student.certificate.academy_pro")}</p>
                   </div>
 
                   {/* Recognition Text */}
                   <div className="space-y-4 mb-12">
-                     <p className="text-sm font-black uppercase tracking-[0.4em] text-zinc-400">This Official Certificate is Awarded to</p>
+                     <p className="text-sm font-black uppercase tracking-[0.4em] text-zinc-400">{t("student.certificate.awarded_to")}</p>
                      
                      <div className="relative py-6">
                         <h2 className="text-7xl font-serif italic text-zinc-900 leading-tight underline decoration-amber-600/20 underline-offset-8" style={{ fontFamily: "Georgia, serif" }}>
-                           {user?.name || "Distinguished Student"}
+                           {user?.name || t("student.certificate.distinguished_student")}
                         </h2>
                      </div>
 
                      <p className="max-w-2xl mx-auto text-lg text-zinc-500 font-medium leading-relaxed">
-                        In recognition of the successful completion of all academic requirements, demonstrating mastery and dedication in the field of:
+                        {t("student.certificate.recognition")}
                      </p>
                   </div>
 
@@ -124,7 +126,7 @@ export default function CertificatePage() {
                   </div>
 
                   <p className="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-16">
-                     Issued on {currentDate} • Certificate ID: CM-{courseId.slice(0, 8).toUpperCase()}
+                     {t("student.certificate.issued_on")} {currentDate} • {t("student.certificate.certificate_id")}: CM-{courseId.slice(0, 8).toUpperCase()}
                   </p>
 
                   {/* Bottom Verification Section */}
@@ -133,10 +135,10 @@ export default function CertificatePage() {
                      {/* Signature 1 */}
                      <div className="flex flex-col items-center">
                         <div className="w-56 mb-2 flex flex-col items-center">
-                           <span className="font-serif italic text-3xl text-zinc-800 leading-none mb-2">{(course?.instructor?.name || "Platform Lead")}</span>
+                           <span className="font-serif italic text-3xl text-zinc-800 leading-none mb-2">{(course?.instructor?.name || t("student.certificate.platform_lead"))}</span>
                            <div className="w-full h-px bg-zinc-300"></div>
                         </div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Head of Curriculum</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">{t("student.certificate.head_curriculum")}</p>
                      </div>
 
                      {/* Official Seal */}
@@ -144,8 +146,8 @@ export default function CertificatePage() {
                         <div className="w-32 h-32 rounded-full border-4 border-double border-amber-600/40 p-1">
                            <div className="w-full h-full rounded-full bg-amber-600 flex flex-col items-center justify-center shadow-lg transform -rotate-12">
                               <Award className="w-10 h-10 text-amber-100 mb-1" />
-                              <span className="text-[8px] font-black uppercase text-amber-950 tracking-widest">Official</span>
-                              <span className="text-[8px] font-black uppercase text-amber-950 tracking-widest leading-none">Verified</span>
+                              <span className="text-[8px] font-black uppercase text-amber-950 tracking-widest">{t("student.certificate.official")}</span>
+                              <span className="text-[8px] font-black uppercase text-amber-950 tracking-widest leading-none">{t("student.certificate.verified")}</span>
                            </div>
                         </div>
                         {/* Seal Ribbons */}
@@ -159,11 +161,11 @@ export default function CertificatePage() {
                      <div className="flex flex-col items-center">
                         <div className="w-56 mb-2 flex flex-col items-center">
                             <div className="h-10 flex items-center">
-                                <span className="font-serif italic text-2xl text-zinc-800">Management Team</span>
+                                <span className="font-serif italic text-2xl text-zinc-800">{t("student.certificate.management")}</span>
                             </div>
                            <div className="w-full h-px bg-zinc-300"></div>
                         </div>
-                        <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">Director of Academy</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-zinc-400">{t("student.certificate.director")}</p>
                      </div>
 
                   </div>

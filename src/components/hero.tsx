@@ -35,18 +35,18 @@ export function HeroAnimated() {
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full border border-primary/20 hover:bg-primary/20 transition-all cursor-default group">
                 <Sparkles className="w-3.5 h-3.5 text-primary group-hover:rotate-12 transition-transform" />
                 <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-                  {t("hero.featured") || "The Future of EdTech"}
+                  {t("hero.badge")}
                 </span>
               </div>
             </div>
 
             <h1 className={`text-5xl sm:text-6xl lg:text-8xl font-black tracking-tighter text-foreground leading-[0.9] transition-all duration-1000 delay-100 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-              {t("extra.unlock_potential") || "Launch Your"}
-
+              {t("hero.title_start")} <br />
+              <span className="text-primary italic font-serif leading-none">{t("hero.title_end")}</span>
             </h1>
 
             <p className={`text-lg md:text-xl text-muted-foreground max-w-lg leading-relaxed font-medium transition-all duration-1000 delay-200 ${isInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-              {t("hero.subtitle") || "The all-in-one infrastructure to host, market and sell your courses worldwide with a premium experience."}
+              {t("hero.subtitle")}
             </p>
 
             <div
@@ -57,7 +57,7 @@ export function HeroAnimated() {
                 href="/courses"
                 className="group h-16 px-10 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-sm hover:text-white hover:shadow-[0_20px_50px_-10px_rgba(var(--primary),0.4)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
               >
-                {t("hero.cta") || "Get Started Free"}
+                {t("hero.cta_start")}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
 
@@ -65,7 +65,7 @@ export function HeroAnimated() {
                 href="/how-it-works"
                 className="h-16 px-10 bg-card/80 border text-foreground rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-accent hover:text-primary transition-all flex items-center justify-center"
               >
-                {t("extra.learn_how_works") || "How it works"}
+                {t("hero.cta_guide")}
               </Link>
             </div>
           </div>
@@ -109,7 +109,7 @@ export function HeroAnimated() {
                   <TrendingUp className="w-6 h-6 text-primary group-hover:text-inherit" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Growth</p>
+                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t("hero.growth")}</p>
                   <p className="text-2xl font-black text-foreground">+148%</p>
                 </div>
               </div>
@@ -122,7 +122,7 @@ export function HeroAnimated() {
                 </div>
                 <div>
                   <p className="text-2xl font-black text-foreground">2.4k</p>
-                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">Instructors</p>
+                  <p className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">{t("hero.instructors")}</p>
                 </div>
               </div>
             </div>

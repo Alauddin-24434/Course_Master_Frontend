@@ -3,6 +3,7 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 import { 
   BookOpen, 
   Award, 
@@ -20,6 +21,7 @@ import { ProgressBar } from "./progress-bar";
 import { WelcomeHeroSkeleton, StatCardSkeleton, CourseCardSkeleton } from "./dashboard/skeletons";
 
 export function StudentDashboard() {
+  const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data, isLoading, isError } = useGetMyCoursesQuery();
 
@@ -69,7 +71,7 @@ export function StudentDashboard() {
   if (isError) {
     return (
       <div className="p-12 bg-destructive/5 border border-destructive/10 rounded-[2rem] text-center">
-        <p className="text-destructive font-black uppercase tracking-widest text-xs">Failed to synchronize courses</p>
+        <p className="text-destructive font-black uppercase tracking-widest text-xs">{t("student.sync_failed") || "Failed to synchronize courses"}</p>
       </div>
     );
   }
@@ -88,25 +90,25 @@ export function StudentDashboard() {
             <div className="space-y-8 max-w-2xl text-center md:text-left">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-background shadow-sm border border-border rounded-full">
                     <Sparkles className="w-4 h-4 text-primary" />
-                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Achievement Unlocked</span>
+                    <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("student.achievement_unlocked") || "Achievement Unlocked"}</span>
                 </div>
                 
                 <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-                   Welcome Back, <br />
+                   {t("student.welcome_back") || "Welcome Back,"} <br />
                    <span className="text-primary italic font-serif">{user?.name?.split(" ")[0]}</span>
                 </h1>
 
                 <p className="text-lg text-muted-foreground font-medium max-w-lg leading-relaxed">
-                   You have completed <span className="text-foreground font-bold">{Math.round(overallProgressVal)}%</span> of your current curriculum. Your next milestone is just a few lessons away.
+                   {t("student.curriculum_progress", { progress: Math.round(overallProgressVal) }) || `You have completed ${Math.round(overallProgressVal)}% of your current curriculum. Your next milestone is just a few lessons away.`}
                 </p>
 
                 <div className="flex flex-wrap gap-4 justify-center md:justify-start">
                     <Link href="/courses" className="h-14 px-8 bg-primary text-white rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all">
-                       Explore Courses
+                       {t("home.cta") || "Explore Courses"}
                        <ArrowRight className="w-5 h-5" />
                     </Link>
                     <Link href="/dashboard/student/certificate" className="h-14 px-8 bg-secondary border border-border text-foreground rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest hover:bg-background transition-all">
-                       View Certificates
+                       {t("dashboard.certificates") || "View Certificates"}
                        <Trophy className="w-4.5 h-4.5" />
                     </Link>
                 </div>
@@ -120,7 +122,7 @@ export function StudentDashboard() {
                 </svg>
                 <div className="absolute flex flex-col items-center">
                     <span className="text-5xl font-black tracking-tighter">{isNaN(overallProgressVal) ? 0 : Math.round(overallProgressVal)}%</span>
-                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mt-1">Consistency</span>
+                    <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mt-1">{t("student.consistency") || "Consistency"}</span>
                 </div>
             </div>
         </div>
@@ -129,28 +131,28 @@ export function StudentDashboard() {
       {/* ================= STATS GRID ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
-          label="Total Enrolled"
+          label={t("student.total_enrolled") || "Total Enrolled"}
           value={totalEnrolled}
           icon={<BookOpen className="w-5 h-5" />}
-          trend="+2 this month"
+          trend={t("student.enrolled_trend") || "+2 this month"}
         />
         <StatCard
-          label="Mastered"
+          label={t("student.mastered") || "Mastered"}
           value={completedCount}
           icon={<Star className="w-5 h-5" />}
-          trend="Top 5% student"
+          trend={t("student.mastered_trend") || "Top 5% student"}
         />
         <StatCard
-          label="Engaged"
+          label={t("student.engaged") || "Engaged"}
           value={inProgressCount}
           icon={<Zap className="w-5 h-5" />}
-          trend="Daily streak: 4"
+          trend={t("student.engaged_trend") || "Daily streak: 4"}
         />
         <StatCard
-          label="Certificates"
+          label={t("student.certificates") || "Certificates"}
           value={completedCount} // Mocking match with completed
           icon={<Award className="w-5 h-5" />}
-          trend="Verified assets"
+          trend={t("student.certificates_trend") || "Verified assets"}
         />
       </div>
 
@@ -158,22 +160,22 @@ export function StudentDashboard() {
       <div className="space-y-8">
         <div className="flex justify-between items-end">
           <div className="space-y-1">
-             <h2 className="text-3xl font-black tracking-tight text-foreground">Continue the Mission</h2>
-             <p className="text-muted-foreground font-medium text-sm">Pick up exactly where you left off.</p>
+             <h2 className="text-3xl font-black tracking-tight text-foreground">{t("student.continue_mission") || "Continue the Mission"}</h2>
+             <p className="text-muted-foreground font-medium text-sm">{t("student.mission_subtitle") || "Pick up exactly where you left off."}</p>
           </div>
 
           <Link
             href="/dashboard/student/my-courses"
             className="group h-11 px-6 bg-secondary border border-border rounded-xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-foreground hover:bg-primary hover:text-white transition-all"
           >
-            All Courses
+            {t("student.all_courses") || "All Courses"}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
         {myCourses.length === 0 ? (
           <div className="p-20 bg-secondary/30 border border-dashed border-border rounded-[3rem] text-center">
-             <p className="text-muted-foreground font-medium italic">Your learning library is currently empty.</p>
+             <p className="text-muted-foreground font-medium italic">{t("student.empty_library") || "Your learning library is currently empty."}</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
@@ -197,13 +199,13 @@ export function StudentDashboard() {
 
                   <div className="flex-1 flex flex-col justify-between py-2">
                     <div className="space-y-1">
-                      <span className="text-[9px] font-black uppercase tracking-widest text-primary leading-none">In Residence</span>
+                      <span className="text-[9px] font-black uppercase tracking-widest text-primary leading-none">{t("student.in_residence") || "In Residence"}</span>
                       <h3 className="text-xl font-black tracking-tight text-foreground line-clamp-1">{course.title}</h3>
                     </div>
 
                     <div className="space-y-3">
                       <div className="flex items-center justify-between text-[11px] font-black uppercase tracking-tighter">
-                         <span className="text-muted-foreground">Course Progress</span>
+                         <span className="text-muted-foreground">{t("student.course_progress_label") || "Course Progress"}</span>
                          <span className="text-primary">{course.progressPercentage || 0}%</span>
                       </div>
                       <ProgressBar progress={course.progressPercentage || 0} size="sm" />

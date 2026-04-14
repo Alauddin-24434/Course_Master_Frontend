@@ -19,14 +19,8 @@ import {
 } from "lucide-react"
 
 // --- Validation Schema ---
-const contactSchema = z.object({
-  fullName: z.string().min(2, "Name must be at least 2 characters"),
-  email: z.string().email("Invalid email address"),
-  subject: z.string().min(3, "Subject must be at least 3 characters"),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-})
+// --- Validation Schema is now dynamic inside the component to support i18n ---
 
-type ContactFormValues = z.infer<typeof contactSchema>
 
 interface ContactInfoCardProps {
   icon: React.ReactNode
@@ -44,6 +38,16 @@ export function ContactSection() {
   const { t } = useTranslation()
   const sectionRef = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
+
+  // --- Dynamic Validation Schema ---
+  const contactSchema = z.object({
+    fullName: z.string().min(2, t("contact.validation.name_min") || "Name must be at least 2 characters"),
+    email: z.string().email(t("contact.validation.email_invalid") || "Invalid email address"),
+    subject: z.string().min(3, t("contact.validation.subject_min") || "Subject must be at least 3 characters"),
+    message: z.string().min(10, t("contact.validation.message_min") || "Message must be at least 10 characters"),
+  })
+
+  type ContactFormValues = z.infer<typeof contactSchema>
 
   const {
     register,
@@ -71,10 +75,10 @@ export function ContactSection() {
       // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 1500))
       console.log("Contact Form Submitted:", data)
-      toast.success("Message sent successfully! Our team will contact you soon.")
+      toast.success(t("contact.success_toast") || "Message sent successfully! Our team will contact you soon.")
       reset()
     } catch (error) {
-      toast.error("Failed to send message. Please try again later.")
+      toast.error(t("contact.error_toast") || "Failed to send message. Please try again later.")
     }
   }
 
@@ -84,12 +88,7 @@ export function ContactSection() {
       ref={sectionRef}
       className="py-24 relative overflow-hidden bg-background"
     >
-      {/* --- Premium Background Elements --- */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary/2 blur-[120px] rounded-full animate-pulse"></div>
-        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/2 blur-[120px] rounded-full animate-pulse delay-700"></div>
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808005_1px,transparent_1px),linear-gradient(to_bottom,#80808005_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]"></div>
-      </div>
+
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-7xl mx-auto space-y-20">
@@ -116,7 +115,7 @@ export function ContactSection() {
                 <div className="space-y-2">
                   <h2 className="text-3xl font-black tracking-tight text-foreground">{t("extra.send_message") || "Send a Message"}</h2>
                   <p className="text-muted-foreground text-sm font-medium">
-                    Expected response time: <span className="text-primary font-bold">{t("extra.expected_response") || "under 2 hours"}</span>
+                    {t("contact.expected_response_label") || "Expected response time:"} <span className="text-primary font-bold">{t("extra.expected_response") || "under 2 hours"}</span>
                   </p>
                 </div>
 
@@ -193,25 +192,25 @@ export function ContactSection() {
                     icon={<Mail className="w-5 h-5" />}
                     title={t("contact.email_us") || "Email Us"}
                     value="hello@yourbrand.com"
-                    subtitle="Official Support"
+                    subtitle={t("contact.official_support") || "Official Support"}
                   />
                   <ContactInfoCard 
                     icon={<Headphones className="w-5 h-5" />}
                     title={t("contact.live_support") || "Live Support"}
                     value="+1 (800) 123-4567"
-                    subtitle="Mon - Fri, 10am - 5pm"
+                    subtitle={t("contact.mon_fri") || "Mon - Fri, 10am - 5pm"}
                   />
                   <ContactInfoCard 
                     icon={<MapPin className="w-5 h-5" />}
                     title={t("contact.our_studio") || "Our Studio"}
-                    value="Dhaka, Bangladesh"
-                    subtitle="Gulshan-2, Road 45"
+                    value={t("contact.location") || "Dhaka, Bangladesh"}
+                    subtitle={t("contact.address") || "Gulshan-2, Road 45"}
                   />
                   <ContactInfoCard 
                     icon={<Globe className="w-5 h-5" />}
                     title={t("contact.socials") || "Socials"}
-                    value="@YourBrandHQ"
-                    subtitle="Twitter / Instagram"
+                    value={t("contact.social_handle") || "@YourBrandHQ"}
+                    subtitle={t("contact.social_platforms") || "Twitter / Instagram"}
                   />
                 </div>
               </div>
@@ -231,19 +230,19 @@ export function ContactSection() {
                     <div className="flex items-center gap-8">
                         <div className="space-y-0.5">
                             <span className="text-[10px] uppercase font-black tracking-widest text-primary">{t("contact.avg_wait") || "Avg. Wait"}</span>
-                            <p className="font-black text-xl text-foreground">42m</p>
+                            <p className="font-black text-xl text-foreground">{t("contact.avg_wait_val") || "42m"}</p>
                         </div>
                         <div className="w-px h-10 bg-border"></div>
                         <div className="space-y-0.5">
                             <span className="text-[10px] uppercase font-black tracking-widest text-primary">{t("contact.satisfaction") || "Satisfaction"}</span>
                             <div className="flex items-center gap-1.5">
-                                <p className="font-black text-xl text-foreground">99.9%</p>
+                                <p className="font-black text-xl text-foreground">{t("contact.satisfaction_val") || "99.9%"}</p>
                                 <CheckCircle2 className="w-4 h-4 text-green-500" />
                             </div>
                         </div>
                     </div>
                   </div>
-                  <MessageSquare className="absolute bottom-[-40px] right-[-40px] w-56 h-56 text-primary opacity-[0.03] group-hover:rotate-12 transition-transform duration-1000" />
+               
               </div>
 
             </div>
@@ -251,13 +250,7 @@ export function ContactSection() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-        .animate-spin-slow { animation: spin-slow 8s linear infinite; }
-      `}</style>
+     
     </section>
   )
 }

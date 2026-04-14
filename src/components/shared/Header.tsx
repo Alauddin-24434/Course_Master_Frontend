@@ -53,7 +53,7 @@ export function Header() {
                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
                  </span>
-                 <span className="text-[9px] font-black text-primary uppercase tracking-tighter">Live Updates</span>
+                 <span className="text-[9px] font-black text-primary uppercase tracking-tighter">{t("nav.live_updates") || "Live Updates"}</span>
               </div>
             </div>
             
@@ -82,7 +82,7 @@ export function Header() {
                 <span className="text-xl font-black tracking-tighter text-foreground leading-none">
                   Course<span className="text-primary italic">Master</span>
                 </span>
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 leading-none mt-1.5">Academy Pro</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 leading-none mt-1.5">{t("nav.academy_pro") || "Academy Pro"}</span>
               </div>
             </Link>
           </div>
@@ -98,7 +98,7 @@ export function Header() {
               <div className="h-4 w-px bg-primary/20 mx-2" />
               
               <Link href="/how-it-works" className="group flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all">
-                 How it works
+                 {t("nav.how_it_works") || "How it works"}
                  <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
               </Link>
             </nav>
@@ -164,18 +164,18 @@ export function Header() {
           <MobileNavLink href="/courses" label={t("nav.courses")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/about" label={t("nav.about")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/contact" label={t("nav.contact")} onClick={() => setIsMenuOpen(false)} />
-          <MobileNavLink href="/how-it-works" label="Platform Guide" onClick={() => setIsMenuOpen(false)} />
+          <MobileNavLink href="/how-it-works" label={t("nav.platform_guide") || "Platform Guide"} onClick={() => setIsMenuOpen(false)} />
           
           <div className="flex items-center gap-3 p-2 mt-2 bg-secondary/50 rounded-2xl border border-border/50">
              <div className="flex-1">
-               <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">Regional</span>
+               <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">{t("nav.regional") || "Regional"}</span>
                <div className="mt-1">
                  <LanguageSwitcher />
                </div>
              </div>
              <div className="h-10 w-px bg-border/60" />
              <div className="flex-1 flex flex-col items-end px-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mr-2">Display</span>
+                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mr-2">{t("nav.display") || "Display"}</span>
                 <div className="mt-1">
                   <ThemeSwitcher />
                 </div>

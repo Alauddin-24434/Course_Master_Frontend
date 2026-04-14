@@ -39,13 +39,13 @@ export function Footer() {
             {/* Newsletter Input */}
             <div className="max-w-sm space-y-5">
               <div className="space-y-1">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Stay in the orbit</p>
-                <h3 className="text-lg font-black tracking-tight text-foreground">Subscribe to our newsletter</h3>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{t("footer.stay_in_orbit") || "Stay in the orbit"}</p>
+                <h3 className="text-lg font-black tracking-tight text-foreground">{t("footer.subscribe_newsletter") || "Subscribe to our newsletter"}</h3>
               </div>
               <div className="relative group">
                 <input 
                   type="email" 
-                  placeholder="name@email.com" 
+                  placeholder={t("footer.newsletter_placeholder") || "name@email.com"} 
                   className="w-full h-16 pl-6 pr-16 bg-background/50 border border-primary/10 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/30 focus:bg-background outline-none transition-all shadow-sm"
                 />
                 <button className="absolute right-2 top-2 h-12 w-12 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:shadow-lg hover:shadow-primary/40 transition-all active:scale-95 group-hover:rotate-6">
@@ -75,12 +75,12 @@ export function Footer() {
             <FooterColumn title={t("extra.for_instructors") || "Educators"}>
                 <li><Link href="/signup" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("extra.become_instructor") || "Teach on CourseMaster"}</Link></li>
                 <li><Link href="/dashboard" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("nav.dashboard") || "Instructor Dash"}</Link></li>
-                <li><Link href="/how-it-works" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">Platform Guide</Link></li>
+                <li><Link href="/how-it-works" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.platform_guide") || "Platform Guide"}</Link></li>
                 <li><Link href="/contact" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.help") || "Support Center"}</Link></li>
             </FooterColumn>
 
             <FooterColumn title={t("footer.legal") || "Legal"}>
-                <li><Link href="/refund-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">Refund Policy</Link></li>
+                <li><Link href="/refund-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.refund_policy") || "Refund Policy"}</Link></li>
                 <li><Link href="/privacy-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.privacy") || "Privacy Policy"}</Link></li>
                 <li><Link href="/terms-of-service" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.terms") || "Terms of Service"}</Link></li>
                 <li><Link href="/cookie-policy" className="hover:text-primary transition-all hover:translate-x-1.5 inline-block">{t("footer.cookie") || "Cookie Policy"}</Link></li>
@@ -91,15 +91,15 @@ export function Footer() {
         {/* --- Bottom Bar --- */}
         <div className="pt-10 border-t border-primary/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground/60">
-            © {new Date().getFullYear()} CourseMaster. All rights reserved.
+            © {new Date().getFullYear()} CourseMaster. {t("footer.copyright") || "All rights reserved."}
           </p>
           <div className="flex items-center gap-8">
              <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground">Systems Active</span>
+                <span className="text-[10px] font-black uppercase tracking-tighter text-muted-foreground">{t("footer.systems_active") || "Systems Active"}</span>
              </div>
              <p className="text-[11px] font-black uppercase tracking-widest text-muted-foreground/60">
-               Handcrafted with ❤️ for Educators
+               {t("footer.handcrafted") || "Handcrafted with ❤️ for Educators"}
              </p>
           </div>
         </div>

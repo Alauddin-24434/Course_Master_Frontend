@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi";
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
 import { 
@@ -17,6 +18,7 @@ import {
 import { TableSkeleton, StatCardSkeleton } from "@/components/dashboard/skeletons";
 
 export default function AdminRevenuePage() {
+  const { t } = useTranslation();
   const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery();
   const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 100 });
 
@@ -56,20 +58,20 @@ export default function AdminRevenuePage() {
         <div className="space-y-4">
            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/10 border border-indigo-500/20 rounded-full text-indigo-600">
               <ShieldCheck className="w-4 h-4" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Global Financial Intelligence</span>
+              <span className="text-[10px] font-black uppercase tracking-widest">{t("admin.global_intel") || "Global Financial Intelligence"}</span>
            </div>
            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
               Platform <br />
-              <span className="text-primary italic font-serif">Capital Hub.</span>
+              <span className="text-primary italic font-serif">{t("admin.revenue_title") || "Capital Hub."}</span>
            </h1>
            <p className="text-muted-foreground text-lg font-medium max-w-xl leading-relaxed">
-              Consolidated financial oversight, market penetration metrics, and platform-wide revenue synchronization.
+              {t("admin.revenue_subtitle") || "Consolidated financial oversight, market penetration metrics, and platform-wide revenue synchronization."}
            </p>
         </div>
 
         <div className="flex gap-4">
            <div className="px-10 py-8 bg-card border border-border rounded-[2.5rem] shadow-sm flex flex-col justify-center">
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">Platform Treasury</p>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">{t("admin.treasury") || "Platform Treasury"}</p>
               <div className="flex items-baseline gap-2">
                  <span className="text-3xl font-black tracking-tighter">${stats.totalRevenue?.toLocaleString() || 0}</span>
                  <span className="text-[10px] font-bold text-muted-foreground uppercase">USD</span>
@@ -81,28 +83,28 @@ export default function AdminRevenuePage() {
       {/* ================= ANALYTICS GRID ================= */}
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
          <AdminStatCard 
-            label="Gross Merchandise Value" 
+            label={t("admin.stats.gmv") || "Gross Merchandise Value"} 
             value={`$${stats.totalRevenue?.toLocaleString() || 0}`} 
             icon={<Globe className="w-5 h-5 text-indigo-500" />}
-            trend="Stable Growth"
+            trend={t("admin.stats.stable_growth") || "Stable Growth"}
          />
          <AdminStatCard 
-            label="Course Enrollments" 
+            label={t("admin.stats.enrollments") || "Course Enrollments"} 
             value={stats.totalEnrollments || 0} 
             icon={<CreditCard className="w-5 h-5 text-primary" />}
             trend="+12% WoW"
          />
          <AdminStatCard 
-            label="Avg. Order Value" 
+            label={t("admin.stats.aov") || "Avg. Order Value"} 
             value={`$${stats.totalEnrollments > 0 ? (stats.totalRevenue / stats.totalEnrollments).toFixed(2) : 0}`} 
             icon={<Target className="w-5 h-5 text-emerald-500" />}
-            trend="Optimized"
+            trend={t("admin.stats.optimized") || "Optimized"}
          />
          <AdminStatCard 
-            label="Market Conversion" 
+            label={t("admin.stats.market_conversion") || "Market Conversion"} 
             value={`${stats.engagementRate || 0}%`} 
             icon={<TrendingUp className="w-5 h-5 text-amber-500" />}
-            trend="Bullish"
+            trend={t("admin.stats.bullish") || "Bullish"}
          />
       </div>
 
@@ -112,12 +114,12 @@ export default function AdminRevenuePage() {
          
          <div className="p-12 border-b border-border/50 relative z-10 flex justify-between items-end">
             <div>
-               <h2 className="text-3xl font-black tracking-tight">Financial Performance Radar</h2>
-               <p className="text-muted-foreground font-medium text-sm">Identifying top-tier curriculum assets by revenue contributions.</p>
+               <h2 className="text-3xl font-black tracking-tight">{t("admin.radar_title") || "Financial Performance Radar"}</h2>
+               <p className="text-muted-foreground font-medium text-sm">{t("admin.radar_subtitle") || "Identifying top-tier curriculum assets by revenue contributions."}</p>
             </div>
             <div className="flex gap-2">
                <div className="px-5 py-2 bg-indigo-500/5 text-indigo-500 border border-indigo-500/10 rounded-xl text-[10px] font-black uppercase tracking-widest">
-                  Real-time Auditing
+                  {t("admin.realtime_auditing") || "Real-time Auditing"}
                </div>
             </div>
          </div>
@@ -127,10 +129,10 @@ export default function AdminRevenuePage() {
                <table className="w-full text-left">
                   <thead>
                      <tr className="bg-secondary/20 border-b border-border/50">
-                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Strategic Asset</th>
-                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Lead Instructor</th>
-                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Volume</th>
-                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Attributed Revenue</th>
+                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.table.asset") || "Strategic Asset"}</th>
+                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.table.instructor") || "Lead Instructor"}</th>
+                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.table.volume") || "Volume"}</th>
+                        <th className="px-12 py-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t("admin.table.revenue") || "Attributed Revenue"}</th>
                      </tr>
                   </thead>
                   <tbody className="divide-y divide-border/50">
@@ -138,7 +140,7 @@ export default function AdminRevenuePage() {
                         <tr key={c.id} className="hover:bg-secondary/10 transition-colors group">
                            <td className="px-12 py-8">
                               <p className="text-sm font-black text-foreground group-hover:text-primary transition-colors">{c.title}</p>
-                              <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Verified Placement</p>
+                              <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1">{t("admin.table.verified") || "Verified Placement"}</p>
                            </td>
                            <td className="px-12 py-8">
                               <div className="flex items-center gap-2">
@@ -159,7 +161,7 @@ export default function AdminRevenuePage() {
                      {topCourses.length === 0 && (
                         <tr>
                            <td colSpan={4} className="px-12 py-20 text-center">
-                              <p className="text-muted-foreground font-medium italic">No curriculum data synchronized yet.</p>
+                              <p className="text-muted-foreground font-medium italic">{t("admin.table.no_data") || "No curriculum data synchronized yet."}</p>
                            </td>
                         </tr>
                      )}

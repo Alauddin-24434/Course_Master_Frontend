@@ -1,9 +1,10 @@
 "use client";
 
+import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 import { PlayCircle, GraduationCap, Sparkles, BookMarked, Loader2, Play } from "lucide-react";
 import { useGetMyCoursesQuery } from "@/redux/features/course/courseAPi";
@@ -21,6 +22,7 @@ interface Course {
 }
 
 export default function MyCoursesPage() {
+  const { t } = useTranslation();
   const { data, isLoading, isError } = useGetMyCoursesQuery();
   const searchParams = useSearchParams();
   const success = searchParams.get("success");
@@ -38,7 +40,7 @@ export default function MyCoursesPage() {
       <main className="min-h-screen py-10 bg-background relative overflow-hidden">
         <div className="container mx-auto px-4 md:px-8 relative z-10 max-w-7xl flex flex-col items-center justify-center min-h-[60vh]">
              <Loader2 className="w-12 h-12 text-primary animate-spin mb-4" />
-             <p className="text-sm font-black uppercase tracking-widest text-muted-foreground animate-pulse">Loading Your Workspace...</p>
+             <p className="text-sm font-black uppercase tracking-widest text-muted-foreground animate-pulse">{t("student.my_courses.loading")}</p>
         </div>
       </main>
     );
@@ -48,8 +50,8 @@ export default function MyCoursesPage() {
     return (
       <main className="min-h-screen py-10 bg-background flex flex-col items-center justify-center relative overflow-hidden">
         <div className="text-center space-y-4">
-            <h2 className="text-4xl font-black text-red-500">Oops!</h2>
-            <p className="text-muted-foreground font-medium max-w-md">We couldn't load your courses right now. Please try refreshing the page.</p>
+            <h2 className="text-4xl font-black text-red-500">{t("student.my_courses.error_title")}</h2>
+            <p className="text-muted-foreground font-medium max-w-md">{t("student.my_courses.error_desc")}</p>
         </div>
       </main>
     );
@@ -65,23 +67,23 @@ export default function MyCoursesPage() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 border-b border-border/50 pb-8">
             <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-2">
-                    <Sparkles className="w-3.5 h-3.5" /> Your Learning Hub
+                    <Sparkles className="w-3.5 h-3.5" /> {t("student.my_courses.hub")}
                 </div>
                 <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-foreground">
-                My Courses
+                {t("student.my_courses.title")}
                 </h1>
-                <p className="text-muted-foreground font-medium text-sm">Pick up exactly where you left off.</p>
+                <p className="text-muted-foreground font-medium text-sm">{t("student.my_courses.subtitle")}</p>
             </div>
             
             <div className="flex items-center gap-6 text-sm font-bold bg-secondary/50 px-6 py-3 rounded-2xl border border-border">
                 <div className="flex flex-col items-center">
                     <span className="text-2xl font-black text-primary">{courses.length}</span>
-                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Enrolled</span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("student.my_courses.enrolled")}</span>
                 </div>
                 <div className="w-px h-8 bg-border"></div>
                 <div className="flex flex-col items-center">
                     <span className="text-2xl font-black text-emerald-500">{courses.filter((c:any) => c.progressPercentage === 100).length}</span>
-                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">Completed</span>
+                    <span className="text-[10px] uppercase tracking-widest text-muted-foreground">{t("student.my_courses.completed")}</span>
                 </div>
             </div>
         </div>
@@ -91,10 +93,10 @@ export default function MyCoursesPage() {
             <div className="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center mb-6">
                 <BookMarked className="w-10 h-10" />
             </div>
-            <h2 className="text-2xl font-black text-foreground mb-3 tracking-tight">No Courses Found</h2>
-            <p className="text-muted-foreground max-w-md font-medium mb-8">You haven't enrolled in any courses yet. Start your learning journey by exploring our premium curriculum.</p>
+            <h2 className="text-2xl font-black text-foreground mb-3 tracking-tight">{t("student.my_courses.no_courses")}</h2>
+            <p className="text-muted-foreground max-w-md font-medium mb-8">{t("student.my_courses.no_courses_desc")}</p>
             <Link href="/courses" className="h-12 px-8 bg-primary text-white rounded-xl font-bold uppercase tracking-widest text-xs flex items-center justify-center shadow-lg shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-transform">
-                Explore Courses
+                {t("student.my_courses.explore")}
             </Link>
           </div>
         ) : (
@@ -118,7 +120,7 @@ export default function MyCoursesPage() {
                   
                   {isCompleted && (
                      <div className="absolute top-4 right-4 bg-emerald-500/90 backdrop-blur-md px-3 py-1 rounded-full border border-emerald-400 text-[10px] font-black uppercase tracking-widest text-white flex items-center gap-1.5 shadow-lg">
-                        <GraduationCap className="w-3.5 h-3.5" /> Completed
+                        <GraduationCap className="w-3.5 h-3.5" /> {t("student.my_courses.completed")}
                      </div>
                   )}
 
@@ -136,7 +138,7 @@ export default function MyCoursesPage() {
                         />
                       </div>
                       <div className="flex justify-between items-center mt-2 text-[10px] font-black uppercase tracking-widest">
-                          <span className="text-white/80">{course.completedLessonsCount || 0} / {course.totalLessons || 0} Lessons</span>
+                          <span className="text-white/80">{course.completedLessonsCount || 0} / {course.totalLessons || 0} {t("student.my_courses.lessons")}</span>
                           <span className={isCompleted ? 'text-emerald-400 font-bold' : 'text-primary font-bold'}>{course.progressPercentage || 0}%</span>
                       </div>
                   </div>
@@ -152,7 +154,7 @@ export default function MyCoursesPage() {
                       <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
                           <span className="text-[10px] font-black text-primary uppercase">{(course.instructor?.name || "UN").slice(0, 2)}</span>
                       </div>
-                      <p className="text-xs font-bold text-muted-foreground">{course.instructor?.name || "Expert Instructor"}</p>
+                      <p className="text-xs font-bold text-muted-foreground">{course.instructor?.name || t("student.my_courses.expert_instructor")}</p>
                   </div>
 
                   <div className="mt-auto space-y-3">
@@ -161,14 +163,14 @@ export default function MyCoursesPage() {
                             href={`/dashboard/student/certificate/${course.id}`}
                             className="w-full h-12 flex items-center justify-center gap-2 bg-emerald-50 text-emerald-600 border border-emerald-200 hover:bg-emerald-100 dark:bg-emerald-500/10 dark:border-emerald-500/20 dark:hover:bg-emerald-500/20 text-xs font-black uppercase tracking-widest rounded-xl transition-colors shadow-sm"
                           >
-                            <GraduationCap className="w-4 h-4" /> View Certificate
+                            <GraduationCap className="w-4 h-4" /> {t("student.my_courses.view_certificate")}
                           </Link>
                       ) : (
                           <Link
                             href={`/dashboard/student/my-courses/${course.id}`}
                             className="w-full h-12 flex items-center justify-center gap-2 bg-secondary hover:bg-primary hover:text-white hover:border-primary text-foreground border border-border text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-sm active:scale-95"
                           >
-                            <PlayCircle className="w-4 h-4" /> Resume Course
+                            <PlayCircle className="w-4 h-4" /> {t("student.my_courses.resume")}
                           </Link>
                       )}
                   </div>

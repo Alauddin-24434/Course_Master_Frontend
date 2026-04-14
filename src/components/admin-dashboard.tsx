@@ -18,20 +18,20 @@ export function AdminDashboard() {
         <div className="space-y-4">
            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-500/5 border border-indigo-500/10 rounded-full text-indigo-500">
               <ShieldCheck className="w-4 h-4" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Platform Core Architecture</span>
+              <span className="text-[10px] font-black uppercase tracking-widest">{t("admin.core_arch") || "Platform Core Architecture"}</span>
            </div>
            <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-foreground leading-[0.9]">
-              Operations <br />
-              <span className="text-primary italic font-serif">Command Center.</span>
+              {t("common.operations") || "Operations"} <br />
+              <span className="text-primary italic font-serif">{t("admin.command_center") || "Command Center."}</span>
            </h1>
            <p className="text-muted-foreground text-lg font-medium max-w-xl leading-relaxed">
-              Real-time synchronization of users, courses, and platform metrics with high-fidelity analytics.
+              {t("admin.command_subtitle") || "Real-time synchronization of users, courses, and platform metrics with high-fidelity analytics."}
            </p>
         </div>
 
         <div className="flex gap-4">
            <Link href="/dashboard/admin/analytics" className="h-14 px-8 bg-primary text-white rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all">
-              Live Analytics
+              {t("admin.live_analytics") || "Live Analytics"}
               <Activity className="w-5 h-5" />
            </Link>
         </div>
@@ -50,10 +50,10 @@ export function AdminDashboard() {
           <div className="flex justify-between items-center relative z-10">
             <div className="space-y-1">
                <h2 className="text-2xl font-black tracking-tight">{t("admin.recent_courses") || "Recent Courses"}</h2>
-               <p className="text-muted-foreground font-medium text-xs">Latest curriculum contributions.</p>
+               <p className="text-muted-foreground font-medium text-xs">{t("admin.latest_curriculum") || "Latest curriculum contributions."}</p>
             </div>
             <Link href="/dashboard/admin/manage-categories" className="text-primary flex items-center gap-2 text-[10px] font-black uppercase tracking-widest hover:translate-x-1 transition-transform">
-               Configure
+               {t("admin.configure") || "Configure"}
                <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -70,10 +70,10 @@ export function AdminDashboard() {
           <div className="flex justify-between items-center relative z-10">
             <div className="space-y-1">
                <h2 className="text-2xl font-black tracking-tight">{t("admin.recent_users") || "Recent Users"}</h2>
-               <p className="text-muted-foreground font-medium text-xs">Latest platform enrollments.</p>
+               <p className="text-muted-foreground font-medium text-xs">{t("admin.latest_enrollments") || "Latest platform enrollments."}</p>
             </div>
             <Link href="#" className="text-indigo-500 flex items-center gap-2 text-[10px] font-black uppercase tracking-widest hover:translate-x-1 transition-transform">
-               Audit logs
+               {t("admin.audit_logs") || "Audit logs"}
                <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi";
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
@@ -18,6 +19,7 @@ import {
 import { TableSkeleton, StatCardSkeleton } from "@/components/dashboard/skeletons";
 
 export default function InstructorRevenuePage() {
+  const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery();
   const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 100 });
@@ -64,20 +66,19 @@ export default function InstructorRevenuePage() {
         <div className="space-y-4">
            <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-600">
               <Zap className="w-4 h-4" />
-              <span className="text-[10px] font-black uppercase tracking-widest">Revenue Command Center</span>
+              <span className="text-[10px] font-black uppercase tracking-widest">{t("instructor.command_center") || "Revenue Command Center"}</span>
            </div>
            <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-              Earnings & <br />
-              <span className="text-primary italic font-serif">Royalties.</span>
+              {t("instructor.revenue_title") || "Earnings & Royalties."}
            </h1>
            <p className="text-muted-foreground text-lg font-medium max-w-xl leading-relaxed">
-              Real-time synchronization of your intellectual assets and global market performance.
+              {t("instructor.revenue_subtitle") || "Real-time synchronization of your intellectual assets and global market performance."}
            </p>
         </div>
 
         <div className="flex gap-4">
            <div className="px-10 py-8 bg-card border border-border rounded-[2.5rem] flex flex-col justify-center">
-              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">Available for Payout</p>
+              <p className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground mb-2">{t("instructor.payout_available") || "Available for Payout"}</p>
               <div className="flex items-baseline gap-2">
                  <span className="text-3xl font-black tracking-tighter">${(stats.totalRevenue * 0.8).toLocaleString()}</span>
                  <span className="text-[10px] font-bold text-muted-foreground uppercase">USD</span>
@@ -89,25 +90,25 @@ export default function InstructorRevenuePage() {
       {/* ================= REVENUE STATS GRID ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
          <RevenueCard 
-            label="Total Revenue" 
+            label={t("instructor.stats.total_revenue") || "Total Revenue"} 
             value={`$${stats.totalRevenue?.toLocaleString() || 0}`} 
             icon={<Wallet className="w-5 h-5" />}
             color="bg-primary shadow-primary/20"
          />
          <RevenueCard 
-            label="Platform Share (20%)" 
+            label={t("instructor.stats.platform_share") || "Platform Share (20%)"} 
             value={`$${(stats.totalRevenue * 0.2).toLocaleString()}`} 
             icon={<PieChart className="w-5 h-5" />}
             color="bg-indigo-500 shadow-indigo-500/20"
          />
          <RevenueCard 
-            label="Net Earnings" 
+            label={t("instructor.stats.net_earnings") || "Net Earnings"} 
             value={`$${(stats.totalRevenue * 0.8).toLocaleString()}`} 
             icon={<DollarSign className="w-5 h-5" />}
             color="bg-emerald-500 shadow-emerald-500/20"
          />
          <RevenueCard 
-            label="Monthly Growth" 
+            label={t("instructor.stats.monthly_growth") || "Monthly Growth"} 
             value="+14.2%" 
             icon={<TrendingUp className="w-5 h-5" />}
             color="bg-amber-500 shadow-amber-500/20"
@@ -120,13 +121,13 @@ export default function InstructorRevenuePage() {
          
          <div className="flex justify-between items-end relative z-10">
             <div className="space-y-1">
-               <h2 className="text-3xl font-black tracking-tight">Curriculum Performance</h2>
-               <p className="text-muted-foreground font-medium text-sm">Financial attribution per intellectual asset.</p>
+               <h2 className="text-3xl font-black tracking-tight">{t("instructor.performance_title") || "Curriculum Performance"}</h2>
+               <p className="text-muted-foreground font-medium text-sm">{t("instructor.performance_subtitle") || "Financial attribution per intellectual asset."}</p>
             </div>
             
             <div className="flex items-center gap-4 bg-secondary/50 p-2 rounded-2xl border border-border">
                <div className="px-4 py-2 bg-background rounded-xl text-[10px] font-black uppercase tracking-widest text-primary shadow-sm">
-                  Active Optimization
+                  {t("instructor.optimization") || "Active Optimization"}
                </div>
             </div>
          </div>
@@ -136,11 +137,11 @@ export default function InstructorRevenuePage() {
                <table className="w-full">
                   <thead>
                      <tr className="text-left border-b border-border/50">
-                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Asset Name</th>
-                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Unit Price</th>
-                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Students</th>
-                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Market Share</th>
-                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Total Revenue</th>
+                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("instructor.table.asset") || "Asset Name"}</th>
+                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("instructor.table.price") || "Unit Price"}</th>
+                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("instructor.table.students") || "Students"}</th>
+                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("instructor.table.market_share") || "Market Share"}</th>
+                        <th className="pb-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t("instructor.table.revenue") || "Total Revenue"}</th>
                      </tr>
                   </thead>
                   <tbody className="divide-y divide-border/50">
@@ -150,7 +151,7 @@ export default function InstructorRevenuePage() {
                               <p className="text-sm font-black text-foreground group-hover:text-primary transition-colors">{item.title}</p>
                               <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest mt-1 flex items-center gap-1.5">
                                  <Target className="w-3 h-3" />
-                                 Strategic Asset
+                                 {t("instructor.table.strategic") || "Strategic Asset"}
                               </p>
                            </td>
                            <td className="py-8 font-mono text-xs font-bold">${item.price}</td>
@@ -160,7 +161,7 @@ export default function InstructorRevenuePage() {
                                  <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
                                     <div className="h-full bg-primary transition-all duration-1000" style={{ width: `${item.share}%` }}></div>
                                  </div>
-                                 <span className="text-[9px] font-black text-muted-foreground uppercase">{item.share.toFixed(1)}% Share</span>
+                                 <span className="text-[9px] font-black text-muted-foreground uppercase">{item.share.toFixed(1)}% {t("instructor.table.market_share") || "Share"}</span>
                               </div>
                            </td>
                            <td className="py-8 text-right">
@@ -171,7 +172,7 @@ export default function InstructorRevenuePage() {
                      {courseRevenueBreakdown.length === 0 && (
                         <tr>
                            <td colSpan={5} className="py-20 text-center">
-                              <p className="text-muted-foreground font-medium italic">No active assets generating revenue.</p>
+                              <p className="text-muted-foreground font-medium italic">{t("instructor.table.no_data") || "No active assets generating revenue."}</p>
                            </td>
                         </tr>
                      )}

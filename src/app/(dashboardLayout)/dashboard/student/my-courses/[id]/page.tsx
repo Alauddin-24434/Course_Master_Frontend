@@ -1,5 +1,5 @@
 "use client";
-
+import { useTranslation } from "react-i18next";
 import React, { useState, useEffect, useMemo } from "react";
 import { useParams, useRouter } from "next/navigation";
 import { useGetEnrolledCourseContentQuery, useSubmitAssignmentMutation, useSubmitQuizMutation } from "@/redux/features/enroll/enrollApi";
@@ -15,6 +15,7 @@ import Link from "next/link";
 type NavItem = { id: string; type: 'lesson'  | 'assignment'; data: any; moduleId: string };
 
 export default function CoursePlayerPage() {
+  const { t } = useTranslation();
   const params = useParams();
   const router = useRouter();
   const courseId = params.id as string;
@@ -91,7 +92,7 @@ export default function CoursePlayerPage() {
   const goToItem = (index: number) => {
     const item = navItems[index];
     if (item.type === 'lesson' && !item.data.isUnlocked) {
-      toast.error("Please complete previous lessons first!");
+      toast.error(t("student.player.locked_toast"));
       return;
     }
     setActiveIndex(index);
@@ -104,10 +105,10 @@ export default function CoursePlayerPage() {
     if (activeItem.type === 'lesson' && !activeItem.data.isCompleted) {
       try {
         await completeLesson({ courseId, lessonId: activeItem.id }).unwrap();
-        toast.success("Lesson completed! 🎉");
+        toast.success(t("student.player.completed_toast"));
         refetch();
       } catch (err: any) {
-         toast.error(err?.data?.message || "Failed to mark complete");
+         toast.error(err?.data?.message || t("student.player.failed_complete"));
          return;
       }
     }
@@ -126,15 +127,15 @@ export default function CoursePlayerPage() {
   const handleSubmitAssignment = async () => {
     if (!activeItem || activeItem.type !== 'assignment') return;
     if (!assignmentContent.trim()) {
-      toast.error("Please write your answer before submitting.");
+      toast.error(t("student.player.write_answer_toast"));
       return;
     }
     try {
       await submitAssignment({ assignmentId: activeItem.id, content: assignmentContent }).unwrap();
-      toast.success("Assignment submitted successfully! 🎓");
+      toast.success(t("student.player.success_submit_toast"));
       setAssignmentSubmitted(true);
     } catch (err: any) {
-      toast.error(err?.data?.message || "Failed to submit assignment");
+      toast.error(err?.data?.message || t("student.player.failed_submit_toast"));
     }
   };
 
@@ -162,9 +163,9 @@ export default function CoursePlayerPage() {
     return (
       <div className="flex flex-col h-[calc(100vh-140px)] items-center justify-center">
         <AlertCircle className="w-16 h-16 text-destructive mb-4" />
-        <h2 className="text-2xl font-bold">Failed to load content</h2>
-        <p className="text-muted-foreground mt-2">You might not be enrolled in this course.</p>
-        <Link href="/dashboard/student/my-courses" className="mt-6 px-6 py-2 bg-primary text-white rounded-lg">Go Back</Link>
+        <h2 className="text-2xl font-bold">{t("student.player.failed_load")}</h2>
+        <p className="text-muted-foreground mt-2">{t("student.player.not_enrolled")}</p>
+        <Link href="/dashboard/student/my-courses" className="mt-6 px-6 py-2 bg-primary text-white rounded-lg">{t("student.player.go_back")}</Link>
       </div>
     );
   }
@@ -176,12 +177,12 @@ export default function CoursePlayerPage() {
       <div className="w-full lg:w-96 border-r flex flex-col bg-card overflow-hidden">
         <div className="p-5 border-b bg-card z-10 shrink-0">
           <Link href="/dashboard/student/my-courses" className="text-xs flex items-center text-muted-foreground hover:text-primary mb-3 transition-colors">
-            <ChevronLeft className="w-3 h-3 mr-1" /> Back to My Courses
+            <ChevronLeft className="w-3 h-3 mr-1" /> {t("student.player.back_to_courses")}
           </Link>
           <h2 className="font-bold text-lg line-clamp-2">{course.title}</h2>
           <div className="mt-3">
             <div className="flex justify-between text-xs mb-1 font-medium">
-              <span>Progress</span>
+              <span>{t("student.player.progress")}</span>
               <span className="text-primary">
                 {(() => {
                   const total = course.modules?.reduce((a: number, m: any) => a + m.lessonCount, 0) || 1;
@@ -219,7 +220,7 @@ export default function CoursePlayerPage() {
                       M{mIndex + 1}: {module.title}
                     </h3>
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      {module.completedCount}/{module.lessonCount} done
+                      {module.completedCount}/{module.lessonCount} {t("student.player.done")}
                     </p>
                   </div>
                   {isExpanded ? <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" /> : <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />}
@@ -247,7 +248,7 @@ export default function CoursePlayerPage() {
                             )}
                           </div>
                           <span className={`truncate ${isActive ? "text-primary font-semibold" : "text-foreground"}`}>{lesson.title}</span>
-                          <span className="ml-auto text-[10px] text-muted-foreground whitespace-nowrap">{lesson.duration}m</span>
+                          <span className="ml-auto text-[10px] text-muted-foreground whitespace-nowrap">{lesson.duration}{t("student.player.mins")}</span>
                         </button>
                       );
                     })}
@@ -259,7 +260,7 @@ export default function CoursePlayerPage() {
                         <button key={`quiz-${module.quiz.id}`} onClick={() => goToItem(navIdx)}
                           className={`w-full flex items-center gap-2.5 p-2.5 rounded-lg text-left transition-all text-sm mt-1 ${isActive ? "bg-amber-500/10 border border-amber-500/20" : "hover:bg-muted border border-transparent"}`}>
                           <Award className="w-4 h-4 text-amber-500 shrink-0" />
-                          <span className="truncate font-medium">Quiz</span>
+                          <span className="truncate font-medium">{t("student.player.quiz")}</span>
                         </button>
                       );
                     })()}
@@ -271,7 +272,7 @@ export default function CoursePlayerPage() {
                         <button key={`asgn-${module.assignment.id}`} onClick={() => goToItem(navIdx)}
                           className={`w-full flex items-center gap-2.5 p-2.5 rounded-lg text-left transition-all text-sm mt-0.5 ${isActive ? "bg-purple-500/10 border border-purple-500/20" : "hover:bg-muted border border-transparent"}`}>
                           <BookOpen className="w-4 h-4 text-purple-500 shrink-0" />
-                          <span className="truncate font-medium">Assignment</span>
+                          <span className="truncate font-medium">{t("student.player.assignment")}</span>
                         </button>
                       );
                     })()}
@@ -290,9 +291,9 @@ export default function CoursePlayerPage() {
              <div className="w-24 h-24 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-emerald-500/20">
                <CheckCircle2 className="w-12 h-12 text-emerald-500" />
              </div>
-             <h3 className="text-3xl font-black text-foreground mb-4">Course Completed!</h3>
+             <h3 className="text-3xl font-black text-foreground mb-4">{t("student.player.course_completed")}</h3>
              <p className="text-muted-foreground max-w-md font-medium">
-               Congratulations on completing the entire course successfully! You have unlocked all lessons. You can re-watch any lesson from the curriculum on the left.
+               {t("student.player.completion_desc")}
              </p>
            </div>
         ) : activeItem ? (
@@ -313,7 +314,7 @@ export default function CoursePlayerPage() {
                     ) : (
                       <div className="text-center text-muted-foreground p-10">
                         <PlayCircle className="w-20 h-20 mx-auto mb-4 opacity-20" />
-                        <p>No video available for this lesson.</p>
+                        <p>{t("student.player.no_video")}</p>
                       </div>
                     )}
                   </div>
@@ -323,10 +324,10 @@ export default function CoursePlayerPage() {
                       <div className="space-y-2">
                         <h1 className="text-2xl md:text-3xl font-black text-foreground">{activeItem.data.title}</h1>
                         <div className="flex gap-3">
-                          <span className="px-3 py-1 bg-secondary text-xs font-bold uppercase tracking-widest rounded-full">{activeItem.data.duration} mins</span>
+                          <span className="px-3 py-1 bg-secondary text-xs font-bold uppercase tracking-widest rounded-full">{activeItem.data.duration} {t("student.player.mins")}</span>
                           {activeItem.data.isCompleted && (
                             <span className="px-3 py-1 bg-emerald-500/10 text-emerald-500 flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest rounded-full">
-                              <CheckCircle2 className="w-3.5 h-3.5" /> Completed
+                              <CheckCircle2 className="w-3.5 h-3.5" /> {t("student.player.completed")}
                             </span>
                           )}
                         </div>
@@ -348,29 +349,29 @@ export default function CoursePlayerPage() {
                       <BookOpen className="w-7 h-7" />
                     </div>
                     <div>
-                      <h1 className="text-2xl font-black text-foreground">Assignment</h1>
-                      <p className="text-sm text-purple-500 font-bold uppercase tracking-widest">Practical Task</p>
+                      <h1 className="text-2xl font-black text-foreground">{t("student.player.assignment")}</h1>
+                      <p className="text-sm text-purple-500 font-bold uppercase tracking-widest">{t("student.player.practical_task")}</p>
                     </div>
                   </div>
 
                   <div className="bg-card border rounded-2xl p-6 space-y-4">
-                    <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">Instructions</h3>
+                    <h3 className="text-sm font-black uppercase tracking-widest text-muted-foreground">{t("student.player.instructions")}</h3>
                     <div className="bg-secondary/30 p-5 rounded-xl border border-border/50 text-foreground whitespace-pre-wrap">
-                      {activeItem.data.description || "No instructions provided."}
+                      {activeItem.data.description || t("student.player.no_instructions")}
                     </div>
                   </div>
 
                   {assignmentSubmitted ? (
                     <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-8 text-center space-y-3">
                       <CheckCircle2 className="w-12 h-12 text-emerald-500 mx-auto" />
-                      <h3 className="text-xl font-bold text-foreground">Assignment Submitted!</h3>
-                      <p className="text-muted-foreground">Your instructor will review it soon.</p>
+                      <h3 className="text-xl font-bold text-foreground">{t("student.player.submitted")}</h3>
+                      <p className="text-muted-foreground">{t("student.player.review_soon")}</p>
                     </div>
                   ) : (
                     <div className="space-y-4">
                       <textarea
                         className="w-full bg-background border border-border rounded-xl p-4 min-h-[200px] focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all resize-y"
-                        placeholder={activeItem.data.submissionType === 'link' ? "Paste your submission link here..." : "Write your answer here..."}
+                        placeholder={activeItem.data.submissionType === 'link' ? t("student.player.placeholder_link") : t("student.player.placeholder_text")}
                         value={assignmentContent}
                         onChange={(e) => setAssignmentContent(e.target.value)}
                       />
@@ -380,7 +381,7 @@ export default function CoursePlayerPage() {
                         className="w-full py-4 bg-purple-500 text-white rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-purple-600 transition-all shadow-lg shadow-purple-500/20"
                       >
                         {isSubmittingAssignment ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
-                        Submit Assignment
+                        {t("student.player.submit")}
                       </button>
                     </div>
                   )}
@@ -395,7 +396,7 @@ export default function CoursePlayerPage() {
                 disabled={activeIndex === 0}
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all ${activeIndex === 0 ? 'opacity-30 cursor-not-allowed bg-secondary text-muted-foreground' : 'bg-secondary hover:bg-muted text-foreground'}`}
               >
-                <ArrowLeft className="w-4 h-4" /> Previous
+                <ArrowLeft className="w-4 h-4" /> {t("student.player.previous")}
               </button>
 
               <span className="text-xs text-muted-foreground font-medium hidden sm:block">
@@ -408,14 +409,14 @@ export default function CoursePlayerPage() {
                 className={`flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm transition-all bg-primary text-white hover:bg-primary/90 shadow-lg shadow-primary/20`}
               >
                 {activeItem?.type === 'lesson' && isCompleting ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                {activeIndex >= navItems.length - 1 ? "Finish Course" : "Next"} <ArrowRight className="w-4 h-4" />
+                {activeIndex >= navItems.length - 1 ? t("student.player.finish") : t("student.player.next")} <ArrowRight className="w-4 h-4" />
               </button>
             </div>
           </>
         ) : (
           <div className="flex flex-col flex-1 items-center justify-center text-muted-foreground p-10 text-center">
             <PlayCircle className="w-16 h-16 opacity-20 mb-4" />
-            <h2 className="text-xl font-bold text-foreground">Select a lesson to start</h2>
+            <h2 className="text-xl font-bold text-foreground">{t("student.player.select_lesson")}</h2>
           </div>
         )}
       </div>

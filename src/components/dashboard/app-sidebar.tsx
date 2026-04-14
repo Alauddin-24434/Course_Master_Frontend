@@ -1,6 +1,7 @@
 "use client";
 
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { RootState } from "@/redux/store";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -30,38 +31,39 @@ import {
 import { logout } from "@/redux/features/auth/authSlice";
 
 // -------- MENU BY ROLE --------
-const studentItems = [
-  { title: "Overview", url: "/dashboard", icon: LayoutDashboard },
-  { title: "My Courses", url: "/dashboard/student/my-courses", icon: BookOpen },
-  { title: "Payments", url: "/dashboard/student/payments", icon: History },
-  // { title: "Certificates", url: "/dashboard/student/certificate", icon: GraduationCap },
-];
-
-const instructorItems = [
-  { title: "Overview", url: "/dashboard", icon: BarChart3 },
-  { title: "My Courses", url: "/dashboard/instructor/manage-courses", icon: FolderKanban },
-  { title: "Curriculum", url: "/dashboard/instructor/modules", icon: Files },
-  { title: "Lessons", url: "/dashboard/instructor/lessons", icon: Files },
-  { title: 'Assignments', url: "/dashboard/instructor/assignments", icon: Files },
-  { title: "Revenue", url: "/dashboard/instructor/revenue", icon: Zap },
-];
-
-const adminItems = [
-  { title: "Platform Hub", url: "/dashboard", icon: ShieldCheck },
-  { title: "Categories", url: "/dashboard/admin/manage-categories", icon: FolderKanban },
-  { title: "Revenue", url: "/dashboard/admin/revenue", icon: BarChart3 },
-  { title: "Legal", url: "/dashboard/admin/refund-policy", icon: History },
-];
-
-const commonItems = [
-  { title: "Settings", url: "/dashboard/settings", icon: Settings },
-];
-
 export function AppSidebar() {
+  const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.cmAuth);
   const role = user?.role || "student";
   const dispatch = useDispatch();
   const pathname = usePathname();
+
+  // -------- MENU BY ROLE --------
+  const studentItems = [
+    { title: t("nav.overview") || "Overview", url: "/dashboard", icon: LayoutDashboard },
+    { title: t("nav.my_courses") || "My Courses", url: "/dashboard/student/my-courses", icon: BookOpen },
+    { title: t("nav.payments") || "Payments", url: "/dashboard/student/payments", icon: History },
+  ];
+
+  const instructorItems = [
+    { title: t("nav.overview") || "Overview", url: "/dashboard", icon: BarChart3 },
+    { title: t("nav.my_courses") || "My Courses", url: "/dashboard/instructor/manage-courses", icon: FolderKanban },
+    { title: t("nav.curriculum") || "Curriculum", url: "/dashboard/instructor/modules", icon: Files },
+    { title: t("nav.lessons") || "Lessons", url: "/dashboard/instructor/lessons", icon: Files },
+    { title: t("nav.assignments") || "Assignments", url: "/dashboard/instructor/assignments", icon: Files },
+    { title: t("nav.revenue") || "Revenue", url: "/dashboard/instructor/revenue", icon: Zap },
+  ];
+
+  const adminItems = [
+    { title: t("nav.platform_hub") || "Platform Hub", url: "/dashboard", icon: ShieldCheck },
+    { title: t("nav.categories") || "Categories", url: "/dashboard/admin/manage-categories", icon: FolderKanban },
+    { title: t("nav.revenue") || "Revenue", url: "/dashboard/admin/revenue", icon: BarChart3 },
+    { title: t("nav.legal") || "Legal", url: "/dashboard/admin/refund-policy", icon: History },
+  ];
+
+  const commonItems = [
+    { title: t("nav.settings") || "Settings", url: "/dashboard/settings", icon: Settings },
+  ];
 
   const getMenuByRole = () => {
     switch (role) {
@@ -92,7 +94,7 @@ export function AppSidebar() {
               <span className="text-sm font-black tracking-tighter text-foreground leading-none">
                 Course<span className="text-primary italic">Master</span>
               </span>
-              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">Management Pro</span>
+              <span className="text-[8px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 mt-1">{t("nav.management_pro") || "Management Pro"}</span>
             </div>
           </Link>
         </div>
@@ -102,7 +104,7 @@ export function AppSidebar() {
           <SidebarGroup>
             <div className="px-4 mb-4">
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
-                {role} Console
+                {t("nav.console", { role: role }) || `${role} Console`}
               </span>
             </div>
 
@@ -150,7 +152,7 @@ export function AppSidebar() {
             className="group flex w-full items-center justify-center gap-2 h-12 rounded-xl bg-destructive/5 border border-destructive/10 text-destructive text-[10px] font-black uppercase tracking-widest transition-all hover:bg-destructive hover:text-white shadow-sm active:scale-95"
           >
             <LogOut className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-            <span>End Session</span>
+            <span>{t("nav.end_session") || "End Session"}</span>
           </button>
         </div>
 
