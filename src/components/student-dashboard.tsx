@@ -16,9 +16,10 @@ import {
 } from "lucide-react";
 
 import { RootState } from "@/redux/store";
-import { useGetMyCoursesQuery } from "@/redux/features/course/courseAPi";
 import { ProgressBar } from "./progress-bar";
 import { WelcomeHeroSkeleton, StatCardSkeleton, CourseCardSkeleton } from "./dashboard/skeletons";
+import { CourseRecommendation } from "./dashboard/CourseRecommendation";
+import { useGetMyCoursesQuery } from "@/redux/features/course/courseAPi";
 
 export function StudentDashboard() {
   const { t } = useTranslation();
@@ -127,6 +128,32 @@ export function StudentDashboard() {
             </div>
         </div>
       </section>
+      
+      {/* ================= NEXT LESSON HIGHLIGHT ================= */}
+      {continueCourses.length > 0 && (
+        <section className="relative group">
+          <div className="absolute -inset-1 bg-gradient-to-r from-primary to-indigo-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative flex flex-col md:flex-row items-center justify-between p-8 bg-card border border-primary/20 rounded-[2.5rem] gap-8">
+            <div className="flex items-center gap-6">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                <PlayCircle className="w-8 h-8" />
+              </div>
+              <div className="space-y-1">
+                <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">Resume Learning</span>
+                <h2 className="text-2xl font-black tracking-tight line-clamp-1">Next up: {continueCourses[0].title}</h2>
+                <p className="text-muted-foreground text-sm font-medium">Continue where you left off in this course.</p>
+              </div>
+            </div>
+            <Link
+              href={`/dashboard/student/my-courses/${continueCourses[0].id}`}
+              className="w-full md:w-auto h-14 px-10 bg-primary text-white rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all"
+            >
+              Start Lesson
+              <ArrowRight className="w-5 h-5" />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* ================= STATS GRID ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -217,6 +244,10 @@ export function StudentDashboard() {
           </div>
         )}
       </div>
+
+      {/* ================= RECOMMENDED FOR YOU (AI) ================= */}
+      <CourseRecommendation />
+
     </div>
   );
 }

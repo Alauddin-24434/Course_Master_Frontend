@@ -15,6 +15,8 @@ export const metadata: Metadata = {
   description: "Best platform for online learning and courses"
 };
 
+import AiAssistant from "@/components/shared/AiAssistant";
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Read lang from cookie (set by i18n on client)
   const lang = (await cookies()).get('i18next')?.value || 'en';
@@ -25,6 +27,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <Providers>
     <LenisProvider>{children}</LenisProvider>
     <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+    <AiAssistant />
   </Providers>
       </body>
     </html>

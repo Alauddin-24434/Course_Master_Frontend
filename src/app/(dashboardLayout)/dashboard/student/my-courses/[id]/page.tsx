@@ -10,6 +10,8 @@ import {
 } from "lucide-react";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import QuizGeneratorModal from "@/components/shared/QuizGeneratorModal";
+import { Sparkles } from "lucide-react";
 
 // Flatten all navigable items from modules into a single ordered list
 type NavItem = { id: string; type: 'lesson'  | 'assignment'; data: any; moduleId: string };
@@ -37,6 +39,7 @@ export default function CoursePlayerPage() {
   // Assignment state
   const [assignmentContent, setAssignmentContent] = useState("");
   const [assignmentSubmitted, setAssignmentSubmitted] = useState(false);
+  const [isQuizOpen, setIsQuizOpen] = useState(false);
 
   const course = courseResponse?.data;
 
@@ -321,6 +324,7 @@ export default function CoursePlayerPage() {
 
                   <div className="max-w-4xl w-full mx-auto p-6 md:p-10">
                     <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-border">
+
                       <div className="space-y-2">
                         <h1 className="text-2xl md:text-3xl font-black text-foreground">{activeItem.data.title}</h1>
                         <div className="flex gap-3">
@@ -333,11 +337,25 @@ export default function CoursePlayerPage() {
                         </div>
                       </div>
 
-                      {/* Button Removed per user request */}
+                      <div className="flex items-center gap-3">
+                        <button
+                          onClick={() => setIsQuizOpen(true)}
+                          className="flex items-center gap-2 px-5 py-2.5 bg-amber-500/10 text-amber-600 rounded-xl font-bold text-sm hover:bg-amber-500 hover:text-white transition-all border border-amber-500/20 shadow-lg shadow-amber-500/5"
+                        >
+                          <Sparkles size={16} className="animate-pulse" />
+                          Generate Quiz
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               )}
+
+              <QuizGeneratorModal
+                lessonId={activeItem?.id}
+                isOpen={isQuizOpen}
+                onClose={() => setIsQuizOpen(false)}
+              />
 
          
 

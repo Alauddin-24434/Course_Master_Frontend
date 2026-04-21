@@ -11,6 +11,8 @@ import { RootState, AppDispatch } from "@/redux/store";
 import { logout } from "@/redux/features/auth/authSlice";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { Search, Sparkles } from "lucide-react";
+import AiSearchModal from "./AiSearchModal";
 
 // --- Types & Constants ---
 const languages = [
@@ -27,6 +29,7 @@ export function Header() {
   const dispatch = useDispatch<AppDispatch>();
   const { isAuthenticated, user } = useSelector((state: RootState) => state.cmAuth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAiSearchOpen, setIsAiSearchOpen] = useState(false);
   const pathname = usePathname();
 
   const handleLogout = () => {
@@ -106,6 +109,13 @@ export function Header() {
 
           {/* 3. User Actions (Right) */}
           <div className="flex items-center justify-end gap-3">
+            <button
+              onClick={() => setIsAiSearchOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-indigo-600/10 text-indigo-600 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all border border-indigo-600/20"
+            >
+              <Sparkles size={14} className="animate-pulse" />
+              AI Search
+            </button>
             {isAuthenticated ? (
               <div className="flex items-center gap-3">
                 <div className="hidden flex-col items-end xl:flex">
@@ -205,6 +215,10 @@ export function Header() {
           )}
         </div>
       )}
+      <AiSearchModal 
+        isOpen={isAiSearchOpen} 
+        onClose={() => setIsAiSearchOpen(false)} 
+      />
     </header>
   );
 }

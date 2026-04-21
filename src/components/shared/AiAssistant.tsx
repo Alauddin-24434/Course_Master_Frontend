@@ -1,0 +1,156 @@
+"use client";
+
+import React, { useState, useRef, useEffect } from "react";
+import { Bot, Send, X, MessageSquare, Sparkles } from "lucide-react";
+import axios from "axios";
+import { useAppSelector } from "@/redux/hooks";
+
+const AiAssistant = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [message, setMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState<{ role: string; content: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const { token } = useAppSelector((state) => state.cmAuth);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [chatHistory]);
+
+  const handleSendMessage = async () => {
+    if (!message.trim()) return;
+
+    const userMessage = { role: "user", content: message };
+    setChatHistory((prev) => [...prev, userMessage]);
+    setMessage("");
+    setIsLoading(true);
+
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/ai/chat`,
+        { message, history: chatHistory },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const aiMessage = { role: "assistant", content: response.data.data };
+      setChatHistory((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("AI Chat Error:", error);
+      const errorMessage = {
+        role: "assistant",
+        content: "Sorry, I'm having trouble connecting right now. Please try again later.",
+      };
+      setChatHistory((prev) => [...prev, errorMessage]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50">
+      {/* Chat Window */}
+      {isOpen && (
+        <div className="mb-4 w-80 md:w-96 h-[550px] bg-card/95 backdrop-blur-xl rounded-[2.5rem] shadow-2xl border border-border/50 flex flex-col overflow-hidden animate-in slide-in-from-bottom-5 duration-500">
+          {/* Header */}
+          <div className="p-6 bg-primary text-primary-foreground flex justify-between items-center shadow-lg">
+            <div className="flex items-center gap-3">
+              <div className="bg-background/20 p-2 rounded-xl backdrop-blur-md">
+                <Bot size={22} className="animate-pulse" />
+              </div>
+              <div>
+                <h3 className="font-black text-sm uppercase tracking-widest">AI Mentor</h3>
+                <p className="text-[10px] opacity-80 font-bold uppercase tracking-tighter">Online & Ready</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setIsOpen(false)} 
+              className="hover:bg-background/20 p-2 rounded-xl transition-all hover:rotate-90 duration-300"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          {/* Messages */}
+          <div ref={scrollRef} className="flex-1 overflow-y-auto p-6 space-y-6 bg-background/50">
+            {chatHistory.length === 0 && (
+              <div className="text-center py-12 space-y-4">
+                <div className="bg-primary/10 w-16 h-16 rounded-[2rem] flex items-center justify-center mx-auto text-primary border border-primary/20 shadow-inner">
+                  <Sparkles size={32} className="animate-bounce" />
+                </div>
+                <div className="space-y-1">
+                  <p className="font-black text-foreground uppercase tracking-widest text-xs">Welcome to CourseMaster</p>
+                  <p className="text-[10px] text-muted-foreground font-medium">How can I help your learning journey today?</p>
+                </div>
+              </div>
+            )}
+
+            {chatHistory.map((chat, index) => (
+              <div
+                key={index}
+                className={`flex ${chat.role === "user" ? "justify-end" : "justify-start"} animate-in fade-in slide-in-from-bottom-2 duration-300`}
+              >
+                <div
+                  className={`max-w-[85%] p-4 rounded-[1.5rem] text-xs font-medium leading-relaxed shadow-sm ${
+                    chat.role === "user"
+                      ? "bg-primary text-primary-foreground rounded-tr-none"
+                      : "bg-secondary text-foreground border border-border rounded-tl-none"
+                  }`}
+                >
+                  {chat.content}
+                </div>
+              </div>
+            ))}
+
+            {isLoading && (
+              <div className="flex justify-start">
+                <div className="bg-secondary p-4 rounded-[1.5rem] rounded-tl-none border border-border flex gap-1">
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></span>
+                  <span className="w-1.5 h-1.5 bg-primary rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></span>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Input */}
+          <div className="p-6 bg-background border-t border-border/50">
+            <div className="flex items-center gap-3 bg-secondary/50 rounded-2xl p-2 border border-border focus-within:border-primary/50 transition-all">
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
+                placeholder="Ask anything..."
+                className="flex-1 bg-transparent border-none px-2 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:ring-0 outline-none font-bold"
+              />
+              <button
+                onClick={handleSendMessage}
+                disabled={isLoading}
+                className="bg-primary hover:scale-105 active:scale-95 text-primary-foreground p-2.5 rounded-xl transition-all shadow-lg shadow-primary/20 disabled:opacity-50"
+              >
+                <Send size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Toggle Button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="bg-primary text-primary-foreground p-5 rounded-[2rem] shadow-[0_20px_50px_rgba(var(--primary),0.3)] hover:scale-110 active:scale-90 transition-all duration-500 group relative overflow-hidden"
+      >
+        <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+        {isOpen ? <X size={28} className="relative z-10" /> : <MessageSquare size={28} className="relative z-10" />}
+      </button>
+    </div>
+  );
+};
+
+export default AiAssistant;
