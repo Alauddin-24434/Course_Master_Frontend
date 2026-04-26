@@ -1,33 +1,46 @@
 # 🎓 CourseMaster — Frontend
 
-> A stunning, production-grade online learning platform UI — built with **Next.js 16**, **React 19**, and **Cutting-edge AI Integration**.
+> A comprehensive, production-grade Learning Management System (LMS) UI designed to offer an immersive, AI-powered online education experience. Built with **Next.js 16**, **React 19**, **Tailwind CSS**, and **Cutting-edge AI Integration**.
 
 ---
 
-## ✨ Features
+## 📖 About The Project
+
+CourseMaster bridges the gap between instructors and students by providing a seamless, interactive platform for course creation, discovery, and learning. It empowers educators with robust course management tools—such as dynamic creation forms, media uploads, and structured lessons—while offering students an intuitive dashboard, personalized recommendations, and a 24/7 AI Mentor to aid their learning journey.
+
+Whether you are looking to monetize your expertise or upskill with new knowledge, CourseMaster provides the perfect ecosystem with built-in payments, multi-language support, and intelligent search capabilities.
+
+---
+
+## ✨ Key Features
 
 | Feature | Description |
 |---|---|
-| 🤖 **AI Mentor** | Persistent 24/7 AI assistant for instant student support |
-| 🔍 **Intelligent Search** | Semantic AI search with insights and smart course matching |
-| 📝 **AI Quiz Gen** | On-the-fly quiz generation for any lesson to test knowledge |
-| 🎯 **Smart Recs** | Personalized course recommendations based on user history |
-| 🌐 **AI i18n** | Automated translations using **Intlayer** + **OpenRouter (Llama 3.3)** |
-| 🌍 **Multi-Language** | Native support for **English, Bengali, Arabic (RTL), French, and Spanish** |
-| 🏠 **Landing Page** | Hero section, featured courses, testimonials, trust bar |
-| 💳 **Stripe Checkout** | Seamless payment flow for paid courses |
-| 📱 **Fully Responsive** | Mobile-first, including **RTL layout support** for Arabic |
+| 🏫 **Comprehensive Dashboards** | Dedicated intuitive dashboards for Students, Instructors, and Admins. |
+| 📚 **Course Management** | Powerful tools for instructors to create, edit, delete courses, and structure modules and lessons. |
+| ☁️ **Media Uploads** | Seamless image and video uploads integrated with Cloudinary for course thumbnails and previews. |
+| 🤖 **AI Mentor & Quiz Gen** | Persistent 24/7 AI assistant for instant support and on-the-fly quiz generation to test knowledge. |
+| 🔍 **Intelligent Search** | Semantic AI search with insights, smart course matching, and filtering capabilities. |
+| 🎯 **Smart Recommendations** | Personalized course recommendations based on user history and preferences. |
+| 🌍 **Multi-Language (i18n)** | Native support for multiple languages including English, Bengali, Arabic (RTL), French, and Spanish, powered by Intlayer & AI. |
+| 💳 **Stripe Integration** | Seamless and secure payment flow for paid course enrollments. |
+| 🔐 **Secure Authentication** | Firebase-powered Email/Password and Google Social Login with state synced via Redux Toolkit. |
+| 📱 **Responsive & Modern UI** | Mobile-first design, beautiful animations, and full RTL layout support for Arabic users. |
 
 ---
 
-## 🚀 AI-Powered Experience
+## 🚀 Tech Stack
 
-CourseMaster is now equipped with advanced AI features to enhance the learning journey:
-
-- **AI Mentor:** A chatbot available on every page to help students with course-related queries in real-time.
-- **Intelligent Semantic Search:** Beyond keyword matching, our AI understands intent to provide detailed insights and find the perfect courses.
-- **Dynamic Quiz Generator:** Automatically creates relevant multiple-choice questions for any lesson, helping students validate their learning.
-- **Personalized Recommendations:** An AI-driven dashboard component that suggests courses tailored to individual student interests and past activity.
+| Technology | Purpose |
+|---|---|
+| **Next.js 16** | React framework (App Router) for SSR and routing |
+| **React Hook Form & Zod** | Dynamic, validated, and performant forms |
+| **Redux Toolkit (RTK Query)** | State management and efficient data fetching |
+| **Tailwind CSS 4** | Utility-first styling for a highly customizable UI |
+| **Firebase** | Authentication (Email/Google) |
+| **Intlayer 8.6 & OpenRouter** | AI-Driven Content Management and Automated Translations |
+| **Stripe** | Payment processing |
+| **Lucide React** | Modern, clean iconography |
 
 ---
 
@@ -40,12 +53,12 @@ CourseMaster is now equipped with advanced AI features to enhance the learning j
 ### 1. Clone & Install
 ```bash
 git clone <repo-url>
-cd courseMaster-frontend
+cd Course_Master_Frontend
 pnpm install
 ```
 
 ### 2. Environment Variables
-Create a `.env` file:
+Create a `.env` file in the root directory:
 ```env
 NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
@@ -68,50 +81,20 @@ pnpm dev
 
 ---
 
-## 🧪 Tech Stack
+## 🛣️ Core Routes
 
-| Technology | Purpose |
-|---|---|
-| Next.js 16 | React framework (App Router) |
-| Firebase | Authentication (Email/Google) |
-| Intlayer 8.6 | AI-Driven Content Management |
-| OpenRouter | AI Provider (Llama 3.3 / Gemma) |
-| LangChain | RAG and AI Orchestration (Backend) |
-| Redux Toolkit | State management & AI API Integration |
-| Tailwind CSS 4 | Utility-first styling |
-
----
-
-## 🔐 Authentication
-This project uses **Firebase Authentication** for secure user access:
-- **Email & Password** login and registration.
-- **Google Social Login** integration.
-- **Protected Routes** using Redux and Firebase state synchronization.
-- **Auto-sync:** Firebase auth state is synchronized with Redux for consistent app-wide access.
-
----
-
-## 🛣️ Route Summary
 | Route | Description | Accessibility |
 |---|---|---|
-| `/` | Landing Page with 7 distinct sections | Public |
-| `/courses` | Search and Filter courses (min. 6 items) | Public |
-| `/courses/[id]` | Detailed view with related courses | Public |
-| `/about` | Information about the application | Public |
-| `/login` / `/signup` | Secure authentication (Firebase) | Public |
-| `/dashboard` | User dashboard | Protected |
-| `/dashboard/instructor/manage-courses` | Add & Manage courses (View/Delete) | Protected |
+| `/` | Landing Page showcasing platform features and top courses | Public |
+| `/courses` | Browse, search, and filter the course catalog | Public |
+| `/courses/[id]` | Detailed course view, curriculum, and enrollment | Public |
+| `/login` & `/signup` | Secure authentication flows | Public |
+| `/dashboard/student/*` | Student progress, enrolled courses, and recommendations | Protected |
+| `/dashboard/instructor/*` | Instructor course management, assignments, and modules | Protected |
+| `/dashboard/admin/*` | Platform administration and refund policy management | Protected |
 
 ---
 
-## 📱 Multi-Language Support (i18n)
-This project uses a hybrid approach for translations:
-1. **Intlayer:** Manages content dictionaries and uses OpenRouter AI to automatically translate strings.
-2. **i18next:** Handles client-side switching and persistence.
-3. **RTL Support:** Automatic layout flipping for Arabic using `dir="rtl"`.
-
----
-
-Built with ❤️ and AI for CourseMaster
-
-
+<p align="center">
+  <b>Built with ❤️ and AI for modern education.</b>
+</p>
