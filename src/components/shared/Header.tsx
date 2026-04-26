@@ -91,7 +91,7 @@ export function Header() {
       {/* --- Main Layer: Primary Branding & Navigation --- */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-24 items-center justify-between gap-4">
-          
+
           {/* 1. Logo Section (Left) */}
           <div className="flex-shrink-0">
             <Link href="/" className="group flex items-center gap-2.5 transition-all duration-300">
@@ -191,7 +191,10 @@ export function Header() {
               </div>
             ) : (
               <div className="flex items-center gap-3">
-                <Link href="/login" className="px-5 py-2.5 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground transition-all">
+                <Link
+                  href="/login"
+                  className="flex h-11 items-center justify-center rounded-xl bg-card border border-primary/10 px-6 text-[10px] font-black uppercase tracking-widest text-foreground shadow-sm hover:bg-primary/5 hover:border-primary/30 hover:-translate-y-0.5 transition-all active:translate-y-0"
+                >
                   {t("nav.login")}
                 </Link>
                 <Link
@@ -281,8 +284,8 @@ function NavLink({ href, label, active }: { href: string; label: string; active?
     <Link
       href={href}
       className={`rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${active
-          ? "bg-primary text-white shadow-lg shadow-primary/20 scale-105"
-          : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
+        ? "bg-primary text-white shadow-lg shadow-primary/20 scale-105"
+        : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
         }`}
     >
       {label}

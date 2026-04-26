@@ -7,9 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
-import { ToastContainer, toast } from "react-toastify";
-
-
 import { User, Mail, Lock, Eye, EyeOff, CheckCircle, GraduationCap, Briefcase } from "lucide-react";
 import {
   authStart,
@@ -17,13 +14,15 @@ import {
   authFailure,
 } from "@/redux/features/auth/authSlice";
 import type { AppDispatch } from "@/redux/store";
-import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase";
+import { useSignUpMutation, useSyncFirebaseMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
 
 // ---------------- Zod Schema ----------------
 const signupSchema = z
   .object({
-    fullName: z.string().min(1, "Full name is required"),
+    name: z.string().min(1, "Full name is required"),
     email: z.string().email("Invalid email"),
     password: z.string().min(6, "Password must be at least 6 characters"),
     role: z.enum(["student", "instructor"]),
@@ -37,6 +36,8 @@ export function SignupForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const [signUp] = useSignUpMutation();
+  const [syncFirebase] = useSyncFirebaseMutation();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -57,7 +58,19 @@ export function SignupForm() {
 
   const onGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // Sync with backend
+      const response = await syncFirebase({
+        name: user.displayName,
+        email: user.email,
+        avatar: user.photoURL,
+        role: "student", // Default role for social signup
+      }).unwrap();
+
+      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+      
       toast.success("Logged in with Google!");
       router.push("/");
     } catch (error: any) {
@@ -67,13 +80,14 @@ export function SignupForm() {
 
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      await updateProfile(userCredential.user, { displayName: data.fullName });
+      const response = await signUp(data).unwrap();
+      
+      dispatch(setUser({ user: response.data.user, token: response.data.token }));
 
       toast.success("Account created successfully!");
       router.push("/");
     } catch (err: any) {
-      const message = err?.message || "Signup failed";
+      const message = err?.data?.message || err?.message || "Signup failed";
       toast.error(message);
     }
   };
@@ -123,13 +137,13 @@ export function SignupForm() {
             <div className="relative group">
               <User className="absolute left-3 top-3 w-5 h-5 text-muted-foreground group-focus-within:text-primary transition-colors" />
               <input
-                {...register("fullName")}
+                {...register("name")}
                 placeholder="Ex. Alauddin Ali"
                 className="w-full pl-10 pr-4 py-3 bg-muted/30 border border-border rounded-xl focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none transition-all font-medium"
               />
             </div>
-            {errors.fullName && (
-              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.fullName.message}</p>
+            {errors.name && (
+              <p className="text-red-500 text-xs font-bold mt-1 ml-1">{errors.name.message}</p>
             )}
           </div>
 
@@ -203,7 +217,6 @@ export function SignupForm() {
         </button>
       </form>
 
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </>
   );
 }

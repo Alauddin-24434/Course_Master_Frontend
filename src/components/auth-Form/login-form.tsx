@@ -6,9 +6,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { AppDispatch } from "@/redux/store";
 import {
@@ -16,8 +13,10 @@ import {
   authFailure,
   authStart,
 } from "@/redux/features/auth/authSlice";
-import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/lib/firebase";
+import { useLoginMutation, useSyncFirebaseMutation } from "@/redux/features/auth/authApi";
+import toast from "react-hot-toast";
 
 // Zod schema
 const loginSchema = z.object({
@@ -31,6 +30,8 @@ export function LoginForm() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [login] = useLoginMutation();
+  const [syncFirebase] = useSyncFirebaseMutation();
 
   const {
     register,
@@ -43,7 +44,19 @@ export function LoginForm() {
 
   const onGoogleLogin = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+
+      // Sync with backend
+      const response = await syncFirebase({
+        name: user.displayName,
+        email: user.email,
+        avatar: user.photoURL,
+        role: "student", // Default role
+      }).unwrap();
+
+      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+
       toast.success("Logged in with Google!");
       router.push("/");
     } catch (error: any) {
@@ -53,11 +66,14 @@ export function LoginForm() {
 
   const onSubmit = async (data: LoginFormValues) => {
     try {
-      await signInWithEmailAndPassword(auth, data.email, data.password);
+      const response = await login(data).unwrap();
+      
+      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+
       toast.success("Login successful!");
       router.push("/");
     } catch (err: any) {
-      const message = err?.message || "Login failed";
+      const message = err?.data?.message || err?.message || "Login failed";
       toast.error(message);
     }
   };
@@ -175,12 +191,11 @@ export function LoginForm() {
             disabled={isSubmitting}
             className="w-full py-4 bg-primary text-primary-foreground rounded-xl font-black text-sm uppercase tracking-widest hover:opacity-90 active:scale-[0.98] disabled:opacity-50 transition-all shadow-lg shadow-primary/20"
           >
-            {isSubmitting ? "Authenticating..." : "Sign In to Dashboard"}
+            {isSubmitting ? "Authenticating..." : "Sign In"}
           </button>
         </form>
       </div>
 
-      <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
     </>
   );
 }
