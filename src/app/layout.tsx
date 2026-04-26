@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description: "Best platform for online learning and courses"
 };
 
+import FirebaseAuthProvider from "@/providers/FirebaseAuthProvider";
 import AiAssistant from "@/components/shared/AiAssistant";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -25,9 +26,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang={lang} suppressHydrationWarning>
       <body>
     <Providers>
-    <LenisProvider>{children}</LenisProvider>
-    <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
-    <AiAssistant />
+      <FirebaseAuthProvider>
+        <LenisProvider>{children}</LenisProvider>
+        <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+        <AiAssistant />
+      </FirebaseAuthProvider>
   </Providers>
       </body>
     </html>

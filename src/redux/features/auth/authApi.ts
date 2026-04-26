@@ -27,7 +27,14 @@ const authApi = baseApi.injectEndpoints({
     }),
 
 
- 
+    // ===== ✅ Sync Firebase user =====
+    syncFirebase: build.mutation({
+      query: (body) => ({
+        url: '/auth/sync-firebase',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
@@ -35,7 +42,7 @@ const authApi = baseApi.injectEndpoints({
 export const {
   useSignUpMutation,
   useLoginMutation,
-
+  useSyncFirebaseMutation,
 } = authApi;
 
 export default authApi;

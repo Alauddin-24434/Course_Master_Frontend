@@ -23,23 +23,40 @@ const languages = [
   { code: "ar", name: "العربية" },
 ];
 
+import { auth } from "@/lib/firebase";
+
 // --- Main Component: Header ---
 export function Header() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const { isAuthenticated, user } = useSelector((state: RootState) => state.cmAuth);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  // Close dropdown on click outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const [isAiSearchOpen, setIsAiSearchOpen] = useState(false);
   const pathname = usePathname();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await auth.signOut();
     dispatch(logout());
     window.location.href = "/";
   };
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md transition-all duration-300 border-b border-border/40">
-      
+
       {/* --- Top Layer: Secondary Info & Global Actions --- */}
       <div className="hidden border-b border-border/40 sm:block bg-secondary/20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -52,19 +69,19 @@ export function Header() {
                 {t("nav.contact") || "Support"}
               </Link>
               <div className="flex items-center gap-2 px-2 py-0.5 bg-primary/10 rounded-full border border-primary/20">
-                 <span className="relative flex h-1.5 w-1.5">
-                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-                   <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
-                 </span>
-                 <span className="text-[9px] font-black text-primary uppercase tracking-tighter">{t("nav.live_updates") || "Live Updates"}</span>
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary"></span>
+                </span>
+                <span className="text-[9px] font-black text-primary uppercase tracking-tighter">{t("nav.live_updates") || "Live Updates"}</span>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                 <LanguageSwitcher />
-                 <div className="h-4 w-[1px] bg-border/60 mx-1" />
-                 <ThemeSwitcher />
+                <LanguageSwitcher />
+                <div className="h-4 w-[1px] bg-border/60 mx-1" />
+                <ThemeSwitcher />
               </div>
             </div>
           </div>
@@ -73,10 +90,10 @@ export function Header() {
 
       {/* --- Main Layer: Primary Branding & Navigation --- */}
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid h-20 grid-cols-2 lg:grid-cols-3 items-center gap-4">
+        <div className="flex h-24 items-center justify-between gap-4">
           
           {/* 1. Logo Section (Left) */}
-          <div className="flex justify-start">
+          <div className="flex-shrink-0">
             <Link href="/" className="group flex items-center gap-2.5 transition-all duration-300">
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-tr from-primary to-indigo-500 shadow-lg shadow-primary/25 group-hover:rotate-6 group-hover:scale-110 transition-all duration-500">
                 <span className="text-2xl font-black text-white italic">C</span>
@@ -91,19 +108,13 @@ export function Header() {
           </div>
 
           {/* 2. Main Navigation (Center - Desktop Only) */}
-          <div className="hidden lg:flex justify-center">
-            <nav className="flex items-center gap-1 p-1.5 bg-card/40 backdrop-blur-xl rounded-[1.25rem] border border-primary/10 shadow-sm">
-              <NavLink href="/" label={t("nav.home")} active={pathname === "/"} />
-              <NavLink href="/courses" label={t("nav.courses")} active={pathname === "/courses"} />
-              {isAuthenticated && <NavLink href="/dashboard" label={t("nav.dashboard")} active={pathname?.startsWith("/dashboard")} />}
-              {isAuthenticated && user?.role === "admin" && <NavLink href="/dashboard/admin" label={t("nav.admin")} active={pathname?.startsWith("/dashboard/admin")} />}
-              
-              <div className="h-4 w-px bg-primary/20 mx-2" />
-              
-              <Link href="/how-it-works" className="group flex items-center gap-2 px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all">
-                 {t("nav.how_it_works") || "How it works"}
-                 <ArrowRight className="w-3.5 h-3.5 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
-              </Link>
+          <div className="hidden lg:flex flex-1 justify-center max-w-2xl">
+            <nav className="flex items-center gap-2 p-2 bg-card/40 backdrop-blur-xl rounded-[1.5rem] border border-primary/10 shadow-sm px-6">
+              <NavLink href="/" label={t("nav.home") || "Home"} active={pathname === "/"} />
+              <NavLink href="/courses" label={t("nav.courses") || "Courses"} active={pathname === "/courses"} />
+              <NavLink href="/about" label={t("nav.about") || "About Us"} active={pathname === "/about"} />
+              <NavLink href="/contact" label={t("nav.contact") || "Contact"} active={pathname === "/contact"} />
+              <NavLink href="/how-it-works" label={t("nav.how_it_works") || "How it works"} active={pathname === "/how-it-works"} />
             </nav>
           </div>
 
@@ -117,25 +128,66 @@ export function Header() {
               AI Search
             </button>
             {isAuthenticated ? (
-              <div className="flex items-center gap-3">
-                <div className="hidden flex-col items-end xl:flex">
-                  <span className="text-xs font-black text-foreground leading-none">{user?.name}</span>
-                  <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em] leading-none mt-1.5 opacity-80">{user?.role}</span>
-                </div>
-                
-                <Link href="/dashboard/settings" className="group relative">
-                  <div className="h-11 w-11 rounded-xl bg-card border border-primary/10 shadow-sm flex items-center justify-center font-black text-sm uppercase group-hover:border-primary/50 transition-all overflow-hidden">
-                    {user?.name?.charAt(0)}
-                    <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </Link>
-
+              <div className="relative" ref={dropdownRef}>
                 <button
-                  onClick={handleLogout}
-                  className="hidden sm:flex h-11 items-center justify-center rounded-xl bg-destructive/5 px-6 text-[10px] font-black text-destructive uppercase tracking-widest border border-destructive/10 transition-all hover:bg-destructive hover:text-white"
+                  onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                  className="flex items-center gap-3 hover:opacity-80 transition-all"
                 >
-                  {t("nav.logout")}
+                  <div className="hidden flex-col items-end xl:flex text-right">
+                    <span className="text-xs font-black text-foreground leading-none">{user?.name}</span>
+                    <span className="text-[9px] font-black text-primary uppercase tracking-[0.2em] leading-none mt-1.5 opacity-80">{user?.role}</span>
+                  </div>
+                  <div className="h-11 w-11 rounded-xl bg-card border border-primary/10 shadow-sm flex items-center justify-center font-black text-sm uppercase overflow-hidden">
+                    {user?.avatar ? (
+                      <img src={user.avatar} className="w-full h-full object-cover" alt="" />
+                    ) : (
+                      user?.name?.charAt(0)
+                    )}
+                  </div>
+                  <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform ${isUserDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
+
+                {isUserDropdownOpen && (
+                  <div className="absolute right-0 mt-3 w-60 bg-background border border-border rounded-2xl shadow-2xl p-2 animate-in fade-in zoom-in-95 duration-200 z-[100]">
+                    <div className="p-4 border-b border-border/50 mb-2">
+                      <p className="text-xs font-black text-foreground truncate">{user?.name}</p>
+                      <p className="text-[10px] text-muted-foreground truncate font-medium mt-1">{user?.email}</p>
+                    </div>
+
+                    <div className="space-y-1">
+                      <Link
+                        href="/dashboard"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                        className="flex items-center gap-2 w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all"
+                      >
+                        Dashboard
+                      </Link>
+                      <Link
+                        href="/dashboard/instructor/manage-courses"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                        className="flex items-center gap-2 w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all"
+                      >
+                        Manage Courses
+                      </Link>
+                      <Link
+                        href="/dashboard/settings"
+                        onClick={() => setIsUserDropdownOpen(false)}
+                        className="flex items-center gap-2 w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all"
+                      >
+                        Profile Settings
+                      </Link>
+                    </div>
+
+                    <div className="h-px bg-border/50 my-2 mx-2" />
+
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-destructive hover:bg-destructive/5 rounded-xl transition-all"
+                    >
+                      {t("nav.logout")}
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="flex items-center gap-3">
@@ -153,15 +205,15 @@ export function Header() {
 
             {/* Mobile Actions Container */}
             <div className="flex items-center gap-2 lg:hidden">
-               <div className="sm:hidden flex items-center gap-2">
-                 <ThemeSwitcher />
-               </div>
-               <button
-                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                 className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-card border border-primary/10 text-foreground hover:text-primary transition-all active:scale-95 shadow-sm"
-               >
-                 {isMenuOpen ? <X className="h-5.5 w-5.5" /> : <Menu className="h-5.5 w-5.5" />}
-               </button>
+              <div className="sm:hidden flex items-center gap-2">
+                <ThemeSwitcher />
+              </div>
+              <button
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-card border border-primary/10 text-foreground hover:text-primary transition-all active:scale-95 shadow-sm"
+              >
+                {isMenuOpen ? <X className="h-5.5 w-5.5" /> : <Menu className="h-5.5 w-5.5" />}
+              </button>
             </div>
           </div>
         </div>
@@ -175,21 +227,21 @@ export function Header() {
           <MobileNavLink href="/about" label={t("nav.about")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/contact" label={t("nav.contact")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/how-it-works" label={t("nav.platform_guide") || "Platform Guide"} onClick={() => setIsMenuOpen(false)} />
-          
+
           <div className="flex items-center gap-3 p-2 mt-2 bg-secondary/50 rounded-2xl border border-border/50">
-             <div className="flex-1">
-               <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">{t("nav.regional") || "Regional"}</span>
-               <div className="mt-1">
-                 <LanguageSwitcher />
-               </div>
-             </div>
-             <div className="h-10 w-px bg-border/60" />
-             <div className="flex-1 flex flex-col items-end px-2">
-                <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mr-2">{t("nav.display") || "Display"}</span>
-                <div className="mt-1">
-                  <ThemeSwitcher />
-                </div>
-             </div>
+            <div className="flex-1">
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-2">{t("nav.regional") || "Regional"}</span>
+              <div className="mt-1">
+                <LanguageSwitcher />
+              </div>
+            </div>
+            <div className="h-10 w-px bg-border/60" />
+            <div className="flex-1 flex flex-col items-end px-2">
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mr-2">{t("nav.display") || "Display"}</span>
+              <div className="mt-1">
+                <ThemeSwitcher />
+              </div>
+            </div>
           </div>
 
           {isAuthenticated ? (
@@ -215,9 +267,9 @@ export function Header() {
           )}
         </div>
       )}
-      <AiSearchModal 
-        isOpen={isAiSearchOpen} 
-        onClose={() => setIsAiSearchOpen(false)} 
+      <AiSearchModal
+        isOpen={isAiSearchOpen}
+        onClose={() => setIsAiSearchOpen(false)}
       />
     </header>
   );
@@ -228,11 +280,10 @@ function NavLink({ href, label, active }: { href: string; label: string; active?
   return (
     <Link
       href={href}
-      className={`rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${
-        active 
-          ? "bg-primary text-white shadow-lg shadow-primary/20 scale-105" 
+      className={`rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${active
+          ? "bg-primary text-white shadow-lg shadow-primary/20 scale-105"
           : "text-muted-foreground hover:bg-primary/5 hover:text-primary"
-      }`}
+        }`}
     >
       {label}
     </Link>

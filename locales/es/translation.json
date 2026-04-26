@@ -29,7 +29,9 @@
     "settings": "Configuraciones",
     "end_session": "Cerrar sesión",
     "console": "{{role}} Consola",
-    "management_pro": "Administración Pro"
+    "management_pro": "Administración Pro",
+    "how_it_works_step": "Paso a paso",
+    "how_it_works_subtitle": "Flujo de trabajo simplificado"
   },
   "home": {
     "title": "Aprende cualquier cosa, en cualquier momento",
@@ -457,5 +459,36 @@
     "join_educators": "Únete a 400+\nEducadores",
     "avg_monthly_val": "$9.9k",
     "students_val": "50k+"
+  },
+  "about": {
+    "title": "Revolucionando el aprendizaje.",
+    "subtitle": "En CourseMaster, creemos que la educación no debería ser solo consumida, sino experimentada. Desarrollamos herramientas que empoderan a la próxima generación de pioneros digitales.",
+    "badge": "Nuestro ADN",
+    "mission_title": "Nuestro objetivo ultimate",
+    "mission_desc": "Convertirnos en el ecosistema de aprendizaje de alta fidelidad más accesible del mundo, sin importar las barreras geográficas o financieras.",
+    "values_title": "Valores que nos guían",
+    "values_subtitle": "Operacionalizamos estos principios en cada línea de código que escribimos y en cada lección que curamos.",
+    "value1_title": "Excelencia",
+    "value1_desc": "No nos conformamos con la mediocridad. Nuestro contenido es probado por expertos de la industria.",
+    "value2_title": "Integridad",
+    "value2_desc": "La transparencia es nuestra configuración predeterminada. Somos honestos sobre lo que puedes lograr.",
+    "value3_title": "Comunidad",
+    "value3_desc": "No eres solo un estudiante; eres parte de una colectiva global de creadores.",
+    "value4_title": "Pasión",
+    "value4_desc": "Nos importa profundamente el potencial humano y el impacto de la educación de calidad."
+  },
+  "how_it_works": {
+    "title": "Cómo funciona",
+    "subtitle": "Todo lo que necesitas para crear una academia en línea profesional sin tocar una sola línea de código.",
+    "step1_title": "Crea tu curso",
+    "step1_desc": "Sube tus videos, documentos y quizzes. Nuestra herramienta de creación intuitiva te ayuda a estructurar tu currículum en minutos.",
+    "step2_title": "Establece tu precio",
+    "step2_desc": "Elige entre compras únicas, suscripciones o acceso por niveles. Tienes el control total sobre tus ingresos.",
+    "step3_title": "Lanzar al mundo",
+    "step3_desc": "Publica tu academia con tu propia marca. Alcance a estudiantes en más de 190 países de inmediato.",
+    "step4_title": "Escalada con Datos",
+    "step4_desc": "Utilice análisis avanzados para rastrear el progreso de los estudiantes, la participación y las ventas. Optimice para un crecimiento máximo.",
+    "cta_title": "¿Listo para empezar a enseñar?",
+    "cta_button": "Lanzar Curso"
   }
 }

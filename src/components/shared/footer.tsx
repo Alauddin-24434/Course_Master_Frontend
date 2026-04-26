@@ -9,12 +9,7 @@ export function Footer() {
 
   return (
     <footer className="footer-gradient relative overflow-hidden pt-32 pb-12 bg-card/30 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] border-t border-primary/5">
-      
-      {/* --- Decorative Background Elements --- */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-[30%] h-[30%] bg-primary/2 blur-[100px] rounded-full"></div>
-        <div className="absolute bottom-0 right-1/4 w-[30%] h-[30%] bg-primary/2 blur-[100px] rounded-full"></div>
-      </div>
+
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">

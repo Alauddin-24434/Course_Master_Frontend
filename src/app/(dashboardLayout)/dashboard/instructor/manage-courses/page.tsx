@@ -2,14 +2,28 @@
 
 import React, { useState } from "react";
 import CourseCreateForm from "@/components/course-form/CourseCreateForm";
-import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
+import { useGetAllCoursesQuery, useDeleteCourseMutation } from "@/redux/features/course/courseAPi";
 import CourseList from "@/components/course-form/CourseList";
 import { ICourse } from "@/interfaces/course.interface";
 import { Plus, BookOpen, Layers } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function ManageCourses() {
   const { data: courses, refetch, isLoading } = useGetAllCoursesQuery();
+  const [deleteCourse] = useDeleteCourseMutation();
   const [showCreateModal, setShowCreateModal] = useState(false);
+
+  const handleDelete = async (id: string) => {
+    if (window.confirm("Are you sure you want to delete this course?")) {
+      try {
+        await deleteCourse(id).unwrap();
+        toast.success("Course deleted successfully!");
+        refetch();
+      } catch (err) {
+        toast.error("Failed to delete course.");
+      }
+    }
+  };
 
   return (
     <div className="container mx-auto p-4 md:p-8 space-y-10 max-w-7xl">
@@ -44,6 +58,7 @@ export default function ManageCourses() {
           onEdit={(course: ICourse) => {
             console.log("Edit course:", course);
           }}
+          onDelete={(id: string) => handleDelete(id)}
           onAddLesson={(course: ICourse) => {
             console.log("Add Lesson:", course);
           }}

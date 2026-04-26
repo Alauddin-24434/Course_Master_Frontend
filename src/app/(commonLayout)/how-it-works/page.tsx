@@ -52,14 +52,14 @@ export default function HowItWorks() {
         <div className="max-w-3xl mx-auto text-center mb-20 space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
             <Rocket className="w-4 h-4 text-primary" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary">Simplified Workflow</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{t("nav.how_it_works_subtitle")}</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-tight">
-            How it works <br />
-            <span className="text-muted-foreground italic font-serif">Step by Step</span>
+            {t("how_it_works.title")} <br />
+            <span className="text-muted-foreground italic font-serif">{t("nav.how_it_works_step")}</span>
           </h1>
           <p className="text-lg text-muted-foreground font-medium">
-            Everything you need to build a professional online academy without touching a single line of code.
+            {t("how_it_works.subtitle")}
           </p>
         </div>
 
@@ -73,9 +73,9 @@ export default function HowItWorks() {
               <div className={`w-16 h-16 rounded-2xl ${step.color} flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
                 {step.icon}
               </div>
-              <h3 className="text-xl font-black text-foreground mb-4">{step.title}</h3>
+              <h3 className="text-xl font-black text-foreground mb-4">{t(`how_it_works.step${index + 1}_title`)}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                {step.desc}
+                {t(`how_it_works.step${index + 1}_desc`)}
               </p>
             </div>
           ))}

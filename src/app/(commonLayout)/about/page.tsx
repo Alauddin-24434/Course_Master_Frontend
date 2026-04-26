@@ -19,18 +19,18 @@ export default function AboutPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div className="space-y-8">
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-primary/20">
-                    <Zap className="w-3.5 h-3.5 fill-primary" /> Our DNA
+                    <Zap className="w-3.5 h-3.5 fill-primary" /> {t("about.badge")}
                 </div>
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.85] italic">
-                    Revolutionizing Learning.
+                    {t("about.title")}
                 </h1>
                 <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
-                    At CourseMaster, we believe education shouldn't just be consumed—it should be experienced. We build tools that empower the next generation of digital pioneers.
+                    {t("about.subtitle")}
                 </p>
                 <div className="flex gap-4 p-2 bg-background border border-border/50 rounded-3xl w-fit shadow-xl shadow-black/5">
                     <div className="px-6 py-3 bg-secondary/50 rounded-2xl">
-                        <span className="block text-2xl font-black text-foreground">50k+</span>
-                        <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">Students</span>
+                        <span className="block text-2xl font-black text-foreground">{t("info.students_val")}</span>
+                        <span className="text-[10px] uppercase font-black tracking-widest text-muted-foreground">{t("info.students")}</span>
                     </div>
                     <div className="px-6 py-3 bg-primary text-white rounded-2xl shadow-lg shadow-primary/20">
                         <span className="block text-2xl font-black">98%</span>
@@ -46,8 +46,8 @@ export default function AboutPage() {
                         <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto border border-primary/10 mb-2">
                             <Target className="w-10 h-10 text-primary animate-pulse" />
                         </div>
-                        <h3 className="text-3xl font-black tracking-tight italic">Our Ultimate Goal</h3>
-                        <p className="font-medium text-muted-foreground leading-relaxed">To become the world's most accessible high-fidelity learning ecosystem, regardless of geographic or financial barriers.</p>
+                        <h3 className="text-3xl font-black tracking-tight italic">{t("about.mission_title")}</h3>
+                        <p className="font-medium text-muted-foreground leading-relaxed">{t("about.mission_desc")}</p>
                     </div>
                  </div>
             </div>
@@ -56,14 +56,14 @@ export default function AboutPage() {
         {/* Values Grid */}
         <div className="space-y-16">
             <div className="text-center max-w-2xl mx-auto space-y-4">
-                <h2 className="text-4xl font-black tracking-tight italic">Values that Guide Us</h2>
-                <p className="text-muted-foreground font-medium">We operationalize these principles in every line of code we write and every lesson we curate.</p>
+                <h2 className="text-4xl font-black tracking-tight italic">{t("about.values_title")}</h2>
+                <p className="text-muted-foreground font-medium">{t("about.values_subtitle")}</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <ValueCard icon={<Award />} title="Excellence" desc="We don't settle for average. Our content is battle-tested by industry experts." />
-                <ValueCard icon={<ShieldCheck />} title="Integrity" desc="Transparency is our default setting. We're honest about what you can achieve." />
-                <ValueCard icon={<Users />} title="Community" desc="You're not just a student; you're part of a global collective of creators." />
-                <ValueCard icon={<Heart />} title="Passion" desc="We care deeply about human potential and the impact of quality education." />
+                <ValueCard icon={<Award />} title={t("about.value1_title")} desc={t("about.value1_desc")} />
+                <ValueCard icon={<ShieldCheck />} title={t("about.value2_title")} desc={t("about.value2_desc")} />
+                <ValueCard icon={<Users />} title={t("about.value3_title")} desc={t("about.value3_desc")} />
+                <ValueCard icon={<Heart />} title={t("about.value4_title")} desc={t("about.value4_desc")} />
             </div>
         </div>
 

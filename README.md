@@ -73,11 +73,34 @@ pnpm dev
 | Technology | Purpose |
 |---|---|
 | Next.js 16 | React framework (App Router) |
+| Firebase | Authentication (Email/Google) |
 | Intlayer 8.6 | AI-Driven Content Management |
 | OpenRouter | AI Provider (Llama 3.3 / Gemma) |
 | LangChain | RAG and AI Orchestration (Backend) |
 | Redux Toolkit | State management & AI API Integration |
 | Tailwind CSS 4 | Utility-first styling |
+
+---
+
+## 🔐 Authentication
+This project uses **Firebase Authentication** for secure user access:
+- **Email & Password** login and registration.
+- **Google Social Login** integration.
+- **Protected Routes** using Redux and Firebase state synchronization.
+- **Auto-sync:** Firebase auth state is synchronized with Redux for consistent app-wide access.
+
+---
+
+## 🛣️ Route Summary
+| Route | Description | Accessibility |
+|---|---|---|
+| `/` | Landing Page with 7 distinct sections | Public |
+| `/courses` | Search and Filter courses (min. 6 items) | Public |
+| `/courses/[id]` | Detailed view with related courses | Public |
+| `/about` | Information about the application | Public |
+| `/login` / `/signup` | Secure authentication (Firebase) | Public |
+| `/dashboard` | User dashboard | Protected |
+| `/dashboard/instructor/manage-courses` | Add & Manage courses (View/Delete) | Protected |
 
 ---
 

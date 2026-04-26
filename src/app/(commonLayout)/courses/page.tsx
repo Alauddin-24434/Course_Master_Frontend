@@ -247,11 +247,15 @@ function CourseCard({ course }: { course: any }) {
 
       {/* --- CONTENT AREA --- */}
       <div className="p-8 flex flex-col flex-grow relative">
-        <div className="flex-grow space-y-6">
+        <div className="flex-grow space-y-4">
           
           <h3 className="text-2xl font-black leading-tight tracking-tight text-foreground group-hover:text-primary transition-colors duration-300 line-clamp-2">
             {course.title}
           </h3>
+
+          <p className="text-muted-foreground text-sm font-medium line-clamp-2">
+            {course.description || "Master the core concepts and advanced techniques in this comprehensive course."}
+          </p>
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -272,6 +276,12 @@ function CourseCard({ course }: { course: any }) {
               <Users className="w-3.5 h-3.5 text-muted-foreground" />
               <span className="text-[10px] font-black tabular-nums">{course._count?.enrolledUsers || 0}</span>
             </div>
+          </div>
+        </div>
+
+        <div className="mt-6">
+          <div className="w-full py-3 bg-secondary border border-border rounded-xl text-[10px] font-black uppercase tracking-widest text-center group-hover:bg-primary group-hover:text-white transition-all">
+            View Details
           </div>
         </div>
 

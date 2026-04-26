@@ -17,7 +17,8 @@ import {
   authFailure,
 } from "@/redux/features/auth/authSlice";
 import type { AppDispatch } from "@/redux/store";
-import { useSignUpMutation } from "@/redux/features/auth/authApi";
+import { createUserWithEmailAndPassword, updateProfile, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "@/lib/firebase";
 
 // ---------------- Zod Schema ----------------
 const signupSchema = z
@@ -25,7 +26,6 @@ const signupSchema = z
     fullName: z.string().min(1, "Full name is required"),
     email: z.string().email("Invalid email"),
     password: z.string().min(6, "Password must be at least 6 characters"),
-
     role: z.enum(["student", "instructor"]),
   })
 
@@ -39,7 +39,6 @@ export function SignupForm() {
   const router = useRouter();
 
   const [showPassword, setShowPassword] = useState(false);
-  const [signUp] = useSignUpMutation();
 
   const {
     register,
@@ -56,26 +55,25 @@ export function SignupForm() {
 
   const role = watch("role");
 
+  const onGoogleLogin = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      toast.success("Logged in with Google!");
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error.message || "Google signup failed");
+    }
+  };
+
   const onSubmit: SubmitHandler<SignupFormValues> = async (data) => {
     try {
-      dispatch(authStart());
-
-      const response = await signUp({
-        name: data.fullName,
-        email: data.email,
-        password: data.password,
-        role: data.role,
-      }).unwrap(); 
-
-      dispatch(
-        setUser({ user: response.data.user, token: response.data.token })
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
+      await updateProfile(userCredential.user, { displayName: data.fullName });
 
       toast.success("Account created successfully!");
-      router.push("/dashboard");
+      router.push("/");
     } catch (err: any) {
-      const message = err?.data?.message || "Signup failed";
-      dispatch(authFailure(message));
+      const message = err?.message || "Signup failed";
       toast.error(message);
     }
   };
@@ -176,6 +174,24 @@ export function SignupForm() {
             )}
           </div>
         </div>
+
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <span className="w-full border-t border-border"></span>
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-background px-2 text-muted-foreground font-bold">Or sign up with</span>
+          </div>
+        </div>
+
+        <button
+          onClick={onGoogleLogin}
+          type="button"
+          className="w-full flex items-center justify-center gap-3 py-4 bg-background border border-border rounded-xl font-bold text-sm hover:bg-muted transition-all shadow-sm"
+        >
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" />
+          Continue with Google
+        </button>
 
         {/* Submit */}
         <button

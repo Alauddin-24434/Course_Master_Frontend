@@ -15,8 +15,8 @@ const config: IntlayerConfig = {
 
   plugins: [
     syncJSON({
-      source: ({ key, locale }: { key: string; locale: string }) =>
-        `./locales/${locale}/${key}.json`,
+      source: ({ key, locale }) =>
+        `./locales/${locale || "en"}/${key}.json`,
     }),
   ],
 };

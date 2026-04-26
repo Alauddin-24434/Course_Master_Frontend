@@ -2,11 +2,11 @@
 
 import React, { useState, useEffect } from "react";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useGetCourseByIdQuery, useEnrollCourseMutation, useCreateCheckoutMutation } from "@/redux/features/course/courseAPi";
+import { useGetCourseByIdQuery, useEnrollCourseMutation, useCreateCheckoutMutation, useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
 import {
    PlayCircle, BookOpen, Clock, Users, Star, CheckCircle,
    ChevronDown, ChevronUp, Loader2, Award, Zap, Shield, X, MonitorPlay, BarChart,
-   MessageSquare, Quote, Send, Check
+   MessageSquare, Quote, Send, Check, ArrowLeft
 } from "lucide-react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
@@ -22,6 +22,12 @@ export default function EnhancedCourseDetailsPage() {
    const { data: courseResponse, isLoading, refetch } = useGetCourseByIdQuery(courseId, {
       skip: !courseId
    });
+
+   const { data: relatedCoursesData } = useGetAllCoursesQuery({
+      limit: 5,
+      category: courseResponse?.data?.categoryId
+   });
+   const relatedCourses = relatedCoursesData?.data?.courses?.filter((c: any) => c.id !== courseId).slice(0, 4) || [];
 
    const [enrollCourse, { isLoading: isEnrolling }] = useEnrollCourseMutation();
    const [createCheckout, { isLoading: isCheckingOut }] = useCreateCheckoutMutation();
@@ -156,6 +162,14 @@ export default function EnhancedCourseDetailsPage() {
             <div className="container mx-auto px-4 md:px-8 max-w-7xl relative z-10">
 
                <div className="max-w-4xl space-y-8">
+                  <button 
+                     onClick={() => router.push("/courses")}
+                     className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all mb-4"
+                  >
+                     <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
+                     Back to Courses
+                  </button>
+
                   <div className="flex flex-wrap items-center gap-4">
                      <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-full border border-primary/20 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
                         {course.category?.name || "Premium Course"}
@@ -571,6 +585,48 @@ export default function EnhancedCourseDetailsPage() {
                         );
                      })()}
                   </div>
+               </div>
+            </div>
+         )}
+
+         {/* Related Courses Section */}
+         {relatedCourses.length > 0 && (
+            <div className="container mx-auto px-4 md:px-8 py-24 max-w-7xl border-t border-border/50">
+               <div className="flex items-center justify-between mb-12">
+                  <div className="space-y-2">
+                     <h2 className="text-3xl font-black tracking-tight italic">Related Courses</h2>
+                     <p className="text-sm font-medium text-muted-foreground">Other courses you might find interesting in this category.</p>
+                  </div>
+                  <button 
+                     onClick={() => router.push("/courses")}
+                     className="px-6 py-2 bg-secondary border border-border rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all"
+                  >
+                     Explore All
+                  </button>
+               </div>
+
+               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                  {relatedCourses.map((c: any) => (
+                     <div 
+                        key={c.id} 
+                        onClick={() => router.push(`/courses/${c.id}`)}
+                        className="group cursor-pointer bg-card border border-border/50 rounded-3xl overflow-hidden hover:border-primary/40 transition-all hover:-translate-y-2 shadow-sm"
+                     >
+                        <div className="aspect-video relative overflow-hidden">
+                           <img src={c.thumbnail || "/placeholder.svg"} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="" />
+                        </div>
+                        <div className="p-5 space-y-3">
+                           <h4 className="font-black text-sm text-foreground line-clamp-1 group-hover:text-primary transition-colors">{c.title}</h4>
+                           <div className="flex items-center justify-between">
+                              <span className="text-[10px] font-black text-primary uppercase">${c.price}</span>
+                              <div className="flex items-center gap-1">
+                                 <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                                 <span className="text-[10px] font-black">4.9</span>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                  ))}
                </div>
             </div>
          )}

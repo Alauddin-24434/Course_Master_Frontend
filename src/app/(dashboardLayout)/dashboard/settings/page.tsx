@@ -17,6 +17,11 @@ import {
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "react-hot-toast";
+import { updateProfile } from "firebase/auth";
+import { auth } from "@/lib/firebase";
+import { useSyncFirebaseMutation } from "@/redux/features/auth/authApi";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/redux/features/auth/authSlice";
 
 // ---------- TYPES ----------
 type InfoItemProps = {
@@ -35,6 +40,8 @@ type StatusItemProps = {
 export default function ProfilePage() {
   const { user } = useSelector((state: RootState) => state.cmAuth);
   
+  const [syncFirebase] = useSyncFirebaseMutation();
+  const dispatch = useDispatch();
   const [isUploading, setIsUploading] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -44,26 +51,47 @@ export default function ProfilePage() {
     
     setIsUploading(true);
     const formData = new FormData(e.currentTarget);
+    const file = (formData.get("avatar") as File);
+    const name = formData.get("name") as string;
 
     try {
-      // In a real Redux setup, use an RTK Mutation hook. Since we don't have updateProfileMutation readily available, using fetch.
-      // E.g. useUpdateProfileMutation() but let's do a direct fetch with auth token if token was in Redux state, 
-      // or we can just send it with credentials. Assuming cookie/auth setup:
-      const res = await fetch("http://localhost:5000/api/v1/users/profile", {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token") || ""}`,
-        },
-        body: formData,
-      });
+      let avatarUrl = user.avatar || "";
 
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || "Failed to update profile");
+      // 1. Upload to Cloudinary if file exists
+      if (file && file.size > 0) {
+        const cloudData = new FormData();
+        cloudData.append("file", file);
+        cloudData.append("upload_preset", "course_thumbnails");
+
+        const cloudRes = await fetch(
+          "https://api.cloudinary.com/v1_1/dyfamn6rm/image/upload",
+          { method: "POST", body: cloudData }
+        );
+        const cloudJson = await cloudRes.json();
+        avatarUrl = cloudJson.secure_url;
+      }
+
+      // 2. Sync with Firebase Profile
+      if (auth.currentUser) {
+        await updateProfile(auth.currentUser, {
+          displayName: name,
+          photoURL: avatarUrl
+        });
+      }
+
+      // 3. Sync with Backend
+      const response = await syncFirebase({
+        email: user.email,
+        name: name,
+        avatar: avatarUrl
+      }).unwrap();
+
+      // 4. Update Redux State
+      dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
       
-      toast.success("Profile updated perfectly!");
-      // Ideally dispatch to redux to update user state here.
-      window.location.reload(); 
+      toast.success("Profile updated successfully!");
     } catch (err: any) {
+      console.error(err);
       toast.error(err.message || "Error updating profile");
     } finally {
       setIsUploading(false);

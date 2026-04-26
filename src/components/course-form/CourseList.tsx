@@ -1,8 +1,9 @@
 "use client";
 
-import { Edit2, Plus, Loader2, BookOpen } from "lucide-react";
+import { Edit2, Plus, Loader2, BookOpen, Eye, Trash2 } from "lucide-react";
+import Link from "next/link";
 
-export default function CourseList({ courses, isLoading, onEdit, onAddLesson }: any) {
+export default function CourseList({ courses, isLoading, onEdit, onAddLesson, onDelete }: any) {
   
   if (isLoading) {
     return (
@@ -64,19 +65,37 @@ export default function CourseList({ courses, isLoading, onEdit, onAddLesson }: 
               </td>
 
               <td className="px-8 py-6 text-right">
-                <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <Link
+                    href={`/courses/${course.id}`}
+                    className="h-9 w-9 bg-background border border-border/50 rounded-xl text-muted-foreground hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center shadow-sm"
+                    title="View Public Page"
+                  >
+                    <Eye className="w-3.5 h-3.5" />
+                  </Link>
+
                   <button
                     onClick={() => onEdit(course)}
-                    className="h-9 px-4 bg-background border border-border/50 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center gap-2 shadow-sm"
+                    className="h-9 w-9 bg-background border border-border/50 rounded-xl text-muted-foreground hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all flex items-center justify-center shadow-sm"
+                    title="Edit Course"
                   >
-                    <Edit2 className="w-3.5 h-3.5" /> Edit
+                    <Edit2 className="w-3.5 h-3.5" />
                   </button>
                 
                   <button
                     onClick={() => onAddLesson(course)}
-                    className="h-9 px-4 bg-background border border-border/50 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all flex items-center gap-2 shadow-sm"
+                    className="h-9 w-9 bg-background border border-border/50 rounded-xl text-muted-foreground hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all flex items-center justify-center shadow-sm"
+                    title="Add Lesson"
                   >
-                    <Plus className="w-3.5 h-3.5" /> Lesson
+                    <Plus className="w-3.5 h-3.5" />
+                  </button>
+
+                  <button
+                    onClick={() => onDelete(course.id)}
+                    className="h-9 w-9 bg-background border border-border/50 rounded-xl text-muted-foreground hover:bg-destructive hover:text-white hover:border-destructive transition-all flex items-center justify-center shadow-sm"
+                    title="Delete Course"
+                  >
+                    <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
               </td>

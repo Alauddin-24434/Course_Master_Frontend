@@ -29,7 +29,40 @@
     "settings": "Settings",
     "end_session": "End Session",
     "console": "{{role}} Console",
-    "management_pro": "Management Pro"
+    "management_pro": "Management Pro",
+    "how_it_works_step": "Step by Step",
+    "how_it_works_subtitle": "Simplified Workflow"
+  },
+  "about": {
+    "title": "Revolutionizing Learning.",
+    "subtitle": "At CourseMaster, we believe education shouldn't just be consumed—it should be experienced. We build tools that empower the next generation of digital pioneers.",
+    "badge": "Our DNA",
+    "mission_title": "Our Ultimate Goal",
+    "mission_desc": "To become the world's most accessible high-fidelity learning ecosystem, regardless of geographic or financial barriers.",
+    "values_title": "Values that Guide Us",
+    "values_subtitle": "We operationalize these principles in every line of code we write and every lesson we curate.",
+    "value1_title": "Excellence",
+    "value1_desc": "We don't settle for average. Our content is battle-tested by industry experts.",
+    "value2_title": "Integrity",
+    "value2_desc": "Transparency is our default setting. We're honest about what you can achieve.",
+    "value3_title": "Community",
+    "value3_desc": "You're not just a student; you're part of a global collective of creators.",
+    "value4_title": "Passion",
+    "value4_desc": "We care deeply about human potential and the impact of quality education."
+  },
+  "how_it_works": {
+    "title": "How it works",
+    "subtitle": "Everything you need to build a professional online academy without touching a single line of code.",
+    "step1_title": "Create Your Course",
+    "step1_desc": "Upload your videos, documents, and quizzes. Our intuitive builder helps you structure your curriculum in minutes.",
+    "step2_title": "Set Your Pricing",
+    "step2_desc": "Choose between one-time purchases, subscriptions, or tiered access. You have full control over your revenue.",
+    "step3_title": "Launch to the World",
+    "step3_desc": "Publish your academy with your own branding. Reach students across 190+ countries instantly.",
+    "step4_title": "Scale with Data",
+    "step4_desc": "Use advanced analytics to track student progress, engagement, and sales. Optimize for maximum growth.",
+    "cta_title": "Ready to start teaching?",
+    "cta_button": "Launch Your Course"
   },
   "contact": {
     "badge": "Get in Touch",

@@ -29,7 +29,9 @@
     "settings": "Paramètres",
     "end_session": "Fin de session",
     "console": "{{role}} Console",
-    "management_pro": "Pro de gestion"
+    "management_pro": "Pro de gestion",
+    "how_it_works_step": "Étape par Étape",
+    "how_it_works_subtitle": "Workflow Simplifié"
   },
   "home": {
     "title": "Apprendre tout, tout le temps",
@@ -457,5 +459,36 @@
     "join_educators": "Rejoindre 400+\nÉducateurs",
     "avg_monthly_val": "9,9k$",
     "students_val": "50k+"
+  },
+  "about": {
+    "title": "Révolutionner l'apprentissage.",
+    "subtitle": "Chez CourseMaster, nous croyons que l'éducation ne devrait pas seulement être consommée - elle devrait être vécue. Nous développons des outils qui permettent à la prochaine génération de pionniers numériques de s'épanouir.",
+    "badge": "Notre ADN",
+    "mission_title": "Notre Objectif Ultime",
+    "mission_desc": "Devenir l'écosystème d'apprentissage haute fidélité le plus accessible au monde, quels que soient les barriers géographiques ou financières.",
+    "values_title": "Valeurs qui nous guident",
+    "values_subtitle": "Nous mettons en œuvre ces principes dans chaque ligne de code que nous écrivons et chaque leçon que nous mettons en place.",
+    "value1_title": "Excellence",
+    "value1_desc": "Nous ne nous contentons pas de la moyenne. Notre contenu est éprouvé par des experts du secteur.",
+    "value2_title": "Intégrité",
+    "value2_desc": "La transparence est notre paramètre par défaut. Nous sommes honnêtes sur ce que vous pouvez accomplir.",
+    "value3_title": "Communauté",
+    "value3_desc": "Vous n'êtes pas juste un étudiant, vous faites partie d'un collectif mondial de créateurs.",
+    "value4_title": "Passion",
+    "value4_desc": "Nous nous soucions profondément du potentiel humain et de l'impact de l'éducation de qualité."
+  },
+  "how_it_works": {
+    "title": "Comment cela fonctionne",
+    "subtitle": "Tout ce dont vous avez besoin pour créer une académie en ligne professionnelle sans avoir à toucher une seule ligne de code.",
+    "step1_title": "Créez votre cours",
+    "step1_desc": "Téléchargez vos vidéos, documents et quiz. Notre outil de construction intuitif vous aide à structurer votre cursus en quelques minutes.",
+    "step2_title": "Définissez vos prix",
+    "step2_desc": "Choisissez entre des achats à la fois, des abonnements ou un accès en plusieurs niveaux. Vous avez un contrôle total sur vos revenus.",
+    "step3_title": "Lancer au monde",
+    "step3_desc": "Publiez votre académie avec votre propre marque. Atteignez des étudiants dans plus de 190 pays instantanément.",
+    "step4_title": "Échellez avec les données",
+    "step4_desc": "Utilisez des analyses avancées pour suivre les progrès des étudiants, l'engagement et les ventes. Optimisez pour une croissance maximale.",
+    "cta_title": "Prêt à commencer à enseigner?",
+    "cta_button": "Lancer Votre Cours"
   }
 }

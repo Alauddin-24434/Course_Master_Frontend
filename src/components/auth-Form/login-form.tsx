@@ -16,7 +16,8 @@ import {
   authFailure,
   authStart,
 } from "@/redux/features/auth/authSlice";
-import { useLoginMutation } from "@/redux/features/auth/authApi";
+import { signInWithPopup, signInWithEmailAndPassword } from "firebase/auth";
+import { auth, googleProvider } from "@/lib/firebase";
 
 // Zod schema
 const loginSchema = z.object({
@@ -30,7 +31,6 @@ export function LoginForm() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [login] = useLoginMutation();
 
   const {
     register,
@@ -41,20 +41,23 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginFormValues) => {
-    dispatch(authStart());
+  const onGoogleLogin = async () => {
     try {
-      const response = await login(data).unwrap();
-      const { user, accessToken } = response.data;
+      await signInWithPopup(auth, googleProvider);
+      toast.success("Logged in with Google!");
+      router.push("/");
+    } catch (error: any) {
+      toast.error(error.message || "Google login failed");
+    }
+  };
 
-      dispatch(setUser({ user, token: accessToken }));
-
-      router.push("/dashboard");
-
+  const onSubmit = async (data: LoginFormValues) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password);
       toast.success("Login successful!");
+      router.push("/");
     } catch (err: any) {
-      const message = err?.data?.message || "Login failed";
-      dispatch(authFailure(message));
+      const message = err?.message || "Login failed";
       toast.error(message);
     }
   };
@@ -98,12 +101,21 @@ export function LoginForm() {
           </div>
         </div>
 
+        <button
+          onClick={onGoogleLogin}
+          type="button"
+          className="w-full flex items-center justify-center gap-3 py-4 bg-background border border-border rounded-xl font-bold text-sm hover:bg-muted transition-all shadow-sm"
+        >
+          <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" />
+          Continue with Google
+        </button>
+
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t border-border"></span>
           </div>
           <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground font-bold">Or continue with</span>
+            <span className="bg-background px-2 text-muted-foreground font-bold">Or continue with email</span>
           </div>
         </div>
 

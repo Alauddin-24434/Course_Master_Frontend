@@ -30,15 +30,15 @@ export default function ContactPage() {
           {/* Header Section (UNCHANGED) */}
           <div className="text-center max-w-3xl mx-auto space-y-6">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-xs font-black uppercase tracking-[0.2em] mb-4 border border-primary/20">
-              <Sparkles className="w-3.5 h-3.5" /> Get in Touch
+              <Sparkles className="w-3.5 h-3.5" /> {t("contact.badge")}
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-              {t("nav.contact") || "Contact Our Team"}
+              {t("contact.title") || "Contact Our Team"}
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">
-              Have questions about our courses or need assistance? We're here to help you navigate your learning journey.
+              {t("contact.subtitle")}
             </p>
           </div>
 
@@ -59,7 +59,7 @@ export default function ContactPage() {
                 />
 
                 <Marker position={position}>
-                  <Popup>📍 Barishal Location</Popup>
+                  <Popup>📍 {t("contact.location")}</Popup>
                 </Marker>
               </MapContainer>
 
@@ -78,17 +78,17 @@ export default function ContactPage() {
                   </h2>
 
                   <p className="text-muted-foreground text-sm font-medium">
-                    Fill out the form below and we'll get back to you within 24 hours.
+                    {t("contact.sla_desc")}
                   </p>
                 </div>
 
                 <form className="space-y-6">
-                  <input className="w-full h-14 px-6 border rounded-2xl" placeholder="Full Name" />
-                  <input className="w-full h-14 px-6 border rounded-2xl" placeholder="Email" />
-                  <textarea className="w-full px-6 py-4 border rounded-2xl" rows={5} placeholder="Message" />
+                  <input className="w-full h-14 px-6 border rounded-2xl" placeholder={t("extra.full_name")} />
+                  <input className="w-full h-14 px-6 border rounded-2xl" placeholder={t("extra.email_address")} />
+                  <textarea className="w-full px-6 py-4 border rounded-2xl" rows={5} placeholder={t("extra.your_message")} />
 
                   <button className="w-full h-16 bg-primary text-white rounded-2xl flex items-center justify-center gap-3">
-                    <Send className="w-4 h-4" /> Send Message
+                    <Send className="w-4 h-4" /> {t("extra.submit")}
                   </button>
                 </form>
 

@@ -3,6 +3,7 @@
 
 import { FeaturedCourses } from "@/components/FeaturedCourses";
 import { HeroAnimated } from "@/components/hero";
+import { StatsSection } from "@/components/StatsSection";
 
 import { Testimonials } from "@/components/Testimonials";
 import { ContactSection } from "@/components/ContactSection";
@@ -15,6 +16,7 @@ export default function Home() {
     <main className="bg-background overflow-x-hidden">
 
       <HeroAnimated />
+      <StatsSection />
       <FeaturedCourses />
 
       <InstructorCTA />

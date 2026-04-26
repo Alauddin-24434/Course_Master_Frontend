@@ -6,10 +6,11 @@ import { useForm } from "react-hook-form";
 import { useCreateCourseMutation } from "@/redux/features/course/courseAPi";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoriesApi";
 import { ICourse } from "@/interfaces/course.interface";
+import toast from "react-hot-toast";
 
 type FormValues = {
   title: string;
-  description?: string;
+  description: string;
   thumbnailFile?: File;
   previewVideo: string;
   price: number;
@@ -65,12 +66,12 @@ export default function CourseCreateForm({
 
   const onSubmit = async (data: FormValues) => {
     if (!data.thumbnailFile) {
-      alert("Thumbnail is required!");
+      toast.error("Thumbnail is required!");
       return;
     }
 
     if (!data.categoryId) {
-      alert("Category is required!");
+      toast.error("Category is required!");
       return;
     }
 
@@ -95,7 +96,7 @@ export default function CourseCreateForm({
       thumbnailUrl = json.secure_url;
 
       if (!thumbnailUrl) {
-        alert("Thumbnail upload failed!");
+        toast.error("Thumbnail upload failed!");
         return;
       }
 
@@ -119,6 +120,8 @@ export default function CourseCreateForm({
       reset();
       setThumbPreview(null);
 
+      toast.success("✅ Course created successfully!");
+      
       const createdCourseId =
         (created as any)?.id ??
         (created as any)?._id ??
@@ -128,11 +131,9 @@ export default function CourseCreateForm({
       if (onCreated && createdCourseId) {
         onCreated(createdCourseId);
       }
-
-      alert("✅ Course created successfully!");
     } catch (err) {
       console.error("❌ Create course error:", err);
-      alert("Failed to create course.");
+      toast.error("Failed to create course.");
     } finally {
       setLoading(false);
     }
@@ -157,7 +158,7 @@ export default function CourseCreateForm({
             <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Description</label>
                 <textarea
-                {...register("description")}
+                {...register("description", { required: true })}
                 placeholder="Describe what students will learn..."
                 rows={4}
                 className="w-full px-6 py-4 bg-secondary/30 border border-transparent rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold placeholder:opacity-50 resize-none"
