@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import { useCreateCourseMutation } from "@/redux/features/course/courseAPi";
+import { useCreateCourseMutation, useUpdateCourseMutation } from "@/redux/features/course/courseAPi";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoriesApi";
 import { ICourse } from "@/interfaces/course.interface";
 import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 type FormValues = {
   title: string;
@@ -31,26 +32,44 @@ const convertToEmbedUrl = (url: string) => {
 
 export default function CourseCreateForm({
   onCreated,
+  initialData,
 }: {
   onCreated?: (courseId: string) => void;
+  initialData?: any;
 }) {
+  const isEditMode = !!initialData;
   const { register, handleSubmit, reset, setValue, watch } =
     useForm<FormValues>({
       defaultValues: {
-        title: "",
-        description: "",
-        previewVideo: "",
-        price: 0,
-        categoryId: "",
+        title: initialData?.title || "",
+        description: initialData?.description || "",
+        previewVideo: initialData?.previewVideo || "",
+        price: initialData?.price || 0,
+        categoryId: initialData?.categoryId || "",
       },
     });
 
   const [createCourse] = useCreateCourseMutation();
+  const [updateCourse] = useUpdateCourseMutation();
   const { data: categories, isLoading: catLoading, isError } =
     useGetCategoriesQuery();
 
-  const [thumbPreview, setThumbPreview] = useState<string | null>(null);
+  const [thumbPreview, setThumbPreview] = useState<string | null>(initialData?.thumbnail || null);
   const [loading, setLoading] = useState(false);
+
+  // Pre-fill form if initialData changes
+  useEffect(() => {
+    if (initialData) {
+      reset({
+        title: initialData.title,
+        description: initialData.description,
+        previewVideo: initialData.previewVideo,
+        price: initialData.price,
+        categoryId: initialData.categoryId,
+      });
+      setThumbPreview(initialData.thumbnail);
+    }
+  }, [initialData, reset]);
 
   // Thumbnail handler
   const handleThumbChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,8 +84,8 @@ export default function CourseCreateForm({
   };
 
   const onSubmit = async (data: FormValues) => {
-    if (!data.thumbnailFile) {
-      toast.error("Thumbnail is required!");
+    if (!isEditMode && !data.thumbnailFile) {
+      toast.error("Thumbnail is required for new courses!");
       return;
     }
 
@@ -78,26 +97,29 @@ export default function CourseCreateForm({
     try {
       setLoading(true);
 
-      // Upload to Cloudinary
-      let thumbnailUrl = "";
-      const fd = new FormData();
-      fd.append("file", data.thumbnailFile);
-      fd.append("upload_preset", "course_thumbnails");
+      let thumbnailUrl = initialData?.thumbnail || "";
+      
+      // Upload to Cloudinary only if a new file is selected
+      if (data.thumbnailFile) {
+        const fd = new FormData();
+        fd.append("file", data.thumbnailFile);
+        fd.append("upload_preset", "course_thumbnails");
 
-      const res = await fetch(
-        "https://api.cloudinary.com/v1_1/dyfamn6rm/image/upload",
-        {
-          method: "POST",
-          body: fd,
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dyfamn6rm/image/upload",
+          {
+            method: "POST",
+            body: fd,
+          }
+        );
+
+        const json = await res.json();
+        thumbnailUrl = json.secure_url;
+
+        if (!thumbnailUrl) {
+          toast.error("Thumbnail upload failed!");
+          return;
         }
-      );
-
-      const json = await res.json();
-      thumbnailUrl = json.secure_url;
-
-      if (!thumbnailUrl) {
-        toast.error("Thumbnail upload failed!");
-        return;
       }
 
       // Convert video URL
@@ -113,27 +135,34 @@ export default function CourseCreateForm({
         categoryId: data.categoryId,
       };
 
-      console.log("🚀 FINAL PAYLOAD:", payload);
+      if (isEditMode) {
+        await updateCourse({ id: initialData.id, data: payload }).unwrap();
+        toast.success("✅ Course updated successfully!");
+      } else {
+        const created = await createCourse(payload).unwrap();
+        toast.success("✅ Course created successfully!");
+        
+        const createdCourseId =
+          (created as any)?.id ??
+          (created as any)?._id ??
+          (created as any)?.data?.id ??
+          (created as any)?.data?._id;
 
-      const created = await createCourse(payload).unwrap();
-
-      reset();
-      setThumbPreview(null);
-
-      toast.success("✅ Course created successfully!");
-      
-      const createdCourseId =
-        (created as any)?.id ??
-        (created as any)?._id ??
-        (created as any)?.data?.id ??
-        (created as any)?.data?._id;
-
-      if (onCreated && createdCourseId) {
-        onCreated(createdCourseId);
+        if (onCreated && createdCourseId) {
+          onCreated(createdCourseId);
+        }
       }
+
+      if (!isEditMode) {
+        reset();
+        setThumbPreview(null);
+      } else if (onCreated) {
+        onCreated(initialData.id);
+      }
+      
     } catch (err) {
-      console.error("❌ Create course error:", err);
-      toast.error("Failed to create course.");
+      console.error("❌ Form submission error:", err);
+      toast.error(isEditMode ? "Failed to update course." : "Failed to create course.");
     } finally {
       setLoading(false);
     }
@@ -243,7 +272,7 @@ export default function CourseCreateForm({
           disabled={loading}
           className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-sm flex items-center justify-center gap-3 shadow-xl shadow-primary/20 hover:scale-[1.01] active:scale-95 disabled:opacity-50 transition-all mt-8"
         >
-          {loading ? "Creating Course..." : "Create Course"}
+          {loading ? (isEditMode ? "Updating..." : "Creating...") : (isEditMode ? "Update Course" : "Create Course")}
         </button>
       </form>
     </div>

@@ -59,7 +59,7 @@ export function AdminDashboard() {
           </div>
           
           <div className="relative z-10">
-            <AdminCoursesTable />
+            <AdminCoursesTable showAll={true} />
           </div>
         </div>
 

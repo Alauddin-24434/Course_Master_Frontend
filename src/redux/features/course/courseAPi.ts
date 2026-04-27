@@ -17,15 +17,17 @@ export const courseApi = baseApi.injectEndpoints({
 
    getAllCourses: build.query<
   ICoursesResponse,
-  { page?: number; limit?: number; search?: string; category?: string; sort?: string } | void
+  { page?: number; limit?: number; search?: string; category?: string; sort?: string; instructorId?: string; showAll?: boolean } | void
 >({
-  query: ({ page, limit, search, category, sort } = {}) => {
+  query: ({ page, limit, search, category, sort, instructorId, showAll } = {}) => {
     const params = new URLSearchParams();
 
     if (page) params.append("page", page.toString());
     if (limit) params.append("limit", limit.toString());
     if (search) params.append("search", search);
     if (category) params.append("category", category);
+    if (instructorId) params.append("instructorId", instructorId);
+    if (showAll) params.append("showAll", "true");
 
     // 🔥 FIX: sort (NOT sortBy)
     if (sort) params.append("sort", sort);
@@ -88,12 +90,20 @@ export const courseApi = baseApi.injectEndpoints({
       }),
     }),
 
-    // Complete Lesson
     completeLesson: build.mutation<IApiResponse<{ message: string }>, { courseId: string; lessonId: string }>({
       query: ({ courseId, lessonId }) => ({
         url: "/courses/complete-lesson",
         method: "POST",
         body: { courseId, lessonId },
+      }),
+      invalidatesTags: ["Course"],
+    }),
+
+    // Toggle Publish Status
+    togglePublish: build.mutation<ICourseResponse, string>({
+      query: (id) => ({
+        url: `/courses/${id}/toggle-publish`,
+        method: "PATCH",
       }),
       invalidatesTags: ["Course"],
     }),
@@ -110,5 +120,6 @@ export const {
   useEnrollCourseMutation,
   useCreateCheckoutMutation,
   useGetMyCoursesQuery,
-  useCompleteLessonMutation
+  useCompleteLessonMutation,
+  useTogglePublishMutation
 } = courseApi;

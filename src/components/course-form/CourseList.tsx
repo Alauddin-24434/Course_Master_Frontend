@@ -1,9 +1,9 @@
 "use client";
 
-import { Edit2, Plus, Loader2, BookOpen, Eye, Trash2 } from "lucide-react";
+import { Edit2, Plus, Loader2, BookOpen, Eye, Trash2, CloudUpload, CloudOff, Layers } from "lucide-react";
 import Link from "next/link";
 
-export default function CourseList({ courses, isLoading, onEdit, onAddLesson, onDelete }: any) {
+export default function CourseList({ courses, isLoading, onEdit, onAddModule, onDelete, onTogglePublish }: any) {
   
   if (isLoading) {
     return (
@@ -35,7 +35,7 @@ export default function CourseList({ courses, isLoading, onEdit, onAddLesson, on
       <table className="w-full">
         <thead>
           <tr className="bg-muted/30">
-            <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Course Details</th>
+            <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Course Identity</th>
             <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Instructor</th>
             <th className="px-8 py-5 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Price</th>
             <th className="px-8 py-5 text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Enrolled</th>
@@ -47,7 +47,26 @@ export default function CourseList({ courses, isLoading, onEdit, onAddLesson, on
           {courseData.map((course: any) => (
             <tr key={course.id} className="group hover:bg-muted/20 transition-colors">
               <td className="px-8 py-6">
-                  <p className="font-bold text-foreground text-sm line-clamp-1">{course.title}</p>
+                  <div className="flex items-center gap-4">
+                    <div className="relative w-16 h-10 rounded-lg overflow-hidden border border-border/50 flex-shrink-0 bg-muted">
+                        {course.thumbnail ? (
+                            <img src={course.thumbnail} alt={course.title} className="w-full h-full object-cover" />
+                        ) : (
+                            <div className="w-full h-full flex items-center justify-center bg-secondary text-muted-foreground/30">
+                                <BookOpen className="w-4 h-4" />
+                            </div>
+                        )}
+                    </div>
+                    <div className="flex flex-col min-w-0">
+                        <p className="font-bold text-foreground text-sm line-clamp-1">{course.title}</p>
+                        <div className="flex items-center gap-2 mt-1">
+                          <span className={`inline-flex items-center gap-1 px-1.5 py-0.5 rounded-full text-[8px] font-black uppercase tracking-widest ${course.isPublished ? "bg-green-500/10 text-green-500 border border-green-500/20" : "bg-orange-500/10 text-orange-500 border border-orange-500/20"}`}>
+                            <div className={`w-1 h-1 rounded-full ${course.isPublished ? "bg-green-500 animate-pulse" : "bg-orange-500"}`} />
+                            {course.isPublished ? "Live" : "Draft"}
+                          </span>
+                        </div>
+                    </div>
+                  </div>
               </td>
 
               <td className="px-8 py-6">
@@ -65,7 +84,15 @@ export default function CourseList({ courses, isLoading, onEdit, onAddLesson, on
               </td>
 
               <td className="px-8 py-6 text-right">
-                <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="flex items-center justify-end gap-2 transition-opacity">
+                  <button 
+                    onClick={() => onTogglePublish(course.id, course.isPublished, course.title)}
+                    className={`h-9 w-9 border border-border/50 rounded-xl transition-all flex items-center justify-center shadow-sm ${course.isPublished ? "bg-orange-500/10 text-orange-500 hover:bg-orange-500 hover:text-white border-orange-500/20" : "bg-green-500/10 text-green-500 hover:bg-green-500 hover:text-white border-green-500/20"}`}
+                    title={course.isPublished ? "Unpublish Course" : "Publish Course"}
+                  >
+                    {course.isPublished ? <CloudOff className="w-3.5 h-3.5" /> : <CloudUpload className="w-3.5 h-3.5" />}
+                  </button>
+
                   <Link
                     href={`/courses/${course.id}`}
                     className="h-9 w-9 bg-background border border-border/50 rounded-xl text-muted-foreground hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center justify-center shadow-sm"
@@ -83,11 +110,11 @@ export default function CourseList({ courses, isLoading, onEdit, onAddLesson, on
                   </button>
                 
                   <button
-                    onClick={() => onAddLesson(course)}
+                    onClick={() => onAddModule(course)}
                     className="h-9 w-9 bg-background border border-border/50 rounded-xl text-muted-foreground hover:bg-emerald-500 hover:text-white hover:border-emerald-500 transition-all flex items-center justify-center shadow-sm"
-                    title="Add Lesson"
+                    title="Add Module"
                   >
-                    <Plus className="w-3.5 h-3.5" />
+                    <Layers className="w-3.5 h-3.5" />
                   </button>
 
                   <button

@@ -1,5 +1,6 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { 
   useGetAllModulesQuery, 
@@ -9,10 +10,16 @@ import {
 } from "@/redux/features/module/courseModuleApi";
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
 import { Loader2, Plus, Edit, Trash2, X, Layers } from "lucide-react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export default function ModulesPage() {
+  const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data: modulesData, isLoading: queriesLoading } = useGetAllModulesQuery();
-  const { data: coursesData } = useGetAllCoursesQuery({ limit: 100 });
+  const { data: coursesData } = useGetAllCoursesQuery(
+    { instructorId: user?.id, limit: 100 },
+    { skip: !user?.id }
+  );
   const modules = modulesData?.data || [];
   const courses = coursesData?.data?.courses || [];
 
@@ -24,6 +31,18 @@ export default function ModulesPage() {
   const [editingModule, setEditingModule] = useState<any>(null);
   const [formData, setFormData] = useState({ title: "", courseId: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const searchParams = useSearchParams();
+
+  // Handle auto-modal from query params
+  useEffect(() => {
+    const courseId = searchParams.get("courseId");
+    const openModalParam = searchParams.get("openModal");
+    
+    if (openModalParam === "true" && courseId) {
+      setFormData({ title: "", courseId: courseId });
+      setIsModalOpen(true);
+    }
+  }, [searchParams]);
 
   const openModal = (mod?: any) => {
     if (mod) {
@@ -139,7 +158,7 @@ export default function ModulesPage() {
                          </div>
                       </td>
                       <td className="px-8 py-6 text-right">
-                         <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                         <div className="flex items-center justify-end gap-3 transition-opacity">
                             <button
                                 onClick={() => openModal(mod)}
                                 className="h-9 px-4 bg-background border border-border/50 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center gap-2 shadow-sm"

@@ -55,7 +55,7 @@ export function LoginForm() {
         role: "student", // Default role
       }).unwrap();
 
-      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+      dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
 
       toast.success("Logged in with Google!");
       router.push("/");
@@ -68,7 +68,7 @@ export function LoginForm() {
     try {
       const response = await login(data).unwrap();
       
-      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+      dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
 
       toast.success("Login successful!");
       router.push("/");

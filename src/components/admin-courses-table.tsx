@@ -1,12 +1,25 @@
 "use client"
 
 import { useMemo } from "react"
-import { Eye, Edit, Trash2 } from "lucide-react"
-import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
+import { Eye, Edit, Trash2, Send, PowerOff } from "lucide-react"
+import { useGetAllCoursesQuery, useTogglePublishMutation } from "@/redux/features/course/courseAPi";
 import { TableSkeleton } from "./dashboard/skeletons";
+import { toast } from "react-hot-toast";
 
-export function AdminCoursesTable() {
-  const { data, isLoading } = useGetAllCoursesQuery({ limit: 5 });
+interface AdminCoursesTableProps {
+  instructorId?: string;
+  limit?: number;
+  showAll?: boolean;
+}
+
+export function AdminCoursesTable({ instructorId, limit = 5, showAll }: AdminCoursesTableProps) {
+  const { data, isLoading } = useGetAllCoursesQuery(
+    { limit, instructorId, showAll },
+    { skip: !instructorId && !showAll }
+  );
+  
+  const [togglePublish, { isLoading: isToggling }] = useTogglePublishMutation();
+
   const fetchedCourses = useMemo(() => data?.data?.courses || [], [data]);
 
   const courses = useMemo(() => fetchedCourses.map((c: any) => ({
@@ -16,10 +29,31 @@ export function AdminCoursesTable() {
     students: c._count?.enrolledUsers || 0,
     revenue: `$${(c.price * (c._count?.enrolledUsers || 0)).toLocaleString()}`,
     status: c.isPublished ? "published" : "draft",
+    isPublished: c.isPublished
   })), [fetchedCourses]);
 
+  const handleTogglePublish = async (id: string, currentStatus: boolean, title: string) => {
+    const action = currentStatus ? "Unpublish" : "Publish";
+    const confirmed = window.confirm(`Are you sure you want to ${action.toLowerCase()} "${title}"?`);
+    
+    if (!confirmed) return;
+
+    try {
+      await toast.promise(
+        togglePublish(id).unwrap(),
+        {
+          loading: `${action}ing course...`,
+          success: `Course ${action.toLowerCase()}ed successfully!`,
+          error: (err) => err?.data?.message || `Failed to ${action.toLowerCase()} course`,
+        }
+      );
+    } catch (err) {
+      // Error handled by toast.promise
+    }
+  };
+
   if (isLoading) {
-    return <TableSkeleton rows={5} />;
+    return <TableSkeleton rows={limit} />;
   }
 
   return (
@@ -28,38 +62,44 @@ export function AdminCoursesTable() {
         <table className="w-full text-sm">
           <thead className="bg-muted border-b border-border">
             <tr>
-              <th className="px-4 py-3 text-left font-semibold">Course</th>
-              <th className="px-4 py-3 text-left font-semibold">Instructor</th>
-              <th className="px-4 py-3 text-center font-semibold">Students</th>
-              <th className="px-4 py-3 text-right font-semibold">Revenue</th>
-              <th className="px-4 py-3 text-center font-semibold">Status</th>
-              <th className="px-4 py-3 text-center font-semibold">Actions</th>
+              <th className="px-4 py-3 text-left font-semibold uppercase text-[10px] tracking-widest">Course</th>
+              {!instructorId && <th className="px-4 py-3 text-left font-semibold uppercase text-[10px] tracking-widest">Instructor</th>}
+              <th className="px-4 py-3 text-center font-semibold uppercase text-[10px] tracking-widest">Students</th>
+              <th className="px-4 py-3 text-right font-semibold uppercase text-[10px] tracking-widest">Revenue</th>
+              <th className="px-4 py-3 text-center font-semibold uppercase text-[10px] tracking-widest">Status</th>
+              <th className="px-4 py-3 text-center font-semibold uppercase text-[10px] tracking-widest">Actions</th>
             </tr>
           </thead>
           <tbody>
             {courses.length > 0 ? courses.map((course, idx) => (
               <tr
                 key={course.id}
-                className={`border-b border-border last:border-0 ${idx % 2 === 0 ? "bg-transparent" : "bg-muted/30"}`}
+                className={`border-b border-border last:border-0 hover:bg-primary/5 transition-colors ${idx % 2 === 0 ? "bg-transparent" : "bg-muted/30"}`}
               >
-                <td className="px-4 py-3 font-medium">{course.title}</td>
-                <td className="px-4 py-3 text-muted-foreground">{course.instructor}</td>
-                <td className="px-4 py-3 text-center">{course.students}</td>
-                <td className="px-4 py-3 text-right font-semibold">{course.revenue}</td>
-                <td className="px-4 py-3 text-center">
-                  <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${course.status === "published" ? "bg-green-500/10 text-green-500 border border-green-500/20" : "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"}`}>
-                    {course.status === "published" ? "Published" : "Draft"}
+                <td className="px-4 py-4 font-bold">{course.title}</td>
+                {!instructorId && <td className="px-4 py-4 text-muted-foreground font-medium">{course.instructor}</td>}
+                <td className="px-4 py-4 text-center font-medium">{course.students}</td>
+                <td className="px-4 py-4 text-right font-black text-primary">{course.revenue}</td>
+                <td className="px-4 py-4 text-center">
+                  <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${course.isPublished ? "bg-green-500/10 text-green-500 border border-green-500/20" : "bg-orange-500/10 text-orange-500 border border-orange-500/20"}`}>
+                    <div className={`w-1.5 h-1.5 rounded-full ${course.isPublished ? "bg-green-500 animate-pulse" : "bg-orange-500"}`} />
+                    {course.isPublished ? "Published" : "Draft"}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-center">
+                <td className="px-4 py-4 text-center">
                   <div className="flex items-center justify-center gap-2">
-                    <button className="p-1.5 hover:bg-primary/10 hover:text-primary rounded-lg transition" title="View">
-                      <Eye className="w-4 h-4" />
+                    <button 
+                      onClick={() => handleTogglePublish(course.id, course.isPublished, course.title)}
+                      disabled={isToggling}
+                      className={`p-2 rounded-xl border transition-all ${course.isPublished ? "hover:bg-orange-500 hover:text-white border-orange-500/20 text-orange-500" : "hover:bg-green-500 hover:text-white border-green-500/20 text-green-500"}`} 
+                      title={course.isPublished ? "Unpublish" : "Publish"}
+                    >
+                      {course.isPublished ? <PowerOff className="w-4 h-4" /> : <Send className="w-4 h-4" />}
                     </button>
-                    <button className="p-1.5 hover:bg-primary/10 hover:text-primary rounded-lg transition" title="Edit">
+                    <button className="p-2 bg-card hover:bg-primary/10 hover:text-primary border border-border rounded-xl transition shadow-sm" title="Edit">
                       <Edit className="w-4 h-4" />
                     </button>
-                    <button className="p-1.5 hover:bg-destructive/10 hover:text-destructive rounded-lg transition" title="Delete">
+                    <button className="p-2 bg-card hover:bg-destructive/10 hover:text-destructive border border-border rounded-xl transition shadow-sm" title="Delete">
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
@@ -67,8 +107,8 @@ export function AdminCoursesTable() {
               </tr>
             )) : (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-muted-foreground">
-                  No courses found.
+                <td colSpan={instructorId ? 5 : 6} className="px-4 py-12 text-center text-muted-foreground italic font-medium">
+                  No courses found in your library.
                 </td>
               </tr>
             )}

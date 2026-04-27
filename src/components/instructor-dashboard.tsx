@@ -8,9 +8,12 @@ import { DashboardStatCard } from "./dashboard/stat-card";
 import { StatCardSkeleton, TableSkeleton } from "./dashboard/skeletons";
 import Link from "next/link";
 import { useMemo } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
 
 export function InstructorDashboard() {
   const { t } = useTranslation();
+  const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data, isLoading } = useGetDashboardAnalyticsQuery();
   const statistics = useMemo(() => data?.data?.statistics || {}, [data]);
 
@@ -110,7 +113,7 @@ export function InstructorDashboard() {
         </div>
 
         <div className="relative z-10">
-          <AdminCoursesTable />
+          <AdminCoursesTable instructorId={user?.id} />
         </div>
       </div>
 

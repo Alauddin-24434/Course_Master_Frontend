@@ -47,25 +47,22 @@ const baseQueryWithReauth: typeof baseQuery = async (
         // console.log('🔁 Attempting token refresh...');
 
         const refreshResult = await baseQuery(
-          { url: "/users/refresh-token", method: "POST" },
+          { url: "/auth/refresh-token", method: "GET" },
           api,
           extraOptions
         );
 
-        // console.log('🔁 Refresh Response:', refreshResult);
+        const resultData = refreshResult.data as any;
 
-        const resultData = refreshResult.data as IRefreshResponse;
-
-        if (resultData?.data) {
+        if (resultData?.success) {
           const newToken = resultData.data.accessToken;
-          const user = resultData.data.user;
+          
+          // Get the current user from state instead of relying on refresh response
+          const currentUser = (api.getState() as any).cmAuth.user;
 
-          // console.log('✅ Token refreshed. Retrying original request...');
-
-          api.dispatch(setUser({ user, token: newToken }));
+          api.dispatch(setUser({ user: currentUser, token: newToken }));
           result = await baseQuery(args, api, extraOptions);
         } else {
-          // console.error('❌ Refresh token failed. Logging out...');
           api.dispatch(logout());
         }
       } finally {

@@ -2,16 +2,26 @@
 
 import React, { useState } from "react";
 import CourseCreateForm from "@/components/course-form/CourseCreateForm";
-import { useGetAllCoursesQuery, useDeleteCourseMutation } from "@/redux/features/course/courseAPi";
+import { useGetAllCoursesQuery, useDeleteCourseMutation, useTogglePublishMutation } from "@/redux/features/course/courseAPi";
 import CourseList from "@/components/course-form/CourseList";
 import { ICourse } from "@/interfaces/course.interface";
 import { Plus, BookOpen, Layers } from "lucide-react";
 import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
+import { RootState } from "@/redux/store";
+import { useRouter } from "next/navigation";
 
 export default function ManageCourses() {
-  const { data: courses, refetch, isLoading } = useGetAllCoursesQuery();
+  const { user } = useSelector((state: RootState) => state.cmAuth);
+  const router = useRouter();
+  const { data: courses, refetch, isLoading } = useGetAllCoursesQuery(
+    { instructorId: user?.id },
+    { skip: !user?.id }
+  );
   const [deleteCourse] = useDeleteCourseMutation();
+  const [togglePublish] = useTogglePublishMutation();
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [courseToEdit, setCourseToEdit] = useState<ICourse | null>(null);
 
   const handleDelete = async (id: string) => {
     if (window.confirm("Are you sure you want to delete this course?")) {
@@ -23,6 +33,37 @@ export default function ManageCourses() {
         toast.error("Failed to delete course.");
       }
     }
+  };
+
+  const handleTogglePublish = async (id: string, currentStatus: boolean, title: string) => {
+    const action = currentStatus ? "Unpublish" : "Publish";
+    const confirmed = window.confirm(`Are you sure you want to ${action.toLowerCase()} "${title}"?`);
+    
+    if (!confirmed) return;
+
+    try {
+      await toast.promise(
+        togglePublish(id).unwrap(),
+        {
+          loading: `${action}ing course...`,
+          success: `Course ${action.toLowerCase()}ed successfully!`,
+          error: (err) => err?.data?.message || `Failed to ${action.toLowerCase()} course`,
+        }
+      );
+      refetch();
+    } catch (err) {
+      // Error handled by toast.promise
+    }
+  };
+
+  const handleEdit = (course: any) => {
+    setCourseToEdit(course);
+    setShowCreateModal(true);
+  };
+
+  const handleAddModule = (course: any) => {
+    // Navigate to modules page with course info
+    router.push(`/dashboard/instructor/modules?courseId=${course.id}&courseTitle=${encodeURIComponent(course.title)}&openModal=true`);
   };
 
   return (
@@ -55,13 +96,10 @@ export default function ManageCourses() {
         <CourseList
           courses={courses}
           isLoading={isLoading}
-          onEdit={(course: ICourse) => {
-            console.log("Edit course:", course);
-          }}
+          onEdit={handleEdit}
           onDelete={(id: string) => handleDelete(id)}
-          onAddLesson={(course: ICourse) => {
-            console.log("Add Lesson:", course);
-          }}
+          onTogglePublish={handleTogglePublish}
+          onAddModule={handleAddModule}
         />
       </div>
 
@@ -73,11 +111,18 @@ export default function ManageCourses() {
             {/* Modal Header */}
             <div className="flex justify-between items-center mb-8 border-b border-border/50 pb-4">
               <div>
-                <h3 className="text-2xl font-black italic tracking-tight">Draft New Course</h3>
-                <p className="text-sm font-medium text-muted-foreground">Fill in the details to lay out your curriculum.</p>
+                <h3 className="text-2xl font-black italic tracking-tight">
+                  {courseToEdit ? "Edit Course" : "Draft New Course"}
+                </h3>
+                <p className="text-sm font-medium text-muted-foreground">
+                  {courseToEdit ? "Update your curriculum details." : "Fill in the details to lay out your curriculum."}
+                </p>
               </div>
               <button
-                onClick={() => setShowCreateModal(false)}
+                onClick={() => {
+                  setShowCreateModal(false);
+                  setCourseToEdit(null);
+                }}
                 className="h-10 px-4 bg-secondary text-foreground rounded-xl text-xs font-black uppercase tracking-widest hover:bg-muted transition-colors"
               >
                 Close
@@ -86,8 +131,10 @@ export default function ManageCourses() {
 
             {/* Form */}
             <CourseCreateForm
+              initialData={courseToEdit}
               onCreated={() => {
                 setShowCreateModal(false);
+                setCourseToEdit(null);
                 refetch();
               }}
             />

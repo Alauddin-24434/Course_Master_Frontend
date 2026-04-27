@@ -69,7 +69,7 @@ export function SignupForm() {
         role: "student", // Default role for social signup
       }).unwrap();
 
-      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+      dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
       
       toast.success("Logged in with Google!");
       router.push("/");
@@ -82,7 +82,7 @@ export function SignupForm() {
     try {
       const response = await signUp(data).unwrap();
       
-      dispatch(setUser({ user: response.data.user, token: response.data.token }));
+      dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
 
       toast.success("Account created successfully!");
       router.push("/");
