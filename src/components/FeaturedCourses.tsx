@@ -3,10 +3,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
-import { Star, Users } from "lucide-react";
+import { Star } from "lucide-react";
 
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
 import { useGetCategoriesQuery } from "@/redux/features/category/categoriesApi";
+import { CourseCard } from "./shared/CourseCard";
 
 export function FeaturedCourses() {
   const { t } = useTranslation();
@@ -112,46 +113,7 @@ export function FeaturedCourses() {
                 </div>
               ))
             : courses.map((course) => (
-                <Link
-                  key={course.id}
-                  href={`/courses/${course.id}`}
-                  className="group flex flex-col bg-card rounded-2xl overflow-hidden border border-primary/10 hover:shadow-xl transition-all hover:-translate-y-2"
-                >
-                  {/* IMAGE */}
-                  <div className="relative aspect-[4/3] overflow-hidden">
-                    <img
-                      src={course.thumbnail || "/placeholder.svg"}
-                      alt={course.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition"
-                    />
-
-                    <div className="absolute top-4 left-4 px-3 py-1 bg-white/90 rounded text-xs font-black text-primary">
-                      {course.category?.name || "General"}
-                    </div>
-                  </div>
-
-                  {/* CONTENT */}
-                  <div className="p-6 flex flex-col flex-grow">
-                    <h3 className="font-black text-lg line-clamp-2 group-hover:text-primary">
-                      {course.title}
-                    </h3>
-
-                    <p className="text-sm text-muted-foreground mt-2">
-                      {course.instructor?.name || "Instructor"}
-                    </p>
-
-                    <div className="mt-auto pt-4 flex justify-between items-center">
-                      <span className="font-black text-lg">
-                        ${course.price}
-                      </span>
-
-                      <div className="flex items-center gap-1 text-xs">
-                        <Users className="w-4 h-4" />
-                        {course._count?.enrolledUsers || 0}
-                      </div>
-                    </div>
-                  </div>
-                </Link>
+                <CourseCard key={course.id} course={course} />
               ))}
         </div>
 

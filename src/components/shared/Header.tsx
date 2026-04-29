@@ -122,7 +122,7 @@ export function Header() {
           <div className="flex items-center justify-end gap-3">
             <button
               onClick={() => setIsAiSearchOpen(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-indigo-600/10 text-indigo-600 rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-indigo-600 hover:text-white transition-all border border-indigo-600/20"
+              className="flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-xl font-bold text-[10px] uppercase tracking-widest hover:bg-primary hover:text-primary-foreground transition-all border border-primary/20"
             >
               <Sparkles size={14} className="animate-pulse" />
               AI Search
@@ -162,20 +162,7 @@ export function Header() {
                       >
                         Dashboard
                       </Link>
-                      <Link
-                        href="/dashboard/instructor/manage-courses"
-                        onClick={() => setIsUserDropdownOpen(false)}
-                        className="flex items-center gap-2 w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all"
-                      >
-                        Manage Courses
-                      </Link>
-                      <Link
-                        href="/dashboard/settings"
-                        onClick={() => setIsUserDropdownOpen(false)}
-                        className="flex items-center gap-2 w-full px-4 py-3 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary/5 hover:text-primary rounded-xl transition-all"
-                      >
-                        Profile Settings
-                      </Link>
+                    
                     </div>
 
                     <div className="h-px bg-border/50 my-2 mx-2" />
@@ -230,6 +217,17 @@ export function Header() {
           <MobileNavLink href="/about" label={t("nav.about")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/contact" label={t("nav.contact")} onClick={() => setIsMenuOpen(false)} />
           <MobileNavLink href="/how-it-works" label={t("nav.platform_guide") || "Platform Guide"} onClick={() => setIsMenuOpen(false)} />
+
+          <button
+            onClick={() => {
+              setIsAiSearchOpen(true);
+              setIsMenuOpen(false);
+            }}
+            className="flex items-center justify-center gap-3 w-full p-4 mt-2 bg-primary/10 text-primary border border-primary/20 rounded-2xl font-black text-xs uppercase tracking-widest animate-in fade-in slide-in-from-right-4 duration-300"
+          >
+            <Sparkles size={18} className="animate-pulse" />
+            AI Search Assistant
+          </button>
 
           <div className="flex items-center gap-3 p-2 mt-2 bg-secondary/50 rounded-2xl border border-border/50">
             <div className="flex-1">
