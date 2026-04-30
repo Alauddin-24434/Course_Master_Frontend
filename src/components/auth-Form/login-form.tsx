@@ -16,6 +16,7 @@ import { auth, googleProvider } from "@/lib/firebase";
 import { useLoginMutation, useSyncFirebaseMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/gtag";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@/components/ui/input-group";
 
 // Zod schema
@@ -57,6 +58,7 @@ export function LoginForm() {
 
       dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
 
+      trackEvent('login', { method: 'Google' });
       toast.success("Logged in with Google!");
       router.push("/");
     } catch (error: any) {
@@ -70,6 +72,7 @@ export function LoginForm() {
       
       dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
 
+      trackEvent('login', { method: 'Email' });
       toast.success("Login successful!");
       router.push("/");
     } catch (err: any) {

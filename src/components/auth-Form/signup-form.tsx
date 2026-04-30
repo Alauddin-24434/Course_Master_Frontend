@@ -17,6 +17,7 @@ import { auth, googleProvider } from "@/lib/firebase";
 import { useSignUpMutation, useSyncFirebaseMutation } from "@/redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import { Button } from "@/components/ui/button";
+import { trackEvent } from "@/lib/gtag";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput, InputGroupText } from "@/components/ui/input-group";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
@@ -77,6 +78,7 @@ export function SignupForm() {
 
       dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
       
+      trackEvent('sign_up', { method: 'Google' });
       toast.success("Logged in with Google!");
       router.push("/");
     } catch (error: any) {
@@ -90,6 +92,7 @@ export function SignupForm() {
       
       dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
 
+      trackEvent('sign_up', { method: 'Email', role: data.role });
       toast.success("Account created successfully!");
       router.push("/");
     } catch (err: any) {
@@ -110,7 +113,10 @@ export function SignupForm() {
           <div className="grid grid-cols-2 gap-3">
             <button
               type="button"
-              onClick={() => setValue("role", "student")}
+              onClick={() => {
+                setValue("role", "student");
+                trackEvent('select_role', { role: 'student' });
+              }}
               className={cn(
                 "flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-2xl border-2 transition-all duration-300",
                 role === "student" 
@@ -123,7 +129,10 @@ export function SignupForm() {
             </button>
             <button
               type="button"
-              onClick={() => setValue("role", "instructor")}
+              onClick={() => {
+                setValue("role", "instructor");
+                trackEvent('select_role', { role: 'instructor' });
+              }}
               className={cn(
                 "flex flex-col items-center justify-center gap-2 py-4 px-2 rounded-2xl border-2 transition-all duration-300",
                 role === "instructor" 

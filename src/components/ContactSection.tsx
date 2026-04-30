@@ -17,6 +17,7 @@ import {
   CheckCircle2,
   MapPin,
 } from "lucide-react"
+import { trackEvent } from "@/lib/gtag"
 
 // --- Validation Schema ---
 // --- Validation Schema is now dynamic inside the component to support i18n ---
@@ -70,8 +71,11 @@ export function ContactSection() {
     return () => observer.disconnect()
   }, [])
 
-  const onSubmit = async (data: ContactFormValues) => {
+    const onSubmit = async (data: ContactFormValues) => {
     try {
+      // Track the contact form submission
+      trackEvent('contact_form_submit', { subject: data.subject });
+
       // Simulate API call delay
       await new Promise((resolve) => setTimeout(resolve, 1500))
       console.log("Contact Form Submitted:", data)

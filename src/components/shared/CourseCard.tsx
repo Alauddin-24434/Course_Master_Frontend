@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { Users, ArrowRight, BookOpen } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 interface CourseCardProps {
   course: any;
@@ -11,6 +12,7 @@ export function CourseCard({ course }: CourseCardProps) {
   return (
     <Link
       href={`/courses/${course.id}`}
+      onClick={() => trackEvent('course_card_click', { course_id: course.id, course_title: course.title })}
       className="group relative flex flex-col h-full bg-card rounded-[2.5rem] overflow-hidden border border-border/50 hover:border-primary/50 transition-all duration-700 hover:-translate-y-3 hover:shadow-[0_40px_80px_-20px_rgba(var(--primary),0.15)]"
     >
       {/* --- THUMBNAIL AREA --- */}

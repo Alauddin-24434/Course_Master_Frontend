@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
 import { ArrowRight, Sparkles, Users, TrendingUp } from "lucide-react"
+import { trackEvent } from "@/lib/gtag"
 
 export function HeroAnimated() {
   const { t } = useTranslation()
@@ -51,6 +52,7 @@ export function HeroAnimated() {
             >
               <Link
                 href="/courses"
+                onClick={() => trackEvent('hero_cta_click', { type: 'explore_courses' })}
                 className="group h-16 px-10 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-sm hover:text-white hover:shadow-[0_20px_50px_-10px_rgba(var(--primary),0.4)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
               >
                 {t("hero.cta_start")}
@@ -59,6 +61,7 @@ export function HeroAnimated() {
 
               <Link
                 href="/how-it-works"
+                onClick={() => trackEvent('hero_cta_click', { type: 'how_it_works' })}
                 className="h-16 px-10 bg-card/80 border text-foreground rounded-2xl font-black text-sm uppercase tracking-widest hover:bg-accent hover:text-primary transition-all flex items-center justify-center"
               >
                 {t("hero.cta_guide")}

@@ -13,6 +13,7 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "@/redux/features/auth/authSlice";
 import { useCreateReviewMutation } from "@/redux/features/review/reviewApi";
 import { IReview } from "@/interfaces/course.interface";
+import { trackEvent } from "@/lib/gtag";
 
 export default function EnhancedCourseDetailsPage() {
    const params = useParams();
@@ -65,6 +66,13 @@ export default function EnhancedCourseDetailsPage() {
    const isEnrolled = course?.isEnrolled;
 
    const handleEnrollment = async () => {
+      // Track the click event
+      trackEvent('enroll_button_click', {
+         category: 'Engagement',
+         label: course?.title,
+         value: course?.price
+      });
+
       try {
          const isFree = course?.price === 0;
          
@@ -103,11 +111,13 @@ export default function EnhancedCourseDetailsPage() {
 
       try {
          setIsSubmittingReview(true);
-         await createReview({
+          await createReview({
             courseId,
             rating,
             content: comment,
          }).unwrap();
+         
+         trackEvent('submit_review', { course_id: courseId, rating: rating });
          toast.success("Review submitted successfully!");
          setComment("");
          setRating(5);
@@ -495,7 +505,10 @@ export default function EnhancedCourseDetailsPage() {
 ======================= */}
 {isEnrolled ? (
 <button
-   onClick={() => router.push(`/dashboard/student/my-courses/${courseId}`)}
+   onClick={() => {
+      trackEvent('continue_course', { course_id: courseId, course_name: course?.title });
+      router.push(`/dashboard/student/my-courses/${courseId}`);
+   }}
    className="w-full h-16 rounded-[1.5rem] cursor-pointer flex items-center justify-center gap-3 font-black uppercase tracking-widest text-sm bg-secondary text-foreground hover:bg-muted border border-border transition-all"
 >
    <CheckCircle className="w-5 h-5" />

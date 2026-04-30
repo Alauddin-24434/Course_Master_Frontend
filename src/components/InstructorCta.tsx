@@ -3,6 +3,7 @@
 import { useTranslation } from "react-i18next";
 import Link from "next/link";
 import { ArrowRight, Wallet, Users, Zap, Globe } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 export function InstructorCTA() {
   const { t } = useTranslation();
@@ -36,6 +37,7 @@ export function InstructorCTA() {
               <div className="flex flex-col sm:flex-row gap-5 pt-4 justify-center lg:justify-start">
                 <Link
                   href="/signup"
+                  onClick={() => trackEvent('instructor_cta_click', { type: 'become_instructor' })}
                   className="group h-16 px-10 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-xs hover:text-white hover:shadow-[0_20px_50px_-10px_rgba(var(--primary),0.4)] hover:-translate-y-1 transition-all flex items-center justify-center gap-3"
                 >
                   {t("extra.become_instructor")}
