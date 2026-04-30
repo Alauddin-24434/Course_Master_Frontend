@@ -3,12 +3,14 @@
 import Link from "next/link";
 import { Users, ArrowRight, BookOpen } from "lucide-react";
 import { trackEvent } from "@/lib/gtag";
+import { useTranslation } from "react-i18next";
 
 interface CourseCardProps {
   course: any;
 }
 
 export function CourseCard({ course }: CourseCardProps) {
+  const { t } = useTranslation();
   return (
     <Link
       href={`/courses/${course.id}`}
@@ -28,7 +30,7 @@ export function CourseCard({ course }: CourseCardProps) {
 
         {/* Category Badge */}
         <div className="absolute top-6 left-6 z-10 px-4 py-1.5 bg-background/90 backdrop-blur-md rounded-xl text-[10px] font-black uppercase tracking-widest text-primary shadow-xl border border-primary/10">
-          {course.category?.name || "Uncategorized"}
+          {course.category?.name || t("course_card.uncategorized")}
         </div>
 
         {/* Floating Play Indicator */}
@@ -61,8 +63,8 @@ export function CourseCard({ course }: CourseCardProps) {
                 )}
               </div>
               <div className="flex flex-col">
-                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">Instructor</span>
-                <span className="text-xs font-bold text-foreground mt-1">{course.instructor?.name || "Academy Expert"}</span>
+                <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest leading-none">{t("course_card.instructor")}</span>
+                <span className="text-xs font-bold text-foreground mt-1">{course.instructor?.name || t("course_card.academy_expert")}</span>
               </div>
             </div>
 
@@ -76,7 +78,7 @@ export function CourseCard({ course }: CourseCardProps) {
         {/* --- PRICING SECTION --- */}
         <div className="mt-auto pt-6 border-t border-primary/5 flex items-center justify-between">
           <div className="space-y-0.5">
-            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 leading-none">Investment</span>
+            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 leading-none">{t("course_card.investment")}</span>
             <div className="flex items-baseline gap-1">
               <span className="text-3xl font-black text-foreground tabular-nums leading-none">
                 ${course.price || 0}
@@ -93,7 +95,7 @@ export function CourseCard({ course }: CourseCardProps) {
         {/* --- VIEW DETAILS BUTTON --- */}
         <div className="mt-6">
           <div className="w-full py-4 bg-secondary border border-border rounded-xl text-[10px] font-black uppercase tracking-widest text-center group-hover:bg-primary group-hover:text-white transition-all">
-            View Course Details
+            {t("course_card.view_details")}
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import {
   useCreateSessionMutation, 
   useUpdateSessionMutation 
 } from "@/redux/features/liveSession/liveSessionApi"
+import { useTranslation } from "react-i18next"
 import toast from "react-hot-toast"
 
 interface LiveSessionModalProps {
@@ -22,6 +23,7 @@ interface LiveSessionModalProps {
 }
 
 export function LiveSessionModal({ isOpen, onClose, session, onSuccess }: LiveSessionModalProps) {
+  const { t } = useTranslation()
   const [createSession, { isLoading: isCreating }] = useCreateSessionMutation()
   const [updateSession, { isLoading: isUpdating }] = useUpdateSessionMutation()
 
@@ -29,15 +31,15 @@ export function LiveSessionModal({ isOpen, onClose, session, onSuccess }: LiveSe
     try {
       if (session) {
         await updateSession({ id: session.id, ...data }).unwrap()
-        toast.success("Session updated successfully")
+        toast.success(t("live_sessions.modal.success_update"))
       } else {
         await createSession(data).unwrap()
-        toast.success("Session created successfully")
+        toast.success(t("live_sessions.modal.success_create"))
       }
       onSuccess?.()
       onClose()
     } catch (err: any) {
-      toast.error(err?.data?.message || "Something went wrong")
+      toast.error(err?.data?.message || t("live_sessions.modal.error_create"))
     }
   }
 
@@ -47,12 +49,12 @@ export function LiveSessionModal({ isOpen, onClose, session, onSuccess }: LiveSe
         <div className="p-8 space-y-6">
           <DialogHeader>
             <DialogTitle className="text-2xl font-black tracking-tight">
-              {session ? "Update Live Session" : "Create New Live Session"}
+              {session ? t("live_sessions.modal.update_title") : t("live_sessions.modal.create_title")}
             </DialogTitle>
             <DialogDescription className="font-medium">
               {session 
-                ? "Update the details of your upcoming live session." 
-                : "Fill in the information below to schedule a new live event."}
+                ? t("live_sessions.modal.update_desc")
+                : t("live_sessions.modal.create_desc")}
             </DialogDescription>
           </DialogHeader>
 

@@ -259,7 +259,18 @@
   },
   "upcoming": {
     "title": "الآن والقادم",
-    "subtitle": "دورات التعلم الحية"
+    "subtitle": "دورات التعلم الحية",
+    "badge": "التعلم في الوقت الحقيقي",
+    "title_start": "مباشر",
+    "title_end": "الندوات.",
+    "description": "استكشاف الجلسات التفاعلية ذات الجودة العالية مع خبراء الصناعة. لا فيديوهات مملة - مجرد محادثات حية وبرمجة مباشرة.",
+    "explore": "استكشاف جميع الجلسات",
+    "card_badge": "قادم",
+    "card_type": "ندوة مباشرة",
+    "starts_in": "سيبدأ في",
+    "closed": "مغلق",
+    "register": "سجل الآن",
+    "started": "بدأ"
   },
   "common": {
     "close": "إغلاق",
@@ -490,5 +501,141 @@
     "step4_desc": "استخدم التحليلات المتقدمة لتتبع تقدم الطلاب والمشاركة والمبيعات. أتمة الحد الأقصى للنمو.",
     "cta_title": "جاهز لبدء التدريس؟",
     "cta_button": "إطلاق الدورة التدريبية"
+  },
+  "seo": {
+    "home_title": "CourseMaster | المنصة التعليمية المثالية",
+    "home_description": "استgnu مهارات جديدة مع دوراتنا التعليمية التي يقودها خبراء. من تطوير الويب إلى العلوم البيانية ، ابدأ رحلتك التعليمية مع CourseMaster اليوم.",
+    "courses_title": "جميع الدورات | CourseMaster - استكشاف البرامج التي يقودها الخبراء",
+    "courses_description": "استكشف مدى واسع من الدورات المهنية في React و Next.js والذكاء الاصطناعي. ابدأ رحلتك التعليمية مع CourseMaster اليوم.",
+    "about_title": "من نحن | CourseMaster - تمكين المتعلمين في جميع أنحاء العالم",
+    "about_description": "تعرف على المزيد عن مهمة CourseMaster لتوفير تعليم عالي الجودة. اكتشف قيمنا وكيف نساهم في تحويل التعلم عبر الإنترنت.",
+    "contact_title": "اتصل بنا | CourseMaster - اتصل بنا",
+    "contact_description": "هل لديك أسئلة أو تحتاج إلى دعم؟ تواصل مع فريق CourseMaster. نحن هنا لمساعدتك في رحلتك التعليمية."
+  },
+  "live_sessions": {
+    "management_title": "إدارة الجلسات الحية",
+    "management_subtitle": "أنشئ وإدارة الحلقات الدراسية القادمة والمناسبات الحية.",
+    "create_new": "أنشئ جلسة جديدة",
+    "stats": {
+      "total": "إجمالي الجلسات",
+      "upcoming": "المستقبل",
+      "registration_open": "التسجيل مفتوح"
+    },
+    "table": {
+      "session_info": "معلومات الجلسة",
+      "schedule": "جدول المواعيد",
+      "registration": "التسجيل",
+      "status": "الحالة",
+      "actions": "إجراءات",
+      "no_sessions": "لم يتم العثور على دورات.",
+      "deadline": "الموعد النهائي",
+      "active": "نشط",
+      "expired": "منتهي الصلاحية"
+    },
+    "modal": {
+      "create_title": "إنشاء جلسة مباشرة جديدة",
+      "update_title": "تحديث الجلسة المباشرة",
+      "create_desc": "املأ المعلومات أدناه لجدولة حدث مباشر جديد.",
+      "update_desc": "قم بتحديث تفاصيل جلسة مباشرة قادم نزدیک.",
+      "success_create": "تم إنشاء الجلسة بنجاح",
+      "success_update": "تم تحديث الجلسة بنجاح",
+      "success_delete": "تم حذف الجلسة بنجاح",
+      "error_create": "فشل في إنشاء الجلسة",
+      "error_update": "فشل في تحديث الجلسة",
+      "error_delete": "فشل في حذف الجلسة",
+      "confirm_delete": "هل أنت متأكد من رغبتك في حذف هذه الجلسة؟"
+    },
+    "form": {
+      "title": "عنوان الجلسة",
+      "title_placeholder": "مثل. دورة ماستر في React و Next.js",
+      "description": "الوصف",
+      "description_placeholder": "ما هذا عن الجلسة؟",
+      "date": "تاريخ ووقت الجلسة",
+      "deadline": "موعد نهائي للتسجيل",
+      "thumbnail": "عنوان URL للمiniature",
+      "thumbnail_placeholder": "https://images.unsplash.com/...",
+      "capacity": "الحد الأقصى لل容량 (إختياري)",
+      "capacity_placeholder": "مثل. 50",
+      "meeting_link": "رابط الاجتماع (لكل المستخدمين المسجلين)",
+      "meeting_link_placeholder": "https://zoom.us/j/...",
+      "publish": "نشر هذا الجلسة على الفور",
+      "save": "حفظ الجلسة",
+      "saving": "جاري الحفظ...",
+      "update": "تحديث الجلسة",
+      "create": "إنشاء الجلسة"
+    },
+    "validation": {
+      "title_min": "يجب أن تكون العنوان على الأقل 3 أحرف",
+      "desc_min": "يجب أن تكون الوصف على الأقل 10 أحرف",
+      "url_invalid": "الرجاء إدخال عنوان ويب صالح",
+      "date_required": "تاريخ الجلسة مطلوب",
+      "deadline_required": "موعد إنتهاء التسجيل مطلوب",
+      "capacity_min": "ال(Link Capacitiesst يجب أن تكون على الأقل 1"
+    },
+    "registration": {
+      "badge": "الورشة الحية",
+      "date_time": "التاريخ والوقت",
+      "deadline": "الموعد النهائي",
+      "secure_badge": "التسجيل الآمن",
+      "closed_title": "التسجيل مغلق",
+      "closed_desc": "الموعد النهائي لهذه الجلسة已经 انتهى.",
+      "full_name": "الاسم الكامل",
+      "full_name_placeholder": "أدخل اسمك",
+      "email": "عنوان البريد الإلكتروني",
+      "email_placeholder": "بريدك الإلكتروني@email.com",
+      "phone": "رقم الهاتف",
+      "phone_placeholder": "017XXXXXXXX",
+      "submit": "احجز مقعدی",
+      "processing": "جاري المعالجة...",
+      "success_msg": "تم التسجيل بنجاح للجلسة!",
+      "error_deadline": "انتهت край المрид لالتسجيل!",
+      "error_generic": "فشل التسجيل. الرجاء المحاولة مرة أخرى.",
+      "validation": {
+        "name_short": "الاسم قصير جدا",
+        "email_invalid": "عنوان البريد الإلكتروني غير صالح",
+        "phone_invalid": "رقم الهاتف غير صالح"
+      }
+    },
+    "ai_assistant": {
+      "mentor_title": "المرشد الذكي",
+      "status_ready": "متصلة وجاهزة",
+      "welcome_title": "مرحبا بك في CourseMaster",
+      "welcome_desc": "كيف يمكنني مساعدتك في رحلتك التعليمية اليوم؟",
+      "placeholder": "اسأل أي شيء...",
+      "error_msg": "آسف، أنا أاجه مشاكل في الاتصال حاليا. الرجاء المحاولة مرة أخرى لاحقا."
+    },
+    "ai_search": {
+      "title": "البحث الذكي",
+      "subtitle": "دليلك الشخصي للتعلم الذكي",
+      "placeholder": "اسأل أي شيء (على سبيل المثال ، 'أريد تعلم تطوير الويب من البداية')",
+      "button": "بحث آلي",
+      "insights_badge": "رؤى الذكاء الاصطناعي",
+      "matching_programs": "برامج مطابقة",
+      "students_count": "{{count}} طلاب",
+      "rating_count": "{{rating}} تقييم",
+      "awaiting_title": "في انتظار استفسارك",
+      "awaiting_desc": "الذكاء الاصطناعي جاهز لتحديد مسارك التعليمي. أدخل موضوعًا أو مهارة لبدء عملية التعلم."
+    },
+    "ai_quiz": {
+      "title": "مُنشئ الاختبارات الآلي",
+      "subtitle": "اجمع معرفتك في هذه الدرس!",
+      "crafting": "الذكاء الاصطناعي يُنشئ اختبارك...",
+      "completed_title": "الاختبار قد اكتمل!",
+      "score_text": "لقد حققت {{score}} من {{total}}",
+      "retry": "أعد المحاولة",
+      "done": "تم",
+      "question_count": "السؤال {{current}} من {{total}}",
+      "score_label": "النتيجة: {{score}}",
+      "next_question": "السؤال التالي",
+      "view_result": "عرض النتيجة",
+      "error": "出现 خطأ. يرجى المحاولة مرة أخرى."
+    },
+    "course_card": {
+      "uncategorized": "غير مصنف",
+      "instructor": "مدرس",
+      "academy_expert": "خبير الأكاديمية",
+      "investment": "استثمار",
+      "view_details": "عرض تفاصيل الدورة"
+    }
   }
 }

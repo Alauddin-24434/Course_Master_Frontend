@@ -12,8 +12,10 @@ import { Search, Sparkles, Loader2, ArrowRight, BookOpen, Star, Users } from "lu
 import axios from "axios";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import { useTranslation } from "react-i18next";
 
 const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<{ answer: string; relevantCourses: any[] } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -47,10 +49,10 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                 </div>
                 <div className="text-left">
                   <DialogTitle className="text-3xl font-black tracking-tight text-foreground uppercase">
-                    Intelligent Search
+                    {t("ai_search.title")}
                   </DialogTitle>
                   <DialogDescription className="text-muted-foreground text-sm font-bold uppercase tracking-widest opacity-70">
-                    Your Personal AI Learning Guide
+                    {t("ai_search.subtitle")}
                   </DialogDescription>
                 </div>
               </div>
@@ -64,7 +66,7 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSearch()}
-                placeholder="Ask anything (e.g., 'I want to learn web development from scratch')"
+                placeholder={t("ai_search.placeholder")}
                 className="w-full h-20 pl-16 pr-40 bg-secondary/50 backdrop-blur-md border-2 border-border/50 rounded-[2rem] text-lg font-bold text-foreground placeholder:text-muted-foreground focus:border-primary/50 focus:ring-4 focus:ring-primary/10 outline-none transition-all duration-500"
               />
               <button
@@ -73,7 +75,7 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                 className="absolute right-4 top-1/2 -translate-y-1/2 px-8 py-3.5 bg-primary text-primary-foreground rounded-2xl font-black uppercase tracking-widest text-xs hover:scale-105 active:scale-95 transition-all disabled:opacity-50 flex items-center gap-3 shadow-xl shadow-primary/20"
               >
                 {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Sparkles size={18} />}
-                Search AI
+                {t("ai_search.button")}
               </button>
             </div>
 
@@ -83,8 +85,8 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                 {/* AI Text Response */}
                 <div className="relative p-8 bg-gradient-to-br from-secondary/80 to-secondary/30 rounded-[2.5rem] border border-border/50 shadow-inner group">
                   <div className="absolute -top-4 left-8 px-4 py-1.5 bg-primary text-primary-foreground text-[10px] font-black uppercase tracking-widest rounded-full shadow-lg">
-                    AI Insights
-                  </div>
+                  {t("ai_search.insights_badge")}
+                </div>
                   <div className="prose prose-invert max-w-none prose-p:text-foreground/90 prose-p:leading-relaxed prose-strong:text-primary prose-headings:text-foreground">
                     <div className="text-sm font-medium space-y-4">
                       <ReactMarkdown>
@@ -99,7 +101,7 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                   <div className="space-y-6">
                     <div className="flex items-center gap-4 px-2">
                       <div className="h-px flex-1 bg-border/50"></div>
-                      <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Matching Programs</h3>
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">{t("ai_search.matching_programs")}</h3>
                       <div className="h-px flex-1 bg-border/50"></div>
                     </div>
 
@@ -143,11 +145,11 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                               <div className="flex items-center gap-3">
                                 <div className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                                   <Users size={12} className="text-primary" />
-                                  <span>2.4k Students</span>
+                                  <span>{t("ai_search.students_count", { count: "2.4k" })}</span>
                                 </div>
                                 <div className="flex items-center gap-1 text-[10px] font-bold text-muted-foreground uppercase tracking-tighter">
                                   <Star size={12} className="text-primary fill-primary" />
-                                  <span>4.9 Rating</span>
+                                  <span>{t("ai_search.rating_count", { rating: "4.9" })}</span>
                                 </div>
                               </div>
                               <span className="text-xs font-black text-primary">$49.00</span>
@@ -169,9 +171,9 @@ const AiSearchModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => vo
                   <BookOpen size={40} className="relative z-10" />
                 </div>
                 <div className="space-y-2">
-                  <h4 className="text-lg font-black uppercase tracking-widest text-foreground">Awaiting Your Inquiry</h4>
+                  <h4 className="text-lg font-black uppercase tracking-widest text-foreground">{t("ai_search.awaiting_title")}</h4>
                   <p className="text-xs font-medium text-muted-foreground max-w-xs mx-auto leading-relaxed">
-                    Our AI is ready to map out your educational path. Enter a topic or skill to begin.
+                    {t("ai_search.awaiting_desc")}
                   </p>
                 </div>
               </div>

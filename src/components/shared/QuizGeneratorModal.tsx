@@ -10,6 +10,7 @@ import {
 import { Loader2, Sparkles, CheckCircle2, XCircle, ArrowRight, RefreshCw } from "lucide-react";
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
+import { useTranslation } from "react-i18next";
 
 interface QuizQuestion {
   question: string;
@@ -18,6 +19,7 @@ interface QuizQuestion {
 }
 
 const QuizGeneratorModal = ({ lessonId, isOpen, onClose }: { lessonId: string; isOpen: boolean; onClose: () => void }) => {
+  const { t } = useTranslation();
   const [quiz, setQuiz] = useState<QuizQuestion[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -80,10 +82,10 @@ const QuizGeneratorModal = ({ lessonId, isOpen, onClose }: { lessonId: string; i
         <div className="bg-gradient-to-r from-primary to-orange-600 p-6 text-primary-foreground">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-2xl font-black">
-              <Sparkles className="animate-pulse" /> AI Quiz Generator
+              <Sparkles className="animate-pulse" /> {t("ai_quiz.title")}
             </DialogTitle>
           </DialogHeader>
-          <p className="opacity-80 text-sm mt-1">Test your knowledge for this lesson!</p>
+          <p className="opacity-80 text-sm mt-1">{t("ai_quiz.subtitle")}</p>
         </div>
 
         <div className="p-8">
@@ -93,7 +95,7 @@ const QuizGeneratorModal = ({ lessonId, isOpen, onClose }: { lessonId: string; i
                 <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin"></div>
                 <Sparkles className="absolute inset-0 m-auto text-primary animate-bounce" size={24} />
               </div>
-              <p className="text-muted-foreground font-medium animate-pulse">AI is crafting your quiz...</p>
+              <p className="text-muted-foreground font-medium animate-pulse">{t("ai_quiz.crafting")}</p>
             </div>
           ) : isFinished ? (
             <div className="text-center py-6 space-y-6">
@@ -101,29 +103,29 @@ const QuizGeneratorModal = ({ lessonId, isOpen, onClose }: { lessonId: string; i
                 <span className="text-4xl font-black text-primary">{Math.round((score / quiz.length) * 100)}%</span>
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-foreground">Quiz Completed!</h3>
-                <p className="text-muted-foreground">You scored {score} out of {quiz.length}</p>
+                <h3 className="text-2xl font-bold text-foreground">{t("ai_quiz.completed_title")}</h3>
+                <p className="text-muted-foreground">{t("ai_quiz.score_text", { score, total: quiz.length })}</p>
               </div>
               <div className="flex gap-3 justify-center">
                 <button
                   onClick={generateQuiz}
                   className="flex items-center gap-2 px-6 py-3 bg-secondary text-secondary-foreground rounded-xl font-bold hover:opacity-80 transition-all"
                 >
-                  <RefreshCw size={18} /> Retry
+                  <RefreshCw size={18} /> {t("ai_quiz.retry")}
                 </button>
                 <button
                   onClick={onClose}
                   className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-bold hover:opacity-90 transition-all shadow-lg shadow-primary/30"
                 >
-                  Done
+                  {t("ai_quiz.done")}
                 </button>
               </div>
             </div>
           ) : quiz.length > 0 ? (
             <div className="space-y-6">
               <div className="flex justify-between items-center text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                <span>Question {currentQuestion + 1} of {quiz.length}</span>
-                <span className="text-primary">Score: {score}</span>
+                <span>{t("ai_quiz.question_count", { current: currentQuestion + 1, total: quiz.length })}</span>
+                <span className="text-primary">{t("ai_quiz.score_label", { score })}</span>
               </div>
               
               <h3 className="text-lg font-bold text-foreground leading-tight">
@@ -164,13 +166,13 @@ const QuizGeneratorModal = ({ lessonId, isOpen, onClose }: { lessonId: string; i
                   onClick={nextQuestion}
                   className="w-full py-4 bg-primary text-primary-foreground rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-90 transition-all shadow-xl"
                 >
-                  {currentQuestion < quiz.length - 1 ? "Next Question" : "View Result"} <ArrowRight size={18} />
+                  {currentQuestion < quiz.length - 1 ? t("ai_quiz.next_question") : t("ai_quiz.view_result")} <ArrowRight size={18} />
                 </button>
               )}
             </div>
           ) : (
             <div className="text-center py-10 text-muted-foreground">
-              Something went wrong. Please try again.
+              {t("ai_quiz.error")}
             </div>
           )}
         </div>

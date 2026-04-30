@@ -483,8 +483,27 @@
     "students_val": "50k+"
   },
   "upcoming": {
-    "title": "Live Now & Upcoming",
-    "subtitle": "Live Learning Sessions"
+    "badge": "Real-time Learning",
+    "title_start": "Live",
+    "title_end": "Workshops.",
+    "description": "Experience high-fidelity interactive sessions with industry experts. No boring videos—just real conversations and live coding.",
+    "explore": "Explore All Sessions",
+    "card_badge": "Upcoming",
+    "card_type": "Live Workshop",
+    "starts_in": "Starts in",
+    "closed": "Closed",
+    "register": "Register",
+    "started": "Started"
+  },
+  "seo": {
+    "home_title": "CourseMaster | The Ultimate Learning Platform",
+    "home_description": "Master new skills with our expert-led online courses. From Web Development to Data Science, start your learning journey with CourseMaster today.",
+    "courses_title": "All Courses | CourseMaster - Explore Expert-Led Programs",
+    "courses_description": "Browse our wide range of professional courses in React, Next.js, and AI. Start your learning journey with CourseMaster today.",
+    "about_title": "About Us | CourseMaster - Empowering Learners Worldwide",
+    "about_description": "Learn more about CourseMaster's mission to provide world-class education. Discover our values and how we're transforming online learning.",
+    "contact_title": "Contact Us | CourseMaster - Get in Touch",
+    "contact_description": "Have questions or need support? Reach out to the CourseMaster team. We're here to help you on your learning journey."
   },
   "common": {
     "close": "Close",
@@ -493,6 +512,132 @@
     "more": "More pages",
     "sidebar": "Sidebar",
     "toggle_sidebar": "Toggle Sidebar"
+  },
+  "live_sessions": {
+    "management_title": "Live Session Management",
+    "management_subtitle": "Create and manage upcoming workshops and live events.",
+    "create_new": "Create New Session",
+    "stats": {
+      "total": "Total Sessions",
+      "upcoming": "Upcoming",
+      "registration_open": "Registration Open"
+    },
+    "table": {
+      "session_info": "Session Info",
+      "schedule": "Schedule",
+      "registration": "Registration",
+      "status": "Status",
+      "actions": "Actions",
+      "no_sessions": "No sessions found.",
+      "deadline": "Deadline",
+      "active": "Active",
+      "expired": "Expired"
+    },
+    "modal": {
+      "create_title": "Create New Live Session",
+      "update_title": "Update Live Session",
+      "create_desc": "Fill in the information below to schedule a new live event.",
+      "update_desc": "Update the details of your upcoming live session.",
+      "success_create": "Session created successfully",
+      "success_update": "Session updated successfully",
+      "success_delete": "Session deleted successfully",
+      "error_create": "Failed to create session",
+      "error_update": "Failed to update session",
+      "error_delete": "Failed to delete session",
+      "confirm_delete": "Are you sure you want to delete this session?"
+    },
+    "form": {
+      "title": "Session Title",
+      "title_placeholder": "e.g. Masterclass on React & Next.js",
+      "description": "Description",
+      "description_placeholder": "What is this session about?",
+      "date": "Session Date & Time",
+      "deadline": "Registration Deadline",
+      "thumbnail": "Thumbnail URL",
+      "thumbnail_placeholder": "https://images.unsplash.com/...",
+      "capacity": "Max Capacity (Optional)",
+      "capacity_placeholder": "e.g. 50",
+      "meeting_link": "Meeting Link (Only for Registered Users)",
+      "meeting_link_placeholder": "https://zoom.us/j/...",
+      "publish": "Publish this session immediately",
+      "save": "Save Session",
+      "saving": "Saving...",
+      "update": "Update Session",
+      "create": "Create Session"
+    },
+    "validation": {
+      "title_min": "Title must be at least 3 characters",
+      "desc_min": "Description must be at least 10 characters",
+      "url_invalid": "Please enter a valid URL",
+      "date_required": "Session date is required",
+      "deadline_required": "Registration deadline is required",
+      "capacity_min": "Capacity must be at least 1"
+    },
+    "registration": {
+      "badge": "Live Workshop",
+      "date_time": "Date & Time",
+      "deadline": "Deadline",
+      "secure_badge": "Secure Registration",
+      "closed_title": "Registration Closed",
+      "closed_desc": "The deadline for this session has already passed.",
+      "full_name": "Full Name",
+      "full_name_placeholder": "Enter your name",
+      "email": "Email Address",
+      "email_placeholder": "your@email.com",
+      "phone": "Phone Number",
+      "phone_placeholder": "017XXXXXXXX",
+      "submit": "Reserve My Seat",
+      "processing": "Processing...",
+      "success_msg": "Successfully registered for the session!",
+      "error_deadline": "Registration deadline has passed!",
+      "error_generic": "Failed to register. Please try again.",
+      "validation": {
+        "name_short": "Name is too short",
+        "email_invalid": "Invalid email address",
+        "phone_invalid": "Invalid phone number"
+      }
+    },
+    "ai_assistant": {
+      "mentor_title": "AI Mentor",
+      "status_ready": "Online & Ready",
+      "welcome_title": "Welcome to CourseMaster",
+      "welcome_desc": "How can I help your learning journey today?",
+      "placeholder": "Ask anything...",
+      "error_msg": "Sorry, I'm having trouble connecting right now. Please try again later."
+    },
+    "ai_search": {
+      "title": "Intelligent Search",
+      "subtitle": "Your Personal AI Learning Guide",
+      "placeholder": "Ask anything (e.g., 'I want to learn web development from scratch')",
+      "button": "Search AI",
+      "insights_badge": "AI Insights",
+      "matching_programs": "Matching Programs",
+      "students_count": "{{count}} Students",
+      "rating_count": "{{rating}} Rating",
+      "awaiting_title": "Awaiting Your Inquiry",
+      "awaiting_desc": "Our AI is ready to map out your educational path. Enter a topic or skill to begin."
+    },
+    "ai_quiz": {
+      "title": "AI Quiz Generator",
+      "subtitle": "Test your knowledge for this lesson!",
+      "crafting": "AI is crafting your quiz...",
+      "completed_title": "Quiz Completed!",
+      "score_text": "You scored {{score}} out of {{total}}",
+      "retry": "Retry",
+      "done": "Done",
+      "question_count": "Question {{current}} of {{total}}",
+      "score_label": "Score: {{score}}",
+      "next_question": "Next Question",
+      "view_result": "View Result",
+      "error": "Something went wrong. Please try again."
+    },
+    "course_card": {
+      "uncategorized": "Uncategorized",
+      "instructor": "Instructor",
+      "academy_expert": "Academy Expert",
+      "investment": "Investment",
+      "view_details": "View Course Details"
+    }
   }
 }
 

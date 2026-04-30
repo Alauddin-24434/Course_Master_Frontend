@@ -259,7 +259,18 @@
   },
   "upcoming": {
     "title": "Ahora y próximas",
-    "subtitle": "Sesiones de aprendizaje en vivo"
+    "subtitle": "Sesiones de aprendizaje en vivo",
+    "badge": "Aprendizaje en tiempo real",
+    "title_start": "En vivo",
+    "title_end": "Talleres.",
+    "description": "Experimenta sesiones interactivas de alta fidelidad con expertos de la industria. No hay videos aburridos, solo conversaciones reales y codificación en vivo.",
+    "explore": "Explorar todas las sesiones",
+    "card_badge": "Próximamente",
+    "card_type": "Taller en vivo",
+    "starts_in": "Comienza en",
+    "closed": "Cerrado",
+    "register": "Registro",
+    "started": "Iniciado"
   },
   "common": {
     "close": "Cerrar",
@@ -490,5 +501,141 @@
     "step4_desc": "Utilice análisis avanzados para rastrear el progreso de los estudiantes, la participación y las ventas. Optimice para un crecimiento máximo.",
     "cta_title": "¿Listo para empezar a enseñar?",
     "cta_button": "Lanzar Curso"
+  },
+  "seo": {
+    "home_title": "CourseMaster | La plataforma de aprendizaje definitiva",
+    "home_description": "Domina nuevas habilidades con nuestros cursos en línea dirigidos por expertos. Desde Desarrollo Web hasta Ciencia de Datos, comienza tu viaje de aprendizaje con CourseMaster hoy.",
+    "courses_title": "Todos los cursos | CourseMaster - Explora programas dirigidos por expertos",
+    "courses_description": "Explora nuestra amplia gama de cursos profesionales en React, Next.js y AI. Comienza tu viaje de aprendizaje con CourseMaster hoy.",
+    "about_title": "Acerca de nosotros | CourseMaster - Empoderando a los aprendices en todo el mundo",
+    "about_description": "Aprende más sobre la misión de CourseMaster de proporcionar educación de clase mundial. Descubre nuestros valores y cómo estamos transformando el aprendizaje en línea.",
+    "contact_title": "Contáctanos | CourseMaster - Ponte en contacto",
+    "contact_description": "¿Tienes preguntas o necesitas soporte? Comunícate con el equipo de CourseMaster. Estamos aquí para ayudarte en tu viaje de aprendizaje."
+  },
+  "live_sessions": {
+    "management_title": "Administración de sesiones en vivo",
+    "management_subtitle": "Crea y administra talleres y eventos en vivo próximos.",
+    "create_new": "Crear nueva sesión",
+    "stats": {
+      "total": "Sesiones totales",
+      "upcoming": "Próximas",
+      "registration_open": "Inscripción abierta"
+    },
+    "table": {
+      "session_info": "Información de la sesión",
+      "schedule": "Programación",
+      "registration": "Registro",
+      "status": "Estado",
+      "actions": "Acciones",
+      "no_sessions": "No se encontraron sesiones.",
+      "deadline": "Fecha límite",
+      "active": "Activo",
+      "expired": "Expirado"
+    },
+    "modal": {
+      "create_title": "Crear nueva sesión en vivo",
+      "update_title": "Actualizar sesión en vivo",
+      "create_desc": "Rellene la información a continuación para programar un nuevo evento en vivo.",
+      "update_desc": "Actualice los detalles de su próxima sesión en vivo.",
+      "success_create": "Sesión creada con éxito",
+      "success_update": "Sesión actualizada con éxito",
+      "success_delete": "Sesión eliminada con éxito",
+      "error_create": "Falló la creación de sesión",
+      "error_update": "Falló la actualización de sesión",
+      "error_delete": "Falló la eliminación de sesión",
+      "confirm_delete": "¿Estás seguro de que deseas eliminar esta sesión?"
+    },
+    "form": {
+      "title": "Título de la sesión",
+      "title_placeholder": "p. ej. Masterclass sobre React y Next.js",
+      "description": "Descripción",
+      "description_placeholder": "¿De qué se trata esta sesión?",
+      "date": "Fecha y hora de la sesión",
+      "deadline": "Fecha límite de inscripción",
+      "thumbnail": "URL de la miniatura",
+      "thumbnail_placeholder": "https://images.unsplash.com/...",
+      "capacity": "Capacidad máxima (Opcional)",
+      "capacity_placeholder": "p. ej. 50",
+      "meeting_link": "Enlace de reunión (Solo para usuarios registrados)",
+      "meeting_link_placeholder": "https://zoom.us/j/...",
+      "publish": "Publicar esta sesión de inmediato",
+      "save": "Guardar sesión",
+      "saving": "Guardando...",
+      "update": "Actualizar sesión",
+      "create": "Crear sesión"
+    },
+    "validation": {
+      "title_min": "El título debe tener al menos 3 caracteres",
+      "desc_min": "La descripción debe tener al menos 10 caracteres",
+      "url_invalid": "Por favor, ingrese una URL válida",
+      "date_required": "Se requiere la fecha de la sesión",
+      "deadline_required": "Se requiere el plazo de inscripción",
+      "capacity_min": "La capacidad debe ser al menos 1"
+    },
+    "registration": {
+      "badge": "Taller en vivo",
+      "date_time": "Fecha y Hora",
+      "deadline": "Plazo límite",
+      "secure_badge": "Registro Seguro",
+      "closed_title": "Registro Cerrado",
+      "closed_desc": "El plazo para esta sesión ya ha pasado.",
+      "full_name": "Nombre Completo",
+      "full_name_placeholder": "Ingrese su nombre",
+      "email": "Dirección de Correo Electrónico",
+      "email_placeholder": "su@email.com",
+      "phone": "Phone Number",
+      "phone_placeholder": "017XXXXXXXX",
+      "submit": "Reservar Mi Asiento",
+      "processing": "Procesando...",
+      "success_msg": "Registrado con éxito para la sesión",
+      "error_deadline": "La fecha límite de registro ha pasado",
+      "error_generic": "No se pudo registrar. Inténtelo de nuevo",
+      "validation": {
+        "name_short": "El nombre es demasiado corto",
+        "email_invalid": "Dirección de correo electrónico inválida",
+        "phone_invalid": "Número de teléfono inválido"
+      }
+    },
+    "ai_assistant": {
+      "mentor_title": "Mentor de IA",
+      "status_ready": "En línea y listo",
+      "welcome_title": "Bienvenido a CourseMaster",
+      "welcome_desc": "¿Cómo puedo ayudarte en tu viaje de aprendizaje hoy?",
+      "placeholder": "Pregúntame cualquier cosa...",
+      "error_msg": "Lo siento, estoy teniendo problemas para conectarme en este momento. Inténtelo de nuevo más tarde"
+    },
+    "ai_search": {
+      "title": "Búsqueda inteligente",
+      "subtitle": "Tu guía de aprendizaje de IA personalizada",
+      "placeholder": "Pregúntalo todo (por ejemplo, 'Quiero aprender desarrollo web desde cero')",
+      "button": "Buscar IA",
+      "insights_badge": "Conocimientos de IA",
+      "matching_programs": "Programas coincidentes",
+      "students_count": "{{count}} Estudiantes",
+      "rating_count": "{{rating}} Calificación",
+      "awaiting_title": "Esperando tu consulta",
+      "awaiting_desc": "Nuestra IA está lista para trazar tu camino educativo. Ingresa un tema o habilidad para comenzar."
+    },
+    "ai_quiz": {
+      "title": "Generador de pruebas de IA",
+      "subtitle": "¡Pon a prueba tus conocimientos para esta lección!",
+      "crafting": "La IA está creando tu prueba...",
+      "completed_title": "¡Prueba completada!",
+      "score_text": "Obtuviste {{score}} de {{total}}",
+      "retry": "Reintentar",
+      "done": "Listo",
+      "question_count": "Pregunta {{current}} de {{total}}",
+      "score_label": "Puntuación: {{score}}",
+      "next_question": "Siguiente pregunta",
+      "view_result": "Ver resultado",
+      "error": "Algo salió mal. Por favor, inténtelo de nuevo."
+    },
+    "course_card": {
+      "uncategorized": "No categorizado",
+      "instructor": "Instructor",
+      "academy_expert": "Experto de la academia",
+      "investment": "Inversión",
+      "view_details": "Ver detalles del curso"
+    }
   }
 }

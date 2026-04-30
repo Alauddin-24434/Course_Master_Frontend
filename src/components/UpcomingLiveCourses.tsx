@@ -8,6 +8,7 @@ import { useGetAllSessionsQuery } from "@/redux/features/liveSession/liveSession
 
 
 function CountdownTimer({ targetDate }: { targetDate: Date }) {
+  const { t } = useTranslation()
   const [timeLeft, setTimeLeft] = useState("")
 
   useEffect(() => {
@@ -15,7 +16,7 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
       const difference = targetDate.getTime() - new Date().getTime()
 
       if (difference <= 0) {
-        setTimeLeft("Started")
+        setTimeLeft(t("upcoming.started"))
         return
       }
 
@@ -36,6 +37,7 @@ function CountdownTimer({ targetDate }: { targetDate: Date }) {
 }
 
 export function UpcomingLiveCourses() {
+  const { t } = useTranslation();
   const { data: response, isLoading } = useGetAllSessionsQuery({})
   const sessions = response?.data || []
 
@@ -59,18 +61,18 @@ export function UpcomingLiveCourses() {
             <div className="space-y-6 max-w-2xl">
               <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 rounded-full border border-primary/20 text-primary">
                 <Video className="w-4 h-4 animate-pulse" />
-                <span className="text-[10px] font-black uppercase tracking-[0.2em]">Real-time Learning</span>
+                <span className="text-[10px] font-black uppercase tracking-[0.2em]">{t("upcoming.badge")}</span>
               </div>
               <h2 className="text-5xl md:text-6xl font-black tracking-tighter leading-[0.9]">
-                Live <span className="text-primary italic font-serif">Workshops.</span>
+                {t("upcoming.title_start")} <span className="text-primary italic font-serif">{t("upcoming.title_end")}</span>
               </h2>
               <p className="text-muted-foreground text-lg font-medium leading-relaxed">
-                Experience high-fidelity interactive sessions with industry experts. No boring videos—just real conversations and live coding.
+                {t("upcoming.description")}
               </p>
             </div>
 
             <Link href="/live" className="group flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-primary hover:translate-x-2 transition-all">
-              Explore All Sessions
+              {t("upcoming.explore")}
               <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all">
                 <ArrowRight className="w-4 h-4" />
               </div>
@@ -96,7 +98,7 @@ export function UpcomingLiveCourses() {
                     />
                     <div className="absolute top-6 left-6 flex flex-col gap-2">
                       <div className="px-4 py-1.5 bg-primary text-white rounded-full text-[10px] font-black uppercase tracking-widest shadow-xl shadow-primary/20">
-                         Upcoming
+                         {t("upcoming.card_badge")}
                       </div>
                     </div>
                   </div>
@@ -105,7 +107,7 @@ export function UpcomingLiveCourses() {
                   <div className="p-8 space-y-6 flex-grow flex flex-col">
                     <div className="space-y-3">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-primary">Live Workshop</span>
+                        <span className="text-[10px] font-black uppercase tracking-widest text-primary">{t("upcoming.card_type")}</span>
                         <div className="flex items-center gap-1.5 text-xs font-bold">
                            <Star className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />
                            4.9
@@ -119,7 +121,7 @@ export function UpcomingLiveCourses() {
 
                     <div className="pt-6 border-t border-border/50 flex items-center justify-between mt-auto">
                       <div className="space-y-1">
-                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Starts in</p>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{t("upcoming.starts_in")}</p>
                         <div className="flex items-center gap-2 text-foreground">
                            <Clock className="w-4 h-4 text-primary" />
                            <span className="text-sm font-black"><CountdownTimer targetDate={new Date(session.sessionDate)} /></span>
@@ -128,14 +130,14 @@ export function UpcomingLiveCourses() {
 
                       {isDeadlinePassed ? (
                         <div className="px-4 py-2 bg-secondary rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground cursor-not-allowed">
-                          Closed
+                          {t("upcoming.closed")}
                         </div>
                       ) : (
                         <Link 
                           href={`/live/${session.id}`}
                           className="px-6 py-3 bg-primary text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-lg shadow-primary/10"
                         >
-                          Register
+                          {t("upcoming.register")}
                         </Link>
                       )}
                     </div>

@@ -4,8 +4,10 @@ import React, { useState, useRef, useEffect } from "react";
 import { Bot, Send, X, MessageSquare, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useAppSelector } from "@/redux/hooks";
+import { useTranslation } from "react-i18next";
 
 const AiAssistant = () => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState("");
   const [chatHistory, setChatHistory] = useState<{ role: string; content: string }[]>([]);
@@ -82,7 +84,7 @@ const AiAssistant = () => {
       console.error("AI Chat Error:", error);
       const errorMessage = {
         role: "assistant",
-        content: "Sorry, I'm having trouble connecting right now. Please try again later.",
+        content: t("ai_assistant.error_msg"),
       };
       setChatHistory((prev) => [...prev, errorMessage]);
     } finally {
@@ -102,8 +104,8 @@ const AiAssistant = () => {
                 <Bot size={22} className="animate-pulse" />
               </div>
               <div>
-                <h3 className="font-black text-sm uppercase tracking-widest">AI Mentor</h3>
-                <p className="text-[10px] opacity-80 font-bold uppercase tracking-tighter">Online & Ready</p>
+                <h3 className="font-black text-sm uppercase tracking-widest">{t("ai_assistant.mentor_title")}</h3>
+                <p className="text-[10px] opacity-80 font-bold uppercase tracking-tighter">{t("ai_assistant.status_ready")}</p>
               </div>
             </div>
             <button 
@@ -122,8 +124,8 @@ const AiAssistant = () => {
                   <Sparkles size={32} className="animate-bounce" />
                 </div>
                 <div className="space-y-1">
-                  <p className="font-black text-foreground uppercase tracking-widest text-xs">Welcome to CourseMaster</p>
-                  <p className="text-[10px] text-muted-foreground font-medium">How can I help your learning journey today?</p>
+                  <p className="font-black text-foreground uppercase tracking-widest text-xs">{t("ai_assistant.welcome_title")}</p>
+                  <p className="text-[10px] text-muted-foreground font-medium">{t("ai_assistant.welcome_desc")}</p>
                 </div>
               </div>
             )}
@@ -172,7 +174,7 @@ const AiAssistant = () => {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSendMessage()}
-                placeholder="Ask anything..."
+                placeholder={t("ai_assistant.placeholder")}
                 className="flex-1 bg-transparent border-none px-2 py-2 text-xs text-foreground placeholder:text-muted-foreground focus:ring-0 outline-none font-bold"
               />
               <button

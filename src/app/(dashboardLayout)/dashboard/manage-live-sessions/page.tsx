@@ -6,6 +6,7 @@ import {
   useDeleteSessionMutation,
   useGetRegistrantsQuery
 } from "@/redux/features/liveSession/liveSessionApi"
+import { useTranslation } from "react-i18next"
 import { 
   Plus, 
   Search, 
@@ -27,6 +28,7 @@ import { format } from "date-fns"
 import { LiveSessionModal } from "@/components/live-session/LiveSessionModal"
 
 export default function LiveSessionManagement() {
+  const { t } = useTranslation()
   const { data: response, isLoading, refetch } = useGetAllSessionsQuery({})
   const [deleteSession] = useDeleteSessionMutation()
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -35,13 +37,13 @@ export default function LiveSessionManagement() {
   const sessions = response?.data || []
 
   const handleDelete = async (id: string) => {
-    if (window.confirm("Are you sure you want to delete this session?")) {
+    if (window.confirm(t("live_sessions.modal.confirm_delete"))) {
       try {
         await deleteSession(id).unwrap()
-        toast.success("Session deleted successfully")
+        toast.success(t("live_sessions.modal.success_delete"))
         refetch()
       } catch (err) {
-        toast.error("Failed to delete session")
+        toast.error(t("live_sessions.modal.error_delete"))
       }
     }
   }
@@ -61,15 +63,15 @@ export default function LiveSessionManagement() {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
         <div className="space-y-1">
-          <h1 className="text-3xl font-black tracking-tight">Live Session Management</h1>
-          <p className="text-muted-foreground text-sm font-medium">Create and manage upcoming workshops and live events.</p>
+          <h1 className="text-3xl font-black tracking-tight">{t("live_sessions.management_title")}</h1>
+          <p className="text-muted-foreground text-sm font-medium">{t("live_sessions.management_subtitle")}</p>
         </div>
         <Button 
           onClick={handleCreate}
           className="h-12 px-6 rounded-xl gap-2 font-bold shadow-lg shadow-primary/20"
         >
           <Plus className="w-4 h-4" />
-          Create New Session
+          {t("live_sessions.create_new")}
         </Button>
       </div>
 
@@ -80,7 +82,7 @@ export default function LiveSessionManagement() {
                <Calendar className="w-6 h-6" />
             </div>
             <div>
-               <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Total Sessions</p>
+               <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.stats.total")}</p>
                <p className="text-2xl font-black tracking-tight">{sessions.length}</p>
             </div>
          </Card>
@@ -89,7 +91,7 @@ export default function LiveSessionManagement() {
                <Users className="w-6 h-6" />
             </div>
             <div>
-               <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Upcoming</p>
+               <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.stats.upcoming")}</p>
                <p className="text-2xl font-black tracking-tight">
                   {sessions.filter((s: any) => new Date(s.sessionDate) > new Date()).length}
                </p>
@@ -100,7 +102,7 @@ export default function LiveSessionManagement() {
                <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
-               <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">Registration Open</p>
+               <p className="text-xs font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.stats.registration_open")}</p>
                <p className="text-2xl font-black tracking-tight">
                   {sessions.filter((s: any) => new Date(s.registrationDeadline) > new Date()).length}
                </p>
@@ -114,11 +116,11 @@ export default function LiveSessionManagement() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-secondary/30">
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Session Info</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Schedule</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Registration</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">Status</th>
-                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">Actions</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.table.session_info")}</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.table.schedule")}</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.table.registration")}</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("live_sessions.table.status")}</th>
+                <th className="p-6 text-[10px] font-black uppercase tracking-widest text-muted-foreground text-right">{t("live_sessions.table.actions")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border/50">
@@ -133,7 +135,7 @@ export default function LiveSessionManagement() {
                   <td colSpan={5} className="p-20 text-center">
                     <div className="space-y-2">
                        <AlertCircle className="w-8 h-8 mx-auto text-muted-foreground/30" />
-                       <p className="text-sm font-bold text-muted-foreground">No sessions found.</p>
+                       <p className="text-sm font-bold text-muted-foreground">{t("live_sessions.table.no_sessions")}</p>
                     </div>
                   </td>
                 </tr>
@@ -159,14 +161,14 @@ export default function LiveSessionManagement() {
                   <td className="p-6">
                     <div className="space-y-1">
                        <p className="text-xs font-black tracking-tight">{format(new Date(session.registrationDeadline), "MMM dd, yyyy")}</p>
-                       <p className="text-[10px] font-bold text-amber-500 italic">Deadline</p>
+                       <p className="text-[10px] font-bold text-amber-500 italic">{t("live_sessions.table.deadline")}</p>
                     </div>
                   </td>
                   <td className="p-6">
                     {new Date(session.registrationDeadline) > new Date() ? (
-                      <span className="px-3 py-1 bg-green-500/10 text-green-600 rounded-full text-[10px] font-black uppercase tracking-widest">Active</span>
+                      <span className="px-3 py-1 bg-green-500/10 text-green-600 rounded-full text-[10px] font-black uppercase tracking-widest">{t("live_sessions.table.active")}</span>
                     ) : (
-                      <span className="px-3 py-1 bg-red-500/10 text-red-600 rounded-full text-[10px] font-black uppercase tracking-widest">Expired</span>
+                      <span className="px-3 py-1 bg-red-500/10 text-red-600 rounded-full text-[10px] font-black uppercase tracking-widest">{t("live_sessions.table.expired")}</span>
                     )}
                   </td>
                   <td className="p-6 text-right">

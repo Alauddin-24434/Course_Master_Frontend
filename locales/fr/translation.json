@@ -259,7 +259,18 @@
   },
   "upcoming": {
     "title": "Maintenant et à venir",
-    "subtitle": "Séances d'apprentissage en direct"
+    "subtitle": "Séances d'apprentissage en direct",
+    "badge": "Apprentissage en temps réel",
+    "title_start": "En direct",
+    "title_end": "Ateliers.",
+    "description": "Expérimentez des sessions interactives à haute fidélité avec des experts du domaine. Pas de vidéos ennuyeuses, juste de vraies conversations et du codage en direct.",
+    "explore": "Découvrez toutes les séances",
+    "card_badge": "À venir",
+    "card_type": "Atelier en direct",
+    "starts_in": "Débute dans",
+    "closed": "Fermé",
+    "register": "Inscrivez-vous",
+    "started": "Démarré"
   },
   "common": {
     "close": "Fermer",
@@ -490,5 +501,141 @@
     "step4_desc": "Utilisez des analyses avancées pour suivre les progrès des étudiants, l'engagement et les ventes. Optimisez pour une croissance maximale.",
     "cta_title": "Prêt à commencer à enseigner?",
     "cta_button": "Lancer Votre Cours"
+  },
+  "seo": {
+    "home_title": "CourseMaster | La plateforme d'apprentissage ultime",
+    "home_description": "Maîtrisez de nouvelles compétences avec nos cours en ligne dirigés par des experts. De la conception Web à la science des données, commencez votre parcours d'apprentissage avec CourseMaster aujourd'hui.",
+    "courses_title": "Tous les cours | CourseMaster - Découvrez les programmes dirigés par des experts",
+    "courses_description": "Parcourez notre large éventail de cours professionnels sur React, Next.js et l'IA. Démarrez votre parcours d'apprentissage avec CourseMaster aujourd'hui.",
+    "about_title": "À propos de nous | CourseMaster - Autonomiser les apprentis dans le monde",
+    "about_description": "En savoir plus sur la mission de CourseMaster pour fournir une éducation de classe mondiale. Découvrez nos valeurs et comment nous transformons l'apprentissage en ligne.",
+    "contact_title": "Contactez-nous | CourseMaster - Prenez contact",
+    "contact_description": "Avez-vous des questions ou avez-vous besoin de soutien ? Contactez l'équipe CourseMaster. Nous sommes là pour vous aider dans votre parcours d'apprentissage."
+  },
+  "live_sessions": {
+    "management_title": "Gestion des sessions en direct",
+    "management_subtitle": "Créez et gérez les ateliers et événements en direct à venir.",
+    "create_new": "Créer une nouvelle session",
+    "stats": {
+      "total": "Sessions totales",
+      "upcoming": "À venir",
+      "registration_open": "Inscription ouverte"
+    },
+    "table": {
+      "session_info": "Informations sur la session",
+      "schedule": "Calendrier",
+      "registration": "Inscription",
+      "status": "Statut",
+      "actions": "Actions",
+      "no_sessions": "Aucune session trouvée.",
+      "deadline": "Échéance",
+      "active": "Actif",
+      "expired": "Expiré"
+    },
+    "modal": {
+      "create_title": "Créer une nouvelle session en direct",
+      "update_title": "Mise à jour de session en direct",
+      "create_desc": "Remplissez les informations ci-dessous pour planifier un nouvel événement en direct.",
+      "update_desc": "Mettez à jour les détails de votre session en direct à venir.",
+      "success_create": "Session créée avec succès",
+      "success_update": "Session mise à jour avec succès",
+      "success_delete": "Session supprimée avec succès",
+      "error_create": "Échec de la création de la session",
+      "error_update": "Échec de la mise à jour de la session",
+      "error_delete": "Échec de la suppression de la session",
+      "confirm_delete": "Êtes-vous sûr de vouloir supprimer cette session ?"
+    },
+    "form": {
+      "title": "Titre de la session",
+      "title_placeholder": "par exemple Masterclass sur React et Next.js",
+      "description": "Description",
+      "description_placeholder": "De quoi s'agit-il ?",
+      "date": "Date et heure de la session",
+      "deadline": "Date limite d'inscription",
+      "thumbnail": "URL de la vignette",
+      "thumbnail_placeholder": "https://images.unsplash.com/...",
+      "capacity": "Capacité maximale (facultatif)",
+      "capacity_placeholder": "par exemple 50",
+      "meeting_link": "Lien de réunion (Réservé aux utilisateurs enregistrés)",
+      "meeting_link_placeholder": "https://zoom.us/j/...",
+      "publish": "Publier cette session immédiatement",
+      "save": "Enregistrer la session",
+      "saving": "Enregistrement...",
+      "update": "Mettre à jour la session",
+      "create": "Créer une session"
+    },
+    "validation": {
+      "title_min": "Le titre doit contenir au moins 3 caractères",
+      "desc_min": "La description doit contenir au moins 10 caractères",
+      "url_invalid": "Veuillez entrer une URL valide",
+      "date_required": "La date de session est requise",
+      "deadline_required": "La date limite d'inscription est requise",
+      "capacity_min": "La capacité doit être d'au moins 1"
+    },
+    "registration": {
+      "badge": "Atelier en direct",
+      "date_time": "Date et Heure",
+      "deadline": "Échéance",
+      "secure_badge": "Inscription Sécurisée",
+      "closed_title": "Inscription Fermée",
+      "closed_desc": "La date limite pour cette session a déjà été dépassée.",
+      "full_name": "Nom complet",
+      "full_name_placeholder": "Entrez votre nom",
+      "email": "Adresse e-mail",
+      "email_placeholder": "votre@email.com",
+      "phone": "Numéro de téléphone",
+      "phone_placeholder": "017XXXXXXXX",
+      "submit": "Réserver ma place",
+      "processing": "Traitement...",
+      "success_msg": "Inscription réussie pour la session !",
+      "error_deadline": "La date limite d'inscription est dépassée !",
+      "error_generic": "Échec de l'inscription. Veuillez réessayer.",
+      "validation": {
+        "name_short": "Le nom est trop court",
+        "email_invalid": "Adresse e-mail invalide",
+        "phone_invalid": "Numéro de téléphone invalide"
+      }
+    },
+    "ai_assistant": {
+      "mentor_title": "Tuteur IA",
+      "status_ready": "En ligne et prêt",
+      "welcome_title": "Bienvenue sur CourseMaster",
+      "welcome_desc": "Comment puis-je aider votre parcours d'apprentissage aujourd'hui ?",
+      "placeholder": "Demandez-moi n'importe quoi...",
+      "error_msg": "Désolé, j'ai des problèmes de connexion pour le moment. Veuillez réessayer plus tard."
+    },
+    "ai_search": {
+      "title": "Recherche intelligente",
+      "subtitle": "Votre guide d'apprentissage IA personnel",
+      "placeholder": "Demandez tout (par exemple, 'Je veux apprendre le développement web desde zéro')",
+      "button": "Recherche AI",
+      "insights_badge": "Conseils AI",
+      "matching_programs": "Programmes correspondants",
+      "students_count": "{{count}} Étudiants",
+      "rating_count": "{{rating}} Note",
+      "awaiting_title": "En attente de votre demande",
+      "awaiting_desc": "Notre IA est prête à tracer votre parcours éducatif. Entrez un sujet ou une compétence pour commencer."
+    },
+    "ai_quiz": {
+      "title": "Générateur de quiz IA",
+      "subtitle": "Testez vos connaissances pour cette leçon !",
+      "crafting": "L'IA crée votre quiz...",
+      "completed_title": "Quiz terminé !",
+      "score_text": "Vous avez obtenu {{score}} sur {{total}}",
+      "retry": "Réessayer",
+      "done": "Terminé",
+      "question_count": "Question {{current}} sur {{total}}",
+      "score_label": "Score : {{score}}",
+      "next_question": "Question suivante",
+      "view_result": "Voir le résultat",
+      "error": "Quelque chose s'est mal passé. Veuillez réessayer."
+    },
+    "course_card": {
+      "uncategorized": "Non catégorisé",
+      "instructor": "Enseignant",
+      "academy_expert": "Expert de l'Académie",
+      "investment": "Investissement",
+      "view_details": "Voir les détails du cours"
+    }
   }
 }
