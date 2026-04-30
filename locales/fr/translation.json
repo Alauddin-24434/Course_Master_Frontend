@@ -31,7 +31,8 @@
     "console": "{{role}} Console",
     "management_pro": "Pro de gestion",
     "how_it_works_step": "Étape par Étape",
-    "how_it_works_subtitle": "Workflow Simplifié"
+    "how_it_works_subtitle": "Workflow Simplifié",
+    "live_workshops": "Ateliers en direct"
   },
   "home": {
     "title": "Apprendre tout, tout le temps",

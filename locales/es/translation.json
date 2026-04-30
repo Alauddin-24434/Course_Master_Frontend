@@ -31,7 +31,8 @@
     "console": "{{role}} Consola",
     "management_pro": "Administración Pro",
     "how_it_works_step": "Paso a paso",
-    "how_it_works_subtitle": "Flujo de trabajo simplificado"
+    "how_it_works_subtitle": "Flujo de trabajo simplificado",
+    "live_workshops": "Talleres en vivo"
   },
   "home": {
     "title": "Aprende cualquier cosa, en cualquier momento",

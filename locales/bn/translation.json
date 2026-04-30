@@ -31,7 +31,8 @@
     "console": "{{role}} কনসোল",
     "management_pro": "ম্যানেজমেন্ট প্রো",
     "how_it_works_step": "ধাপে ধাপে",
-    "how_it_works_subtitle": "সরলীকৃত কাজের প্রবাহ"
+    "how_it_works_subtitle": "সরলীকৃত কাজের প্রবাহ",
+    "live_workshops": "লাইভ ওয়ার্কশপ"
   },
   "home": {
     "title": "যেকোন সময় যেকোন কিছু শিখুন",
