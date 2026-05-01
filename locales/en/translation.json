@@ -783,7 +783,22 @@
     "testimonial_role": "Lead Developer",
     "no_role_title": "Don't see your role?",
     "no_role_desc": "We're always looking for exceptional talent. If you're passionate about education and technology, we want to hear from you.",
-    "send_app": "Send Open Application"
+    "send_app": "Send Open Application",
+    "categories": {
+      "all": "All Positions",
+      "engineering": "Engineering",
+      "design": "Design",
+      "marketing": "Marketing",
+      "support": "Customer Support",
+      "product": "Product Management",
+      "sales": "Sales & Growth",
+      "hr": "Human Resources",
+      "finance": "Finance",
+      "operations": "Operations",
+      "management": "Management",
+      "content": "Content & Writing",
+      "customer_success": "Customer Success"
+    }
   },
   "privacy_policy": {
     "badge": "Privacy First",

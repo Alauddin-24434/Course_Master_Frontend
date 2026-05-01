@@ -41,7 +41,21 @@ export default function CareersPage() {
   const { data: jobsData, isLoading } = useGetAllJobsQuery({ category: activeCategory !== "All" ? activeCategory : undefined })
   const [applyForJob, { isLoading: isApplying }] = useApplyForJobMutation()
 
-  const categories = ["All", "Engineering", "Design", "Marketing", "Support"]
+  const categories = [
+    { id: "All", label: t("careers.categories.all") },
+    { id: "Engineering", label: t("careers.categories.engineering") },
+    { id: "Design", label: t("careers.categories.design") },
+    { id: "Marketing", label: t("careers.categories.marketing") },
+    { id: "Support", label: t("careers.categories.support") },
+    { id: "Product", label: t("careers.categories.product") },
+    { id: "Sales", label: t("careers.categories.sales") },
+    { id: "HR", label: t("careers.categories.hr") },
+    { id: "Finance", label: t("careers.categories.finance") },
+    { id: "Operations", label: t("careers.categories.operations") },
+    { id: "Management", label: t("careers.categories.management") },
+    { id: "Content", label: t("careers.categories.content") },
+    { id: "Customer Success", label: t("careers.categories.customer_success") }
+  ]
   const jobs = jobsData?.data || []
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ApplicationForm>({
@@ -107,11 +121,11 @@ export default function CareersPage() {
               <div className="flex flex-wrap gap-2">
                  {categories.map(cat => (
                     <button 
-                      key={cat}
-                      onClick={() => setActiveCategory(cat)}
-                      className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeCategory === cat ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}
+                      key={cat.id}
+                      onClick={() => setActiveCategory(cat.id)}
+                      className={`px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeCategory === cat.id ? "bg-primary text-white shadow-lg shadow-primary/20" : "bg-secondary text-muted-foreground hover:bg-secondary/80"}`}
                     >
-                       {cat}
+                       {cat.label}
                     </button>
                  ))}
               </div>

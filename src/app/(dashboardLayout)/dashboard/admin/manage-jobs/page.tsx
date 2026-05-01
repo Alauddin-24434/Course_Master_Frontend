@@ -245,16 +245,57 @@ export default function ManageJobsPage() {
                   <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <FormField label="Job Title" register={register("title", { required: true })} placeholder="e.g. Senior Product Designer" />
-                        <FormField label="Category" register={register("category", { required: true })} placeholder="e.g. Design" />
-                        <FormField label="Location" register={register("location", { required: true })} placeholder="e.g. Remote" />
-                        <FormField label="Job Type" register={register("type", { required: true })} placeholder="e.g. Full-time" />
+                        
+                        <div className="space-y-2">
+                           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Category</label>
+                           <select {...register("category", { required: true })} className="w-full h-14 px-6 bg-secondary/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold appearance-none">
+                              <option value="Engineering">Engineering</option>
+                              <option value="Design">Design</option>
+                              <option value="Marketing">Marketing</option>
+                              <option value="Support">Support</option>
+                              <option value="Product">Product</option>
+                              <option value="Sales">Sales</option>
+                              <option value="HR">HR</option>
+                              <option value="Finance">Finance</option>
+                              <option value="Operations">Operations</option>
+                              <option value="Management">Management</option>
+                              <option value="Content">Content</option>
+                              <option value="Customer Success">Customer Success</option>
+                           </select>
+                        </div>
+
+                        <div className="space-y-2">
+                           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Location Type</label>
+                           <div className="flex gap-2">
+                              {["Remote", "Onsite", "Hybrid"].map((loc) => (
+                                 <label key={loc} className="flex-1">
+                                    <input type="radio" value={loc} {...register("location", { required: true })} className="peer hidden" />
+                                    <div className="h-14 flex items-center justify-center bg-secondary/30 border border-border rounded-2xl peer-checked:border-primary peer-checked:bg-primary/5 peer-checked:text-primary font-bold text-xs cursor-pointer transition-all uppercase tracking-widest">
+                                       {loc}
+                                    </div>
+                                 </label>
+                              ))}
+                           </div>
+                        </div>
+
+                        <div className="space-y-2">
+                           <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Job Type</label>
+                           <select {...register("type", { required: true })} className="w-full h-14 px-6 bg-secondary/30 border border-border rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold appearance-none">
+                              <option value="Full-time">Full-time</option>
+                              <option value="Part-time">Part-time</option>
+                              <option value="Contract">Contract</option>
+                              <option value="Internship">Internship</option>
+                              <option value="Freelance">Freelance</option>
+                           </select>
+                        </div>
+
                         <FormField label="Salary Budget" register={register("salary")} placeholder="e.g. $50k - $80k" />
                         <FormField label="Application Deadline" register={register("deadline")} type="date" />
                      </div>
 
                      <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">Job Description</label>
-                        <textarea {...register("description", { required: true })} rows={4} className="w-full p-6 bg-secondary/30 border border-border rounded-[2rem] focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold resize-none" placeholder="Detailed job description..." />
+                        <textarea {...register("description", { required: true })} rows={10} className="w-full p-6 bg-secondary/30 border border-border rounded-[2rem] focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold resize-none min-h-[300px]" placeholder="Detailed job description..." />
                      </div>
 
                      <div className="flex items-center gap-3 bg-secondary/20 p-6 rounded-2xl border border-border">
