@@ -193,6 +193,27 @@
       "revenue": "Ingresos Atribuidos",
       "verified": "Colocación Verificada",
       "no_data": "No se han sincronizado datos de currículum aún."
+    },
+    "revenue_stream": "Análisis de Flujo de Ingresos",
+    "course_categories": "Distribución de Cursos",
+    "growth_trends": "Tendencias de Crecimiento",
+    "market_reach": "Alcance de Mercado",
+    "active_users_trend": "Tendencias de Usuarios Activos",
+    "insights": "Perspectivas de la Plataforma",
+    "data_sync": "Sincronizando Datos Globales...",
+    "analytics": {
+      "title": "Centro de Comando Global",
+      "subtitle": "Análisis de Plataforma de Alta Precisión",
+      "engagement": "Analytcs de Participación de Plataforma",
+      "advanced_metrics": "Métricas Avanzadas",
+      "stats": {
+        "students": "Estudiantes",
+        "instructors": "Instructores",
+        "courses": "Cursos",
+        "enrollments": "Inscripciones",
+        "revenue": "Ingresos",
+        "growth": "Crecimiento Activo"
+      }
     }
   },
   "requirements": {
@@ -641,6 +662,12 @@
       "academy_expert": "Experto de la academia",
       "investment": "Inversión",
       "view_details": "Ver detalles del curso"
+    },
+    "user_management": {
+      "table": {},
+      "roles": {},
+      "status": {},
+      "toasts": {}
     }
   },
   "faq": {
@@ -657,5 +684,75 @@
     "a4": "Sí, puedes. Si tienes experiencia en un tema, puedes solicitar convertirte en instructor desde tu panel de control y empezar a enseñar.",
     "q5": "¿Cuál es la política de reembolso!",
     "a5": "Ofrecemos una garantía de devolución de dinero de 30 días para la mayoría de los cursos. Si no está satisfecho, puede solicitar un reembolso dentro de los 30 días posteriores a la compra."
+  },
+  "ai_assistant": {
+    "mentor_title": "Mentor de IA",
+    "status_ready": "Conectado y listo",
+    "welcome_title": "Bienvenido a CourseMaster",
+    "welcome_desc": "¿Cómo puedo ayudarte en tu camino de aprendizaje hoy?",
+    "placeholder": "Pregúntame cualquier cosa...",
+    "error_msg": "Lo siento, estoy teniendo problemas para conectarme en este momento. Por favor, inténtalo de nuevo más tarde."
+  },
+  "ai_search": {
+    "title": "Búsqueda inteligente",
+    "subtitle": "Tu guía de aprendizaje de IA personalizada",
+    "placeholder": "Pregúntame cualquier cosa (por ejemplo, 'Quiero aprender desarrollo web desde cero')",
+    "button": "Búsqueda de IA",
+    "insights_badge": "Perspectivas de IA",
+    "matching_programs": "Programas coincidentes",
+    "students_count": "{{count}} Estudiantes",
+    "rating_count": "{{rating}} Calificación",
+    "awaiting_title": "Esperando tu consulta",
+    "awaiting_desc": "Nuestro AI está listo para trazar tu camino educativo. Ingresa un tema o habilidad para empezar."
+  },
+  "ai_quiz": {
+    "title": "Generador de pruebas de inteligencia artificial",
+    "subtitle": "¡Pon a prueba tus conocimientos en esta lección!",
+    "crafting": "El AI está creando tu prueba...",
+    "completed_title": "¡Prueba completada!",
+    "score_text": "Obtuviste {{score}} de {{total}}",
+    "retry": "Volver a intentar",
+    "done": "Hecho",
+    "question_count": "Pregunta {{current}} de {{total}}",
+    "score_label": "Puntuación: {{score}}",
+    "next_question": "Siguiente pregunta",
+    "view_result": "Ver resultado",
+    "error": "Algo salió mal. Por favor, vuelve a intentarlo."
+  },
+  "course_card": {
+    "uncategorized": "Sin categorizar",
+    "instructor": "Instructor",
+    "academy_expert": "Experto de la Academia",
+    "investment": "Inversión",
+    "view_details": "Ver detalles del curso"
+  },
+  "user_management": {
+    "title": "Administración de identidad.",
+    "subtitle": "Administrar el acceso a la plataforma, roles y estado para todos los usuarios en el ecosistema de CourseMaster.",
+    "identity_hub": "Centro de identidad",
+    "active_users": "Usuarios activos",
+    "table": {
+      "user_info": "Información del usuario",
+      "role": "Rol",
+      "status": "Estado",
+      "join_date": "Fecha de inicio",
+      "courses": "Cursos",
+      "actions": "Acciones",
+      "no_users": "No se encontraron usuarios en el sistema."
+    },
+    "roles": {
+      "admin": "Administrador",
+      "instructor": "Instructor",
+      "student": "Estudiante"
+    },
+    "status": {
+      "active": "Activo",
+      "blocked": "Bloqueado"
+    },
+    "toasts": {
+      "role_success": "Rol de usuario actualizado con éxito",
+      "status_success": "Estado de usuario actualizado con éxito",
+      "error": "Error al actualizar el usuario"
+    }
   }
 }

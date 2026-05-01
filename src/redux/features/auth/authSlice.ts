@@ -3,18 +3,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../../store";
 import { IUser } from "@/interfaces/user.interface";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  password: string;
-  role: "student" | "instructor" | "admin";
-  avatar?: string | null;
-  createdAt?: string | Date | null;
-  bio?: string | null;
-}
 interface AuthState {
-  user: User | null;
+  user: IUser | null;
   token: string | null;
   isAuthenticated: boolean;
   loading: boolean;

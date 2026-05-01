@@ -59,9 +59,7 @@ export function AppSidebar() {
 
   const adminItems = [
     { title: t("nav.platform_hub") || "Platform Hub", url: "/dashboard", icon: ShieldCheck },
-    // { title: t("nav.manage_users") || "Manage Users", url: "/dashboard/admin/users", icon: Users },
-    { title: t("nav.manage_courses") || "Manage Courses", url: "/dashboard/admin/courses", icon: BookOpen },
-    { title: t("nav.categories") || "Categories", url: "/dashboard/admin/manage-categories", icon: FolderKanban },
+    { title: t("nav.manage_users") || "Manage Users", url: "/dashboard/admin/manage-users", icon: Users },
     { title: t("nav.revenue") || "Revenue", url: "/dashboard/admin/revenue", icon: BarChart3 },
     { title: t("nav.legal") || "Legal Policy", url: "/dashboard/admin/refund-policy", icon: History },
   ];

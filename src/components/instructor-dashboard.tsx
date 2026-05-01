@@ -2,6 +2,8 @@
 
 import { useTranslation } from "react-i18next";
 import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi";
+import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
 import { Users, BookOpen, Inbox, DollarSign, Sparkles, FolderOpen, ArrowRight } from "lucide-react";
 import { AdminCoursesTable } from "./admin-courses-table";
 import { DashboardStatCard } from "./dashboard/stat-card";
@@ -11,11 +13,18 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 
+import { PlatformAnalytics } from "./dashboard/PlatformAnalytics";
+
 export function InstructorDashboard() {
   const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data, isLoading } = useGetDashboardAnalyticsQuery();
   const statistics = useMemo(() => data?.data?.statistics || {}, [data]);
+  const { data: coursesData } = useGetAllCoursesQuery({ limit: 1000 });
+  const { data: usersData } = useGetAllUsersQuery();
+
+  const courses = coursesData?.data?.courses || [];
+  const users = usersData?.data || [];
 
   if (isLoading) {
     return (
@@ -95,6 +104,9 @@ export function InstructorDashboard() {
            variant="amber"
         />
       </div>
+
+      {/* ================= ADVANCED ANALYTICS ================= */}
+      <PlatformAnalytics courses={courses} users={users} statistics={statistics} />
 
       {/* ================= RECENT CONTENT ================= */}
       <div className="space-y-8 bg-card border border-border rounded-[3rem] p-10 relative overflow-hidden group">

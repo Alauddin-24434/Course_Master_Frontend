@@ -4,11 +4,22 @@ import { useTranslation } from "react-i18next"
 import { AdminStats } from "./admin-stats"
 import { AdminCoursesTable } from "./admin-courses-table"
 import { AdminUsersTable } from "./admin-users-table"
-import { Sparkles, Activity, ShieldCheck, ArrowRight } from "lucide-react"
+import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi"
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi"
+import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi"
+import { Sparkles, Activity, ShieldCheck, ArrowRight, Loader2 } from "lucide-react"
 import Link from "next/link"
+import { PlatformAnalytics } from "./dashboard/PlatformAnalytics"
 
 export function AdminDashboard() {
   const { t } = useTranslation()
+  const { data: analyticsData } = useGetDashboardAnalyticsQuery()
+  const { data: coursesData } = useGetAllCoursesQuery({ limit: 1000 })
+  const { data: usersData } = useGetAllUsersQuery()
+  
+  const stats = analyticsData?.data?.statistics || {}
+  const courses = coursesData?.data?.courses || []
+  const users = usersData?.data || []
 
   return (
     <div className="max-w-7xl mx-auto space-y-16 animate-in fade-in slide-in-from-bottom-6 duration-1000">
@@ -40,7 +51,8 @@ export function AdminDashboard() {
       {/* ================= STATS GRID ================= */}
       <AdminStats />
 
-      {/* ================= CONTENT GRID ================= */}
+      {/* ================= ADVANCED ANALYTICS ================= */}
+      <PlatformAnalytics courses={courses} users={users} statistics={stats} />
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-12">
         
         {/* Recent Courses Section */}

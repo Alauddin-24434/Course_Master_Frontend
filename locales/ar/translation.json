@@ -193,6 +193,27 @@
       "revenue": "إيرادات مرجعة",
       "verified": " полож Placement المصدق",
       "no_data": "لم يتم同步 بيانات المناهج الدراسية بعد."
+    },
+    "revenue_stream": "تحليل تدفق الإيرادات",
+    "course_categories": "توزيع الدورات",
+    "growth_trends": "اتجاهات النمو",
+    "market_reach": "مساحة السوق",
+    "active_users_trend": "اتجاهات المستخدمين النشطين",
+    "insights": ">rؤيات المنصة",
+    "data_sync": "serialization البيانات العالمية...",
+    "analytics": {
+      "title": "مركز القيادة العالمي",
+      "subtitle": "تحليلات منصة عالية الدقة",
+      "engagement": "مشاركة المنصة",
+      "advanced_metrics": "معايير متقدمة",
+      "stats": {
+        "students": "الطلاب",
+        "instructors": " المعلمون",
+        "courses": "الدورات",
+        "enrollments": "التماسات",
+        "revenue": "الإيرادات",
+        "growth": "النمو النشط"
+      }
     }
   },
   "requirements": {
@@ -641,6 +662,12 @@
       "academy_expert": "خبير الأكاديمية",
       "investment": "استثمار",
       "view_details": "عرض تفاصيل الدورة"
+    },
+    "user_management": {
+      "table": {},
+      "roles": {},
+      "status": {},
+      "toasts": {}
     }
   },
   "faq": {
@@ -657,5 +684,75 @@
     "a4": "نعم، يمكنك ذلك. إذا كنت تتمتع بالخبرة في موضوع ما، يمكنك التقدم ل trở thành مدرس من لوحة القيادة و البدء في التدريس.",
     "q5": "ما هي سياسة الاسترداد؟",
     "a5": "نقدم ضمان استرداد النقود لمدة 30 يومًا على معظم الدورات. إذا لم تكن راضيًا ، يمكنك طلب استرداد الأموال في غضون 30 يومًا من الشراء."
+  },
+  "ai_assistant": {
+    "mentor_title": "المرشد الذكي",
+    "status_ready": "متوفر على الإنترنت+jCED",
+    "welcome_title": "مرحباً بكم في CourseMaster",
+    "welcome_desc": "كيف يمكنني مساعدتك في رحلتك التعليمية اليوم؟",
+    "placeholder": "اسأل أي شيء...",
+    "error_msg": "أسف ، هناك مشكلة في الاتصال حاليًا. يرجى المحاولة مرة أخرى لاحقًا."
+  },
+  "ai_search": {
+    "title": "البحث الذكي",
+    "subtitle": "دليلك الشخصي للتعلم الذكي",
+    "placeholder": "اسأل أي شيء (مثل 'أريد học تنمية الويب من الصفر')",
+    "button": "بحث الذكي",
+    "insights_badge": "أفكار الذكية",
+    "matching_programs": "البرامج المطابقة",
+    "students_count": "{{count}} طالب",
+    "rating_count": "{{rating}} تصنيف",
+    "awaiting_title": "في انتظار استفسارك",
+    "awaiting_desc": "آي آي المتاحة لترسيم مسارك التعليمي. أدخل موضوعًا أو مهارة للبدء."
+  },
+  "ai_quiz": {
+    "title": "مُولّف الاختبارات الإلكترونية التحليلي",
+    "subtitle": "جرب معرفتك لهذا الدرس!",
+    "crafting": "آي آي تعمل على Создание اختبارك...",
+    "completed_title": "تم إكمال الاختبار!",
+    "score_text": "لقد سجلت {{score}} من {{total}}",
+    "retry": "جرب مرة أخرى",
+    "done": "انهيت",
+    "question_count": "سؤال {{current}} من {{total}}",
+    "score_label": "الدرجة: {{score}}",
+    "next_question": "السؤال التالي",
+    "view_result": "عرض النتيجة",
+    "error": " شيء ما خطأ.جرب مرة أخرى."
+  },
+  "course_card": {
+    "uncategorized": "غير مصنف",
+    "instructor": "مدرس",
+    "academy_expert": "خبير الأكاديمية",
+    "investment": "استثمار",
+    "view_details": "عرض تفاصيل الدورة"
+  },
+  "user_management": {
+    "title": "إدارة الهوية.",
+    "subtitle": "إدارة الوصول إلى المنصة وأدوار الحالة لجميع المستخدمين في نظام CourseMaster.",
+    "identity_hub": "مركز الهوية",
+    "active_users": "المستخدمين النشطين",
+    "table": {
+      "user_info": "معلومات المستخدم",
+      "role": "الدور",
+      "status": "الحالة",
+      "join_date": "تاريخ الانضمام",
+      "courses": "ości",
+      "actions": "إجراءات",
+      "no_users": "لم يتم العثور على مستخدمين في النظام."
+    },
+    "roles": {
+      "admin": "المسؤول",
+      "instructor": "المعلم",
+      "student": "الطالب"
+    },
+    "status": {
+      "active": "فعّال",
+      "blocked": "تم الحظر"
+    },
+    "toasts": {
+      "role_success": "تم تحديث دورة المستخدم بنجاح",
+      "status_success": "تم تحديث حالة المستخدم بنجاح",
+      "error": "celed تحديث المستخدم"
+    }
   }
 }

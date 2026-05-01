@@ -118,6 +118,15 @@ html {
   }
 }
 
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+}
+
 @keyframes marquee {
   0% { transform: translateX(0); }
   100% { transform: translateX(calc(-100% - 2rem)); }

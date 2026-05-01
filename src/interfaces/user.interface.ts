@@ -4,6 +4,12 @@ import { ICompletedLesson, IEnrollment } from "./course.interface";
 export enum Role {
   student = "student",
   admin = "admin",
+  instructor = "instructor",
+}
+
+export enum UserStatus {
+  active = "active",
+  blocked = "blocked",
 }
 
 // Assignment submission type
@@ -17,11 +23,14 @@ export interface IUser {
   name: string;
   email: string;
   bio?: string | null;
-  password: string;
+  password?: string;
   role: Role;
+  status: UserStatus;
   avatar?: string | null;
   enrolledCourses?: IEnrollment[];
   completedLessons?: ICompletedLesson[];
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: string;
+  updatedAt: string;
+  joinDate?: string;
+  courses?: number;
 }

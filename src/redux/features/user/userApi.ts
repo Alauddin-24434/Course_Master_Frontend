@@ -5,9 +5,29 @@ export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getAllUsers: build.query<IApiResponse<any>, void>({
       query: () => `/users`,
-      providesTags: ["Course"], // Might want to add 'User' tag in the baseApi in the future
+      providesTags: ["User"],
+    }),
+    updateUserRole: build.mutation<IApiResponse<any>, { id: string; role: string }>({
+      query: ({ id, role }) => ({
+        url: `/users/update-role/${id}`,
+        method: "PATCH",
+        body: { role },
+      }),
+      invalidatesTags: ["User"],
+    }),
+    updateUserStatus: build.mutation<IApiResponse<any>, { id: string; status: string }>({
+      query: ({ id, status }) => ({
+        url: `/users/update-status/${id}`,
+        method: "PATCH",
+        body: { status },
+      }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
 
-export const { useGetAllUsersQuery } = userApi;
+export const { 
+  useGetAllUsersQuery, 
+  useUpdateUserRoleMutation, 
+  useUpdateUserStatusMutation 
+} = userApi;

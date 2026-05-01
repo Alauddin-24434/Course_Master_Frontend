@@ -34,9 +34,11 @@ export default function FirebaseAuthProvider({ children }: { children: React.Rea
             email: firebaseUser.email || '',
             password: '',
             role: 'student' as any,
+            status: 'active' as any,
             avatar: firebaseUser.photoURL,
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            joinDate: new Date().toISOString(),
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString(),
           };
           dispatch(setUser({ user: fallbackUser, token: '' }));
         }

@@ -1,13 +1,21 @@
 "use client"
 
 import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi"
+import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi"
+import { useGetAllUsersQuery } from "@/redux/features/user/userApi"
 import { Users, BookOpen, DollarSign, Loader2, TrendingUp, Inbox } from "lucide-react"
+import { PlatformAnalytics } from "@/components/dashboard/PlatformAnalytics"
 
 export default function InstructorAnalyticsPage() {
-  const { data, isLoading } = useGetDashboardAnalyticsQuery()
-  const stats = data?.data?.statistics || {}
+  const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery()
+  const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 1000 })
+  const { data: usersData, isLoading: usersLoading } = useGetAllUsersQuery()
+  
+  const stats = analyticsData?.data?.statistics || {}
+  const courses = coursesData?.data?.courses || []
+  const users = usersData?.data || []
 
-  if (isLoading) {
+  if (analyticsLoading || coursesLoading || usersLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
@@ -63,38 +71,11 @@ export default function InstructorAnalyticsPage() {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-zinc-900 border border-zinc-800 rounded-[3rem] p-10 shadow-2xl relative overflow-hidden text-white">
-            <h3 className="text-2xl font-black mb-10 flex items-center gap-3">
-                <TrendingUp className="text-emerald-400" /> Enrollment Trends
-            </h3>
-            <div className="h-64 flex items-end justify-between gap-5 relative z-10">
-                {[12, 18, 15, 25, 22, 35, 45, 40, 55, 65, 80, 100].map((h, i) => (
-                    <div key={i} className="flex-1 bg-gradient-to-t from-emerald-500 to-emerald-400/20 rounded-xl transition-all hover:scale-110 hover:shadow-[0_0_20px_rgba(16,185,129,0.5)] cursor-pointer origin-bottom" style={{ height: `${h}%` }}></div>
-                ))}
-            </div>
-            <div className="flex justify-between mt-8 text-[10px] font-black text-white/40 uppercase tracking-widest pl-2 pr-2">
-                <span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span><span>Nov</span><span>Dec</span>
-            </div>
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[120px] rounded-full"></div>
-        </div>
-
-        <div className="bg-white border border-border rounded-[3rem] p-10 flex flex-col justify-between shadow-sm relative overflow-hidden group">
-            <div className="relative z-10">
-                <h4 className="text-sm font-black uppercase text-muted-foreground tracking-widest mb-10">Top Performing Course</h4>
-                <div className="space-y-6">
-                    <div className="p-1 bg-muted rounded-2xl overflow-hidden aspect-video relative group-hover:scale-105 transition-transform duration-500">
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                            <span className="text-white text-xs font-bold truncate">Web Development Masterclass</span>
-                        </div>
-                    </div>
-                    <div className="flex justify-between items-end border-b border-border pb-4">
-                        <span className="text-sm font-bold text-muted-foreground">Revenue share</span>
-                        <span className="text-xl font-black text-primary">64%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+      <div className="space-y-10">
+          <div className="flex items-center justify-between">
+              <h2 className="text-3xl font-black italic tracking-tighter text-foreground">Curriculum Insights</h2>
+          </div>
+          <PlatformAnalytics courses={courses} users={users} statistics={stats} />
       </div>
     </div>
   )
