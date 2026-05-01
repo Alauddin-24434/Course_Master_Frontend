@@ -3,7 +3,7 @@ import { syncJSON } from "@intlayer/sync-json-plugin";
 
 const config: IntlayerConfig = {
   internationalization: {
-    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH ,Locales.BENGALI, Locales.ARABIC],
+    locales: [Locales.ENGLISH, Locales.FRENCH, Locales.SPANISH ,Locales.BENGALI, Locales.ARABIC,Locales.HINDI, Locales.URDU, Locales.TAMIL,Locales.JAPANESE,Locales.KOREAN, Locales.GERMAN, Locales.ITALIAN, Locales.PORTUGUESE],
     defaultLocale: Locales.ENGLISH,
   },
 
