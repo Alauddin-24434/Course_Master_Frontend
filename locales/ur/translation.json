@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "کامیابی ان لوک",
     "welcome_back": "歡迎 zurück,",
-    "welcome_title": " واپسی پر خوش آمدید, <br /> {{name}}<1></1>",
+    "welcome_title": " واپسی پر خوش آمدید, <br /> <1>{{name}}</1>",
     "curriculum_progress": "آپ نے اپنے موجودہ نصاب کا {{progress}}% مکمل کر لیا ہے۔ آپ کا اگلا سنگ میل صرف کچھ سباقوں کے فاصلے پر ہے۔",
     "consistency": "jíž细",
     "total_enrolled": "کل داخلہ لیا گیا",

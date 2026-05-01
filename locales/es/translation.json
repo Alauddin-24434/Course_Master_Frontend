@@ -493,7 +493,7 @@
     "resume_desc": "Continúa donde lo dejaste en este curso.",
     "start_lesson": "Comenzar lección",
     "all_categories": "Todas las categorías",
-    "welcome_title": "Bienvenido de vuelta, <br /> {{name}}<1></1>"
+    "welcome_title": "Bienvenido de vuelta, <br /> <1>{{name}}</1>"
   },
   "instructor": {
     "revenue_title": "Ganancias y Regalías.",

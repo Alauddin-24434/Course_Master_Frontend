@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "Conquista Desbloqueada",
     "welcome_back": "Bem-vindo de volta, ",
-    "welcome_title": "Bem-vindo de volta, <br /> {{name}}<1></1>",
+    "welcome_title": "Bem-vindo de volta, <br /> <1>{{name}}</1>",
     "curriculum_progress": "Você completou {{progress}}% do seu currículo atual. Seu próximo marco está apenas a algumas aulas de distância.",
     "consistency": "Consistência",
     "total_enrolled": "Total Inscritos",

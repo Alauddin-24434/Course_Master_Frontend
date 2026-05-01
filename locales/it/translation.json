@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "Obiettivo raggiunto",
     "welcome_back": "Benvenuto/a,",
-    "welcome_title": "Benvenuto/a, <br /> {{name}}<1></1>",
+    "welcome_title": "Benvenuto/a, <br /> <1>{{name}}</1>",
     "curriculum_progress": "Hai completato il {{progress}}% del tuo piano di studi attuale. Il tuo prossimo obiettivo è a sole poche lezioni di distanza.",
     "consistency": "Coerenza",
     "total_enrolled": "Totale iscritti",

@@ -12,15 +12,6 @@ import { logout } from "@/redux/features/auth/authSlice";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
-// --- Types & Constants ---
-const languages = [
-  { code: "en", name: "English" },
-  { code: "bn", name: "বাংলা" },
-  { code: "fr", name: "Français" },
-  { code: "es", name: "Español" },
-  { code: "ar", name: "العربية" },
-];
-
 import { auth } from "@/lib/firebase";
 
 // --- Main Component: Header ---

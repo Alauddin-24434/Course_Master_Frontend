@@ -648,7 +648,7 @@
     "resume_desc": "আপনি যেখানে ছেড়েছিলেন সেখান থেকে কোর্সটি চালিয়ে যান।",
     "start_lesson": "পাঠ শুরু করুন",
     "all_categories": "সমস্ত বিভাগ",
-    "welcome_title": "স্বাগতম, <br /> {{name}}<1></1>"
+    "welcome_title": "স্বাগতম, <br /> <1>{{name}}</1>"
   },
   "instructor": {
     "revenue_title": "উপার্জন এবং রাজস্ব।",

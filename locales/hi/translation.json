@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "उपलब्धि अनलॉक की गई",
     "welcome_back": "स्वागत है,",
-    "welcome_title": "स्वागत है, <br /> {{name}}<1></1>",
+    "welcome_title": "स्वागत है, <br /> <1>{{name}}</1>",
     "curriculum_progress": "आपके वर्तमान पाठ्यक्रम का {{progress}}% पूरा हो चुका है। आपका अगला मील का पत्थर कुछ ही सबक दूर है।",
     "consistency": "निरंतरता",
     "total_enrolled": "कुल नामांकित",

@@ -7,9 +7,17 @@ import { Globe, ChevronDown, Check } from "lucide-react";
 const languages = [
   { code: "en", name: "English" },
   { code: "bn", name: "বাংলা" },
+  { code: "ar", name: "العربية" },
+  { code: "hi", name: "हिन्दी" },
+  { code: "ur", name: "اردو" },
+  { code: "ta", name: "தமிழ்" },
+  { code: "ja", name: "日本語" },
+  { code: "ko", name: "한국어" },
+  { code: "de", name: "Deutsch" },
+  { code: "it", name: "Italiano" },
+  { code: "pt", name: "Português" },
   { code: "fr", name: "Français" },
   { code: "es", name: "Español" },
-  { code: "ar", name: "العربية" },
 ];
 
 export function LanguageSwitcher() {
@@ -31,7 +39,8 @@ export function LanguageSwitcher() {
     i18n.changeLanguage(lng);
     localStorage.setItem("i18nextLng", lng);
     document.documentElement.lang = lng;
-    document.documentElement.dir = lng === "ar" ? "rtl" : "ltr";
+    // Update direction for RTL languages (Arabic and Urdu)
+    document.documentElement.dir = (lng === "ar" || lng === "ur") ? "rtl" : "ltr";
     setIsOpen(false);
   };
 

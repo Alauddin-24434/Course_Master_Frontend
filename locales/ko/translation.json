@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "성과를 달성했습니다",
     "welcome_back": "반갑습니다, ",
-    "welcome_title": "환영합니다, <br /> {{name}}<1></1>",
+    "welcome_title": "환영합니다, <br /> <1>{{name}}</1>",
     "curriculum_progress": "현재 교과과정의 {{progress}}%를 완료했습니다. 다음 마일스톤은 몇 개의 수업만 남았습니다.",
     "consistency": "일관성",
     "total_enrolled": "전체 등록",

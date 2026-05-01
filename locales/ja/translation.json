@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "達成しました",
     "welcome_back": "ようこそ戻りました，",
-    "welcome_title": "ようこそ戻りました， <br /> {{name}}<1></1>",
+    "welcome_title": "ようこそ戻りました， <br /> <1>{{name}}</1>",
     "curriculum_progress": "現在のカリキュラムの{{progress}}%を完了しました。次のマイルストーンはあと数回のレッスンです.",
     "consistency": "一貫性",
     "total_enrolled": "合計登録数",

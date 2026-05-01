@@ -493,7 +493,7 @@
     "resume_desc": "استمر من حيث انتهيت في هذا الدورة.",
     "start_lesson": "ابدأ الدرس",
     "all_categories": "جميع الفئات",
-    "welcome_title": "مرحباً مرة أخرى ، <br /> {{name}}<1></1>"
+    "welcome_title": "مرحباً مرة أخرى ، <br /> <1>{{name}}</1>"
   },
   "instructor": {
     "revenue_title": "الأرباح وال许多.",

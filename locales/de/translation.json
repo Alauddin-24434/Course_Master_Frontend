@@ -542,7 +542,7 @@
   "student": {
     "achievement_unlocked": "Erfolg freigeschaltet",
     "welcome_back": "Willkommen zurück,",
-    "welcome_title": "Willkommen zurück, <br /> {{name}}<1></1>",
+    "welcome_title": "Willkommen zurück, <br /> <1>{{name}}</1>",
     "curriculum_progress": "Sie haben {{progress}}% Ihres aktuellen Lehrplans abgeschlossen. Ihr nächstes Ziel ist nur noch wenige Lektionen entfernt.",
     "consistency": "Konsistenz",
     "total_enrolled": "Gesamt Eingeschrieben",

@@ -95,9 +95,14 @@ export function StudentDashboard() {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-               <Trans i18nKey="student.welcome_title" values={{ name: user?.name?.split(" ")[0] }}>
-                 Welcome Back, <span className="text-primary italic font-serif">name</span>
-               </Trans>
+              <Trans
+                i18nKey="student.welcome_title"
+                values={{ name: user?.name?.split(" ")[0] || "Student" }}
+                components={{
+                  br: <br />,
+                  1: <span className="text-primary italic font-serif" />
+                }}
+              />
             </h1>
 
             <p className="text-lg text-muted-foreground font-medium max-w-lg leading-relaxed">
