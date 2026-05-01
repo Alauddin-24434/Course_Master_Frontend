@@ -17,7 +17,18 @@ import {
 } from "lucide-react";
 import { TableSkeleton, StatCardSkeleton } from "@/components/dashboard/skeletons";
 
+import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute";
+import { Role } from "@/interfaces/user.interface";
+
 export default function AdminRevenuePage() {
+  return (
+    <RoleProtectedRoute allowedRoles={[Role.admin]}>
+      <AdminRevenueContent />
+    </RoleProtectedRoute>
+  );
+}
+
+function AdminRevenueContent() {
   const { t } = useTranslation();
   const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery();
   const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 100 });

@@ -5,10 +5,23 @@ import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi"
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi"
 import { Users, BookOpen, DollarSign, Loader2, TrendingUp, Inbox } from "lucide-react"
 import { PlatformAnalytics } from "@/components/dashboard/PlatformAnalytics"
+import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute"
+import { Role } from "@/interfaces/user.interface"
+import { useSelector } from "react-redux"
+import { RootState } from "@/redux/store"
 
 export default function InstructorAnalyticsPage() {
+  return (
+    <RoleProtectedRoute allowedRoles={[Role.instructor, Role.admin]}>
+      <InstructorAnalyticsContent />
+    </RoleProtectedRoute>
+  )
+}
+
+function InstructorAnalyticsContent() {
+  const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery()
-  const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 1000 })
+  const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 1000, instructorId: user?.id })
   const { data: usersData, isLoading: usersLoading } = useGetAllUsersQuery()
   
   const stats = analyticsData?.data?.statistics || {}

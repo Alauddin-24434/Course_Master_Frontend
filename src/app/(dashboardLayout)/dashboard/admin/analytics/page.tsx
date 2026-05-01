@@ -6,8 +6,18 @@ import { useGetAllUsersQuery } from "@/redux/features/user/userApi"
 import { Users, BookOpen, DollarSign, Loader2, TrendingUp, Inbox, ShieldCheck, UserCheck } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { PlatformAnalytics } from "@/components/dashboard/PlatformAnalytics"
+import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute"
+import { Role } from "@/interfaces/user.interface"
 
 export default function AdminAnalyticsPage() {
+  return (
+    <RoleProtectedRoute allowedRoles={[Role.admin]}>
+      <AdminAnalyticsContent />
+    </RoleProtectedRoute>
+  )
+}
+
+function AdminAnalyticsContent() {
   const { t } = useTranslation()
   const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery()
   const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 1000 })

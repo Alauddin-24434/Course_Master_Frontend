@@ -18,11 +18,22 @@ import {
 } from "lucide-react";
 import { TableSkeleton, StatCardSkeleton } from "@/components/dashboard/skeletons";
 
+import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute";
+import { Role } from "@/interfaces/user.interface";
+
 export default function InstructorRevenuePage() {
+  return (
+    <RoleProtectedRoute allowedRoles={[Role.instructor, Role.admin]}>
+      <InstructorRevenueContent />
+    </RoleProtectedRoute>
+  );
+}
+
+function InstructorRevenueContent() {
   const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.cmAuth);
   const { data: analyticsData, isLoading: analyticsLoading } = useGetDashboardAnalyticsQuery();
-  const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 100 });
+  const { data: coursesData, isLoading: coursesLoading } = useGetAllCoursesQuery({ limit: 100, instructorId: user?.id });
 
   const stats = useMemo(() => analyticsData?.data?.statistics || {}, [analyticsData]);
   

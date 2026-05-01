@@ -20,6 +20,7 @@ import {
   Zap,
   Users,
   Video,
+  Activity,
 } from "lucide-react";
 import {
   Sidebar,
@@ -55,6 +56,7 @@ export function AppSidebar() {
     { title: t("nav.curriculum") || "Curriculum", url: "/dashboard/instructor/modules", icon: Files },
     { title: t("nav.revenue") || "Revenue", url: "/dashboard/instructor/revenue", icon: Zap },
     { title: t("nav.live_workshops") || "Live Workshops", url: "/dashboard/manage-live-sessions", icon: Video },
+    { title: t("nav.analytics") || "Analytics", url: "/dashboard/instructor/analytics", icon: Activity },
   ];
 
   const adminItems = [
@@ -62,6 +64,7 @@ export function AppSidebar() {
     { title: t("nav.manage_users") || "Manage Users", url: "/dashboard/admin/manage-users", icon: Users },
     { title: t("nav.revenue") || "Revenue", url: "/dashboard/admin/revenue", icon: BarChart3 },
     { title: t("nav.legal") || "Legal Policy", url: "/dashboard/admin/refund-policy", icon: History },
+    { title: t("nav.analytics") || "Analytics", url: "/dashboard/admin/analytics", icon: Activity },
   ];
 
   const commonItems = [
