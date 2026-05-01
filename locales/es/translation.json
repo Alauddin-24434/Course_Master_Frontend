@@ -38,7 +38,9 @@
     "profile": "Mi Perfil",
     "explore_courses": "Explorar Cursos",
     "careers": "Carreras",
-    "analytics": "Análisis"
+    "analytics": "Análisis",
+    "manage_jobs": "Gestionar Trabajos",
+    "dash": "Panel"
   },
   "home": {
     "title": "Aprende cualquier cosa, en cualquier momento",
@@ -161,7 +163,9 @@
     "enrolled_courses": "Cursos Matriculados",
     "hours_learned": "Horas Aprendidas",
     "certificates": "Certificados",
-    "completion_rate": "Tasa de Completado"
+    "completion_rate": "Tasa de Completado",
+    "auth_required": "Autenticación Obligatoria",
+    "auth_required_desc": "Inicie sesión para acceder a su panel de control."
   },
   "admin": {
     "title": "Panel de Control de Administrador",
@@ -222,7 +226,23 @@
         "enrollments": "Inscripciones",
         "revenue": "Ingresos",
         "growth": "Crecimiento Activo"
-      }
+      },
+      "export_center": "Centro de Exportación de Plataforma",
+      "data_aggregation": "Agregación de Datos v2.4",
+      "csv_export": "Exportación CSV",
+      "pdf_report": "Generar Informe PDF",
+      "revenue_stream": "Análisis de Flujo de Ingresos",
+      "strategic_allocation": "Asignación de Contenido Estratégico",
+      "expansion_velocity": "Velocidad de Expansión de Plataforma",
+      "new_week": "Novedades de la Semana",
+      "new_month": "Novedades del Mes",
+      "top_selling": "Activos Más Vendidos",
+      "view_full_report": "Ver Informe Completo",
+      "growth": "Crecimiento",
+      "avg_ltv": "Valor LTV Prom.",
+      "total_assets": "Activos Totales",
+      "enrollments": "Inscripciones",
+      "insights_desc": "Basado en tus {{count}}<1> cursos</1>, la categoría más exitosa es {{percent}}{{category}}</3> con <5><3>%</5> de participación de mercado."
     }
   },
   "requirements": {
@@ -313,7 +333,8 @@
     "next": "Siguiente",
     "more": "Más páginas",
     "sidebar": "Barra lateral",
-    "toggle_sidebar": "Alternar barra lateral"
+    "toggle_sidebar": "Alternar barra lateral",
+    "operations": "Operaciones"
   },
   "contact": {
     "badge": "Pontese en contacto con nosotros",
@@ -471,7 +492,8 @@
     "next_up": "Siguiente:",
     "resume_desc": "Continúa donde lo dejaste en este curso.",
     "start_lesson": "Comenzar lección",
-    "all_categories": "Todas las categorías"
+    "all_categories": "Todas las categorías",
+    "welcome_title": "Bienvenido de vuelta, <br /> {{name}}<1></1>"
   },
   "instructor": {
     "revenue_title": "Ganancias y Regalías.",
@@ -510,7 +532,8 @@
     "knowledge_assets": "Activos de conocimiento",
     "global_reach": "Alcance global",
     "student_engagement": "Participación estudiantil",
-    "platform_earnings": "Ingresos de la plataforma"
+    "platform_earnings": "Ingresos de la plataforma",
+    "platform_performance_formatted": "Plataforma <br /> <1>Rendimiento</1>"
   },
   "info": {
     "avg_monthly": "Mes promedio",
@@ -832,7 +855,22 @@
     "testimonial_role": "Desarrollador líder",
     "no_role_title": "¿No ves tu función?",
     "no_role_desc": "Siempre estamos buscando talentos excepcionales. Si estás apasionado por la educación y la tecnología, queremos escucharte.",
-    "send_app": "Enviar solicitud abierta"
+    "send_app": "Enviar solicitud abierta",
+    "categories": {
+      "all": "Todos los puestos",
+      "engineering": "Ingeniería",
+      "design": "Diseño",
+      "marketing": "Marketing",
+      "support": "Soporte al cliente",
+      "product": "Gestión de producto",
+      "sales": "Ventas y Crecimiento",
+      "hr": "Recursos Humanos",
+      "finance": "Finanzas",
+      "operations": "Operaciones",
+      "management": "Administración",
+      "content": "Contenido y Redacción",
+      "customer_success": "Éxito del Cliente"
+    }
   },
   "privacy_policy": {
     "badge": "Privacidad primera",

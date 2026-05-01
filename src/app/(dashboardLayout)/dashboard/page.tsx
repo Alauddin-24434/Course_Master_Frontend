@@ -8,7 +8,10 @@ import { StudentDashboard } from "@/components/student-dashboard";
 import { Card } from "@/components/ui/card";
 import { AlertCircle, Loader2 } from "lucide-react";
 
+import { useTranslation } from "react-i18next";
+
 export default function DashboardPage() {
+  const { t } = useTranslation();
   const { user, loading } = useSelector((state: RootState) => state.cmAuth);
   const role = user?.role || "student";
 
@@ -26,8 +29,8 @@ export default function DashboardPage() {
         <Card className="bg-red-50 border-red-200 p-6 flex items-center gap-4">
           <AlertCircle className="w-8 h-8 text-red-600" />
           <div>
-            <h2 className="text-lg font-bold text-red-900">Authentication Required</h2>
-            <p className="text-red-700">Please log in to access your dashboard.</p>
+            <h2 className="text-lg font-bold text-red-900">{t("dashboard.auth_required")}</h2>
+            <p className="text-red-700">{t("dashboard.auth_required_desc")}</p>
           </div>
         </Card>
       </div>

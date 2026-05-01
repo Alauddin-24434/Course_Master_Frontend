@@ -44,34 +44,34 @@ export function AppSidebar() {
 
   // -------- MENU BY ROLE --------
   const studentItems = [
-    { title: t("nav.overview") || "Overview", url: "/dashboard", icon: LayoutDashboard },
-    { title: t("nav.my_courses") || "My Courses", url: "/dashboard/student/my-courses", icon: BookOpen },
-    { title: t("nav.payments") || "Payments", url: "/dashboard/student/payments", icon: History },
-    { title: t("nav.profile") || "My Profile", url: "/dashboard/settings", icon: GraduationCap },
+    { title: t("nav.overview"), url: "/dashboard", icon: LayoutDashboard },
+    { title: t("nav.my_courses"), url: "/dashboard/student/my-courses", icon: BookOpen },
+    { title: t("nav.payments"), url: "/dashboard/student/payments", icon: History },
+    { title: t("nav.profile"), url: "/dashboard/settings", icon: GraduationCap },
   ];
 
   const instructorItems = [
-    { title: t("nav.overview") || "Overview", url: "/dashboard", icon: BarChart3 },
-    { title: t("nav.categories") || "Categories", url: "/dashboard/admin/manage-categories", icon: FolderKanban },
-    { title: t("nav.my_courses") || "Manage Courses", url: "/dashboard/instructor/manage-courses", icon: FolderKanban },
-    { title: t("nav.curriculum") || "Curriculum", url: "/dashboard/instructor/modules", icon: Files },
-    { title: t("nav.revenue") || "Revenue", url: "/dashboard/instructor/revenue", icon: Zap },
-    { title: t("nav.live_workshops") || "Live Workshops", url: "/dashboard/manage-live-sessions", icon: Video },
-    { title: t("nav.analytics") || "Analytics", url: "/dashboard/instructor/analytics", icon: Activity },
+    { title: t("nav.overview"), url: "/dashboard", icon: BarChart3 },
+    { title: t("nav.categories"), url: "/dashboard/admin/manage-categories", icon: FolderKanban },
+    { title: t("nav.my_courses"), url: "/dashboard/instructor/manage-courses", icon: FolderKanban },
+    { title: t("nav.curriculum"), url: "/dashboard/instructor/modules", icon: Files },
+    { title: t("nav.revenue"), url: "/dashboard/instructor/revenue", icon: Zap },
+    { title: t("nav.live_workshops"), url: "/dashboard/manage-live-sessions", icon: Video },
+    { title: t("nav.analytics"), url: "/dashboard/instructor/analytics", icon: Activity },
   ];
 
   const adminItems = [
-    { title: t("nav.platform_hub") || "Platform Hub", url: "/dashboard", icon: ShieldCheck },
-    { title: t("nav.manage_users") || "Manage Users", url: "/dashboard/admin/manage-users", icon: Users },
-    { title: t("nav.manage_jobs") || "Manage Jobs", url: "/dashboard/admin/manage-jobs", icon: Briefcase },
-    { title: t("nav.revenue") || "Revenue", url: "/dashboard/admin/revenue", icon: BarChart3 },
-    { title: t("nav.legal") || "Legal Policy", url: "/dashboard/admin/refund-policy", icon: History },
-    { title: t("nav.analytics") || "Analytics", url: "/dashboard/admin/analytics", icon: Activity },
+    { title: t("nav.platform_hub"), url: "/dashboard", icon: ShieldCheck },
+    { title: t("nav.manage_users"), url: "/dashboard/admin/manage-users", icon: Users },
+    { title: t("nav.manage_jobs"), url: "/dashboard/admin/manage-jobs", icon: Briefcase },
+    { title: t("nav.revenue"), url: "/dashboard/admin/revenue", icon: BarChart3 },
+    { title: t("nav.legal"), url: "/dashboard/admin/refund-policy", icon: History },
+    { title: t("nav.analytics"), url: "/dashboard/admin/analytics", icon: Activity },
   ];
 
   const commonItems = [
-    { title: t("nav.explore_courses") || "Explore Courses", url: "/courses", icon: BookOpen },
-    { title: t("nav.settings") || "Settings", url: "/dashboard/settings", icon: Settings },
+    { title: t("nav.explore_courses"), url: "/courses", icon: BookOpen },
+    { title: t("nav.settings"), url: "/dashboard/settings", icon: Settings },
   ];
 
   const getMenuByRole = () => {
@@ -116,7 +116,7 @@ export function AppSidebar() {
           <SidebarGroup>
             <div className="px-4 mb-4">
               <span className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/40">
-                {t("nav.console", { role: role }) || `${role} Console`}
+                {t("nav.console", { role: t(`user_management.roles.${role}`) })}
               </span>
             </div>
 
@@ -164,7 +164,7 @@ export function AppSidebar() {
             className="group flex w-full items-center justify-center gap-2 h-12 rounded-xl bg-destructive/5 border border-destructive/10 text-destructive text-[10px] font-black uppercase tracking-widest transition-all hover:bg-destructive hover:text-white shadow-sm active:scale-95"
           >
             <LogOut className="w-4 h-4 group-hover:rotate-12 transition-transform" />
-            <span>{t("nav.end_session") || "End Session"}</span>
+            <span>{t("nav.end_session")}</span>
           </button>
         </div>
 

@@ -38,7 +38,9 @@
     "profile": "Mon profil",
     "explore_courses": "Explorer les cours",
     "careers": "Carrières",
-    "analytics": "Analytiques"
+    "analytics": "Analytiques",
+    "manage_jobs": "Gérer les emplois",
+    "dash": "Tableau de bord"
   },
   "home": {
     "title": "Apprendre tout, tout le temps",
@@ -161,7 +163,9 @@
     "enrolled_courses": "Cours inscrits",
     "hours_learned": "Heures d'apprentissage",
     "certificates": "Certificats",
-    "completion_rate": "Taux d'achèvement"
+    "completion_rate": "Taux d'achèvement",
+    "auth_required": "Authentification requise",
+    "auth_required_desc": "Veuillez vous connecter pour accéder à votre tableau de bord."
   },
   "admin": {
     "title": "Tableau de bord administratif",
@@ -222,7 +226,23 @@
         "enrollments": "Inscriptions",
         "revenue": "Revenu",
         "growth": "Croissance active"
-      }
+      },
+      "export_center": "Centre d'exportation de la plateforme",
+      "data_aggregation": "Aggregation de données v2.4",
+      "csv_export": "Exportation CSV",
+      "pdf_report": "Générer un rapport PDF",
+      "revenue_stream": "Analyse des flux de revenus",
+      "strategic_allocation": "Allocation de contenu stratégique",
+      "expansion_velocity": "Vitesse d'expansion de la plateforme",
+      "new_week": "Nouveau cette semaine",
+      "new_month": "Nouveau ce mois",
+      "top_selling": "Actifs les plus vendus",
+      "view_full_report": "Voir le rapport complet",
+      "growth": "Croissance",
+      "avg_ltv": "Valeur moyenne du client",
+      "total_assets": "Actifs totaux",
+      "enrollments": "Inscriptions",
+      "insights_desc": "Sur la base de vos {{count}}<1> cours</1>, la catégorie la plus réussie est {{percent}}{{category}}</3> avec <5><3>%</5> de part de marché."
     }
   },
   "requirements": {
@@ -313,7 +333,8 @@
     "next": "Suivant",
     "more": "Plus de pages",
     "sidebar": "Barre latérale",
-    "toggle_sidebar": "Basculer la barre latérale"
+    "toggle_sidebar": "Basculer la barre latérale",
+    "operations": "Opérations"
   },
   "contact": {
     "badge": "Contactez-nous",
@@ -471,7 +492,8 @@
     "next_up": "Ensuite:",
     "resume_desc": "Reprenez où vous vous êtes arrêté dans ce cours.",
     "start_lesson": "Démarrer la leçon",
-    "all_categories": "Toutes les catégories"
+    "all_categories": "Toutes les catégories",
+    "welcome_title": "Bienvenue, <br /> {{name}}<1></1>"
   },
   "instructor": {
     "revenue_title": "Gains et redevances.",
@@ -510,7 +532,8 @@
     "knowledge_assets": "Actifs de connaissances",
     "global_reach": "Portée mondiale",
     "student_engagement": "Engagement des étudiants",
-    "platform_earnings": "Gains de la plateforme"
+    "platform_earnings": "Gains de la plateforme",
+    "platform_performance_formatted": "Plateforme <br /> <1>Performance</1>"
   },
   "info": {
     "avg_monthly": "Moyenne mensuelle",
@@ -832,7 +855,22 @@
     "testimonial_role": "Développeur principal",
     "no_role_title": "N'avez-vous pas trouvé votre rôle?",
     "no_role_desc": "Nous sommes toujours à la recherche de talents exceptionnels. Si vous êtes passionné par l'éducation et la technologie, nous voulons entendre parler de vous.",
-    "send_app": "Envoyer une candidature ouverte"
+    "send_app": "Envoyer une candidature ouverte",
+    "categories": {
+      "all": "Tous les postes",
+      "engineering": "Ingénierie",
+      "design": " DESIGN",
+      "marketing": "Marketing",
+      "support": "Support client",
+      "product": "Gestion de produit",
+      "sales": "Ventes & Croissance",
+      "hr": "Ressources humaines",
+      "finance": "Finance",
+      "operations": "Opérations",
+      "management": "Gestion",
+      "content": "Contenu et rédaction",
+      "customer_success": "Succès client"
+    }
   },
   "privacy_policy": {
     "badge": "Confidentialité d'abord",

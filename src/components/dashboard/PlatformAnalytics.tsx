@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useMemo } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useTranslation, Trans } from 'react-i18next'
 import { 
   TrendingUp, 
   DollarSign, 
@@ -170,8 +170,8 @@ export function PlatformAnalytics({
                   <ShieldCheck className="w-6 h-6 text-primary" />
               </div>
               <div>
-                  <h4 className="text-sm font-black italic">Platform Export Center</h4>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Data Aggregation v2.4</p>
+                  <h4 className="text-sm font-black italic">{t("admin.analytics.export_center")}</h4>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">{t("admin.analytics.data_aggregation")}</p>
               </div>
           </div>
           <div className="flex items-center gap-3 w-full md:w-auto">
@@ -179,13 +179,13 @@ export function PlatformAnalytics({
                 onClick={handleExportCSV}
                 className="flex-1 md:flex-none px-6 py-3 bg-card border border-border/60 hover:border-primary/50 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2"
               >
-                  <Inbox className="w-3.5 h-3.5" /> CSV Export
+                  <Inbox className="w-3.5 h-3.5" /> {t("admin.analytics.csv_export")}
               </button>
               <button 
                 onClick={handleExportPDF}
                 className="flex-1 md:flex-none px-6 py-3 bg-primary text-primary-foreground rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-lg shadow-primary/20 flex items-center justify-center gap-2 hover:scale-105 active:scale-95"
               >
-                  <TrendingUp className="w-3.5 h-3.5" /> Generate PDF Report
+                  <TrendingUp className="w-3.5 h-3.5" /> {t("admin.analytics.pdf_report")}
               </button>
           </div>
       </div>
@@ -201,7 +201,7 @@ export function PlatformAnalytics({
                 ${statistics.totalRevenue?.toLocaleString() || 0}
               </h3>
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">
-                {t('admin.revenue_stream')}
+                {t('admin.analytics.revenue_stream')}
               </p>
             </div>
             <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
@@ -215,19 +215,19 @@ export function PlatformAnalytics({
 
           <div className="grid grid-cols-4 gap-4 mt-8 pt-8 border-t border-border/40">
              <div className="space-y-1">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Growth</p>
+                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.analytics.growth")}</p>
                 <p className="text-sm font-black italic">+{statistics.engagementRate || 0}%</p>
              </div>
              <div className="space-y-1">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Courses</p>
+                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.analytics.stats.courses")}</p>
                 <p className="text-sm font-black italic">{statistics.totalCourses || 0}</p>
              </div>
              <div className="space-y-1">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Avg. LTV</p>
+                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.analytics.avg_ltv")}</p>
                 <p className="text-sm font-black italic">${statistics.totalStudents > 0 ? Math.round(statistics.totalRevenue / statistics.totalStudents) : 0}</p>
              </div>
              <div className="space-y-1">
-                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">Active</p>
+                <p className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.analytics.status.active") || "Active"}</p>
                 <p className="text-sm font-black italic text-emerald-500">{statistics.totalStudents || 0}</p>
              </div>
           </div>
@@ -239,7 +239,7 @@ export function PlatformAnalytics({
               <DonutChart data={courseDistribution} />
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                   <span className="text-3xl font-black italic tracking-tighter">{courses.length}</span>
-                  <span className="text-[8px] font-black uppercase tracking-widest opacity-40">Total Assets</span>
+                  <span className="text-[8px] font-black uppercase tracking-widest opacity-40">{t("admin.analytics.total_assets")}</span>
               </div>
            </div>
 
@@ -250,7 +250,7 @@ export function PlatformAnalytics({
                     {t('admin.course_categories')}
                  </h3>
                  <p className="text-[10px] font-black uppercase tracking-widest text-white/40">
-                    Strategic Content Allocation
+                    {t("admin.analytics.strategic_allocation")}
                  </p>
               </div>
 
@@ -283,16 +283,16 @@ export function PlatformAnalytics({
                         {t('admin.growth_trends')}
                     </h3>
                     <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">
-                        Platform Expansion Velocity
+                        {t("admin.analytics.expansion_velocity")}
                     </p>
                 </div>
                 <div className="flex gap-4">
                     <div className="px-6 py-3 bg-secondary rounded-2xl flex flex-col">
-                        <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">New This Week</span>
+                        <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground">{t("admin.analytics.new_week")}</span>
                         <span className="text-xl font-black tabular-nums tracking-tighter">+{activityStats.newThisWeek}</span>
                     </div>
                     <div className="px-6 py-3 bg-primary text-primary-foreground rounded-2xl flex flex-col shadow-lg shadow-primary/20">
-                        <span className="text-[9px] font-black uppercase tracking-widest opacity-80">New This Month</span>
+                        <span className="text-[9px] font-black uppercase tracking-widest opacity-80">{t("admin.analytics.new_month")}</span>
                         <span className="text-xl font-black tabular-nums tracking-tighter">+{activityStats.newThisMonth}</span>
                     </div>
                 </div>
@@ -311,17 +311,21 @@ export function PlatformAnalytics({
                         </div>
                         <div className="space-y-1">
                             <h4 className="text-lg font-black italic">{t('admin.insights')}</h4>
-                            <p className="text-xs text-white/50 max-w-md">Based on your <span className="text-primary font-bold">{courses.length} courses</span>, the most successful category is <span className="text-primary font-bold">{courseDistribution[0]?.label || 'General'}</span> with <span className="text-primary font-bold">{courseDistribution[0]?.value || 0}%</span> market share.</p>
+                            <p className="text-xs text-white/50 max-w-md">
+                                <Trans i18nKey="admin.analytics.insights_desc" values={{ count: courses.length, category: courseDistribution[0]?.label || 'General', percent: courseDistribution[0]?.value || 0 }}>
+                                    Based on your <span className="text-primary font-bold">0 courses</span>, the most successful category is <span className="text-primary font-bold">General</span> with <span className="text-primary font-bold">0%</span> market share.
+                                </Trans>
+                            </p>
                         </div>
                     </div>
                     <button className="w-full py-4 bg-white text-black rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all">
-                        View Full Report
+                        {t("admin.analytics.view_full_report")}
                     </button>
                 </div>
 
                 {/* Top Selling Mini Table */}
                 <div className="p-8 bg-card border border-border rounded-[2rem] space-y-6">
-                    <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground border-l-2 border-primary pl-3">Top Selling Assets</h4>
+                    <h4 className="text-xs font-black uppercase tracking-widest text-muted-foreground border-l-2 border-primary pl-3">{t("admin.analytics.top_selling")}</h4>
                     <div className="space-y-4">
                         {[...courses].sort((a,b) => (b.price * (b._count?.enrolledUsers || 0)) - (a.price * (a._count?.enrolledUsers || 0))).slice(0, 3).map((c, i) => (
                             <div key={i} className="flex items-center justify-between p-4 bg-secondary/30 rounded-2xl border border-border/40">
@@ -331,7 +335,7 @@ export function PlatformAnalytics({
                                     </div>
                                     <div>
                                         <p className="text-xs font-black truncate max-w-[150px]">{c.title}</p>
-                                        <p className="text-[10px] text-muted-foreground">{c._count?.enrolledUsers || 0} Enrollments</p>
+                                        <p className="text-[10px] text-muted-foreground">{c._count?.enrolledUsers || 0} {t("admin.analytics.enrollments")}</p>
                                     </div>
                                 </div>
                                 <span className="text-sm font-black text-emerald-500">${(c.price * (c._count?.enrolledUsers || 0)).toLocaleString()}</span>

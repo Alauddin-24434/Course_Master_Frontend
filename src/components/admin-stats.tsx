@@ -6,7 +6,10 @@ import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashbo
 import { DashboardStatCard } from "./dashboard/stat-card"
 import { StatCardSkeleton } from "./dashboard/skeletons"
 
+import { useTranslation } from "react-i18next"
+
 export function AdminStats() {
+  const { t } = useTranslation();
   const { data, isLoading } = useGetDashboardAnalyticsQuery();
   const stats = useMemo(() => data?.data?.statistics || {}, [data]);
 
@@ -23,31 +26,31 @@ export function AdminStats() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
       <DashboardStatCard
-        label="Total Students"
+        label={t("admin.analytics.stats.students")}
         value={stats.totalStudents || 0}
         icon={<Users className="w-5 h-5" />}
-        trend="Registered users"
+        trend={t("user_management.active_users")}
         variant="indigo"
       />
       <DashboardStatCard
-        label="Active Courses"
+        label={t("admin.analytics.stats.courses")}
         value={stats.totalCourses || 0}
         icon={<BookOpen className="w-5 h-5" />}
-        trend="Learning assets"
+        trend={t("instructor.knowledge_assets")}
         variant="primary"
       />
       <DashboardStatCard
-        label="Platform Revenue"
+        label={t("admin.analytics.stats.revenue")}
         value={`$${stats.totalRevenue?.toLocaleString() || 0}`}
         icon={<DollarSign className="w-5 h-5" />}
-        trend="Total earnings"
+        trend={t("instructor.platform_earnings")}
         variant="amber"
       />
       <DashboardStatCard
-        label="Engagement"
+        label={t("admin.analytics.engagement")}
         value={`${stats.engagementRate || 0}%`}
         icon={<TrendingUp className="w-5 h-5" />}
-        trend="Enrollment rate"
+        trend={t("admin.analytics.stats.growth")}
         variant="emerald"
       />
     </div>

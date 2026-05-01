@@ -38,7 +38,9 @@
     "profile": "ملفي الشخصي",
     "explore_courses": "استكشاف الدورات",
     "careers": "الوظائف",
-    "analytics": "التحليلات"
+    "analytics": "التحليلات",
+    "manage_jobs": "إدارة الوظائف",
+    "dash": "لوحة القيادة"
   },
   "home": {
     "title": "تعلم أي شيء، في أي وقت",
@@ -161,7 +163,9 @@
     "enrolled_courses": "الدورات المسجلة",
     "hours_learned": "ساعات التعلم",
     "certificates": "الشهادات",
-    "completion_rate": "معدل الانتهاء"
+    "completion_rate": "معدل الانتهاء",
+    "auth_required": "التحقق من الصلاحية مطلوب",
+    "auth_required_desc": "يرجى تسجيل الدخول للوصول إلى لوحتك"
   },
   "admin": {
     "title": "لوحة القيادة الإدارية",
@@ -222,7 +226,23 @@
         "enrollments": "التماسات",
         "revenue": "الإيرادات",
         "growth": "النمو النشط"
-      }
+      },
+      "export_center": "مركز تصدير المنصة",
+      "data_aggregation": "تجميع البيانات v2.4",
+      "csv_export": "تصدير CSV",
+      "pdf_report": "توليد تقرير PDF",
+      "revenue_stream": "تحليل تدفق الإيرادات",
+      "strategic_allocation": "توزيع المحتوى الاستراتيجي",
+      "expansion_velocity": "سرعة توسع المنصة",
+      "new_week": "جديد هذا الأسبوع",
+      "new_month": "جديد هذا الشهر",
+      "top_selling": "الأصول الأكثر مبيعا",
+      "view_full_report": "عرض التقرير الكامل",
+      "growth": "النمو",
+      "avg_ltv": "متوسط القيمة الحياتية",
+      "total_assets": "إجمالي الأصول",
+      "enrollments": "التسجيلات",
+      "insights_desc": "بالنظر إلى دوراتك {{count}}<1></1> ، الفئة الأكثر نجاحًا هي {{percent}}{{category}}</2></3> بنسبة سوق <5><3>%</3></5>"
     }
   },
   "requirements": {
@@ -313,7 +333,8 @@
     "next": "التالي",
     "more": "مزيد من الصفحات",
     "sidebar": "酒店",
-    "toggle_sidebar": "切换侧边栏"
+    "toggle_sidebar": "切换侧边栏",
+    "operations": "العمليات"
   },
   "contact": {
     "badge": "اتصل بنا",
@@ -471,7 +492,8 @@
     "next_up": "التالي:",
     "resume_desc": "استمر من حيث انتهيت في هذا الدورة.",
     "start_lesson": "ابدأ الدرس",
-    "all_categories": "جميع الفئات"
+    "all_categories": "جميع الفئات",
+    "welcome_title": "مرحباً مرة أخرى ، <br /> {{name}}<1></1>"
   },
   "instructor": {
     "revenue_title": "الأرباح وال许多.",
@@ -510,7 +532,8 @@
     "knowledge_assets": "أصول المعرفة",
     "global_reach": "الوصول العالمي",
     "student_engagement": "مشاركة الطلاب",
-    "platform_earnings": "أرباح المنصة"
+    "platform_earnings": "أرباح المنصة",
+    "platform_performance_formatted": "اداء <br /> <1>المنصة</1>"
   },
   "info": {
     "avg_monthly": "معدل شهري متوسطة",
@@ -832,7 +855,22 @@
     "testimonial_role": "قائد<Double>Developer",
     "no_role_title": "أداة Поискаorr",
     "no_role_desc": "نحن دائمًا نبحث عن مواهب استثنائية. إذا كنت متحمسًا للتعليم والتكنولوجيا ، نريد سماع منك.",
-    "send_app": "إرسال신청"
+    "send_app": "إرسال신청",
+    "categories": {
+      "all": "جميع المراكز",
+      "engineering": "الهندسة",
+      "design": "التصميم",
+      "marketing": "التسويق",
+      "support": "دعم العملاء",
+      "product": "إدارة المنتج",
+      "sales": "المبيعات والنمو",
+      "hr": "الموارد البشرية",
+      "finance": "التمويل",
+      "operations": "العمليات",
+      "management": "الإدارة",
+      "content": "المحتوى والكتابة",
+      "customer_success": "نجاح العملاء"
+    }
   },
   "privacy_policy": {
     "badge": "الأمان أولا",

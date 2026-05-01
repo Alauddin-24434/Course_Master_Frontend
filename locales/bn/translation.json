@@ -38,7 +38,9 @@
     "profile": "আমার প্রোফাইল",
     "explore_courses": "কোর্স অন্বেষণ করুন",
     "analytics": "বিশ্লেষণ",
-    "careers": "ক্যারিয়ার"
+    "careers": "ক্যারিয়ার",
+    "manage_jobs": "চাকরি পরিচালনা করুন",
+    "dash": "ড্যাশ"
   },
   "home": {
     "title": "যেকোন সময় যেকোন কিছু শিখুন",
@@ -161,7 +163,9 @@
     "enrolled_courses": "ভর্তি কোর্স",
     "hours_learned": "শিখা ঘন্টা",
     "certificates": "শংসাপত্র",
-    "completion_rate": "সম্পূর্ণতার হার"
+    "completion_rate": "সম্পূর্ণতার হার",
+    "auth_required": "সত্যতা প্রয়োজন",
+    "auth_required_desc": "আপনার ড্যাশবোর্ড অ্যাক্সেস করতে অনুগ্রহ করে লগ ইন করুন।"
   },
   "admin": {
     "title": "অ্যাডমিন ড্যাশবোর্ড",
@@ -203,18 +207,34 @@
     "insights": "প্ল্যাটফর্ম ইনসাইটস",
     "data_sync": "গ্লোবাল ডেটা সিঙ্ক্রোনাইজ করা হচ্ছে...",
     "analytics": {
-        "title": "গ্লোবাল কমান্ড সেন্টার",
-        "subtitle": "উচ্চ নির্ভুলতা প্ল্যাটফর্ম বিশ্লেষণ",
-        "engagement": "প্ল্যাটফর্ম এনগেজমেন্ট",
-        "advanced_metrics": "উন্নত মেট্রিক্স",
-        "stats": {
-            "students": "শিক্ষার্থী",
-            "instructors": "প্রশিক্ষক",
-            "courses": "কোর্স",
-            "enrollments": "এনরোলমেন্ট",
-            "revenue": "রাজস্ব",
-            "growth": "সক্রিয় প্রবৃদ্ধি"
-        }
+      "title": "গ্লোবাল কমান্ড সেন্টার",
+      "subtitle": "উচ্চ নির্ভুলতা প্ল্যাটফর্ম বিশ্লেষণ",
+      "engagement": "প্ল্যাটফর্ম এনগেজমেন্ট",
+      "advanced_metrics": "উন্নত মেট্রিক্স",
+      "stats": {
+          "students": "শিক্ষার্থী",
+          "instructors": "প্রশিক্ষক",
+          "courses": "কোর্স",
+          "enrollments": "এনরোলমেন্ট",
+          "revenue": "রাজস্ব",
+          "growth": "সক্রিয় প্রবৃদ্ধি"
+      },
+      "export_center": "প্ল্যাটফর্ম রপ্তানি কেন্দ্র",
+      "data_aggregation": "ডেটা এগ্রিগেশন v2.4",
+      "csv_export": "সিএসভি রপ্তানি",
+      "pdf_report": "পিডিএফ প্রতিবেদন তৈরি করুন",
+      "revenue_stream": "রাজস্ব স্রোত বিশ্লেষণ",
+      "strategic_allocation": "কৌশলগত বিষয়বস্তু বরাদ্দ",
+      "expansion_velocity": "প্ল্যাটফর্ম সম্প্রসারণ গতি",
+      "new_week": "এই সপ্তাহে নতুন",
+      "new_month": "এই মাসে নতুন",
+      "top_selling": "সেরা বিক্রি হওয়া সম্পদ",
+      "view_full_report": "পূর্ণ প্রতিবেদন দেখুন",
+      "growth": "বৃদ্ধি",
+      "avg_ltv": "গড় এলটিভি",
+      "total_assets": "মোট সম্পদ",
+      "enrollments": "তালিকাভুক্তি",
+      "insights_desc": "আপনার {{count}}<1> কোর্স</1> এর উপর ভিত্তি করে, সবচেয়ে সফল বিভাগ হল {{percent}}{{category}}</3> <5><3>%</5> বাজার শেয়ার সহ"
     },
     "table": {
       "asset": "কৌশলগত সম্পদ",
@@ -313,7 +333,8 @@
     "next": "পরবর্তী",
     "more": "আরো পৃষ্ঠা",
     "sidebar": "সাইডবার",
-    "toggle_sidebar": "সাইডবার টগল করুন"
+    "toggle_sidebar": "সাইডবার টগল করুন",
+    "operations": "অপারেশন"
   },
   "live_sessions": {
     "management_title": "লাইভ সেশন ম্যানেজমেন্ট",
@@ -626,7 +647,8 @@
     "next_up": "পরবর্তীতে:",
     "resume_desc": "আপনি যেখানে ছেড়েছিলেন সেখান থেকে কোর্সটি চালিয়ে যান।",
     "start_lesson": "পাঠ শুরু করুন",
-    "all_categories": "সমস্ত বিভাগ"
+    "all_categories": "সমস্ত বিভাগ",
+    "welcome_title": "স্বাগতম, <br /> {{name}}<1></1>"
   },
   "instructor": {
     "revenue_title": "উপার্জন এবং রাজস্ব।",
@@ -665,7 +687,8 @@
     "knowledge_assets": "জ্ঞান সম্পদ",
     "global_reach": "বৈশ্বিক পৌঁছ",
     "student_engagement": "ছাত্র সম্পৃক্ততা",
-    "platform_earnings": "প্ল্যাটফর্ম উপার্জন"
+    "platform_earnings": "প্ল্যাটফর্ম উপার্জন",
+    "platform_performance_formatted": "প্ল্যাটফর্ম <br /> <1>কর্মক্ষমতা</1>"
   },
   "info": {
     "avg_monthly": "গড় মাসিক",
@@ -855,7 +878,22 @@
     "testimonial_role": "লিড ডেভেলপার",
     "no_role_title": "আপনার ভূমিকা দেখতে পাচ্ছেন না?",
     "no_role_desc": "আমরা সর্বদা অসাধারণ প্রতিভার সন্ধান করছি। যদি আপনি শিক্ষা এবং প্রযুক্তি নিয়ে উত্সাহী হন, তাহলে আমরা আপনার কাছ থেকে শোনার জন্য আগ্রহী।",
-    "send_app": "উন্মুক্ত আবেদন পাঠান"
+    "send_app": "উন্মুক্ত আবেদন পাঠান",
+    "categories": {
+      "all": "সমস্ত পদ",
+      "engineering": "ইঞ্জিনিয়ারিং",
+      "design": "ডিজাইন",
+      "marketing": "বিপণন",
+      "support": "গ্রাহক সহায়তা",
+      "product": "প্রোডাক্ট ব্যবস্থাপনা",
+      "sales": "বিক্রয় ও বৃদ্ধি",
+      "hr": "মানব সম্পদ",
+      "finance": "অর্থ",
+      "operations": "অপারেশন",
+      "management": "ব্যবস্থাপনা",
+      "content": "বিষয়বস্তু ও লেখা",
+      "customer_success": "গ্রাহক সাফল্য"
+    }
   },
   "privacy_policy": {
     "badge": "প্রাথমিকভাবে গোপনীয়তা",

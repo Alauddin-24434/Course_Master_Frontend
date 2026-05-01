@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { useGetDashboardAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi";
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
@@ -57,8 +57,9 @@ export function InstructorDashboard() {
               <span className="text-[10px] font-black uppercase tracking-widest text-primary">{t("instructor.dashboard_title")}</span>
            </div>
            <h1 className="text-5xl md:text-6xl font-black tracking-tighter text-foreground leading-[0.9]">
-              {t("instructor.platform_performance").split(" ")[0]} <br />
-              <span className="text-primary italic font-serif">{t("instructor.platform_performance").split(" ")[1]}</span>
+              <Trans i18nKey="instructor.platform_performance_formatted">
+                Platform <span className="text-primary italic font-serif">Performance</span>
+              </Trans>
            </h1>
            <p className="text-muted-foreground text-lg font-medium max-w-xl leading-relaxed">
               {t("instructor.dashboard_subtitle")}

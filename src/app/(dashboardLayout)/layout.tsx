@@ -9,8 +9,10 @@ import { ChevronRight, LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { ProtectedRoute } from "@/components/shared/ProtectedRoute";
 import { GlobalSearch } from "@/components/shared/GlobalSearch";
+import { useTranslation } from "react-i18next";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation();
   const pathname = usePathname();
   const isCertificatePage = pathname.includes("/certificate/");
 
@@ -48,7 +50,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                       <div className="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center group-hover:bg-primary/10">
                          <LayoutDashboard className="w-4 h-4" />
                       </div>
-                      <span className="text-xs font-black uppercase tracking-widest">Dash</span>
+                      <span className="text-xs font-black uppercase tracking-widest">{t("nav.dash")}</span>
                    </Link>
                    
                    {paths.slice(1).map((path, i) => (

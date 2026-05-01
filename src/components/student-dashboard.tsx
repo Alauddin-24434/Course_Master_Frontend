@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import {
   BookOpen,
   Award,
@@ -91,25 +91,26 @@ export function StudentDashboard() {
           <div className="space-y-8 max-w-2xl text-center md:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-background shadow-sm border border-border rounded-full">
               <Sparkles className="w-4 h-4 text-primary" />
-              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("student.achievement_unlocked") || "Achievement Unlocked"}</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("student.achievement_unlocked")}</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-              {t("student.welcome_back") || "Welcome Back,"} <br />
-              <span className="text-primary italic font-serif">{user?.name?.split(" ")[0]}</span>
+               <Trans i18nKey="student.welcome_title" values={{ name: user?.name?.split(" ")[0] }}>
+                 Welcome Back, <span className="text-primary italic font-serif">name</span>
+               </Trans>
             </h1>
 
             <p className="text-lg text-muted-foreground font-medium max-w-lg leading-relaxed">
-              {t("student.curriculum_progress", { progress: Math.round(overallProgressVal) }) || `You have completed ${Math.round(overallProgressVal)}% of your current curriculum. Your next milestone is just a few lessons away.`}
+              {t("student.curriculum_progress", { progress: Math.round(overallProgressVal) })}
             </p>
 
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <Link href="/courses" className="h-14 px-8 bg-primary text-white rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest shadow-xl shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all">
-                {t("home.cta") || "Explore Courses"}
+                {t("home.cta")}
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link href="/dashboard/student/certificate" className="h-14 px-8 bg-secondary border border-border text-foreground rounded-2xl flex items-center justify-center gap-3 text-xs font-black uppercase tracking-widest hover:bg-background transition-all">
-                {t("dashboard.certificates") || "View Certificates"}
+                {t("dashboard.certificates")}
                 <Trophy className="w-4.5 h-4.5" />
               </Link>
             </div>
@@ -123,7 +124,7 @@ export function StudentDashboard() {
             </svg>
             <div className="absolute flex flex-col items-center">
               <span className="text-5xl font-black tracking-tighter">{isNaN(overallProgressVal) ? 0 : Math.round(overallProgressVal)}%</span>
-              <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mt-1">{t("student.consistency") || "Consistency"}</span>
+              <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground mt-1">{t("student.consistency")}</span>
             </div>
           </div>
         </div>
@@ -157,28 +158,28 @@ export function StudentDashboard() {
       {/* ================= STATS GRID ================= */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard
-          label={t("student.total_enrolled") || "Total Enrolled"}
+          label={t("student.total_enrolled")}
           value={totalEnrolled}
           icon={<BookOpen className="w-5 h-5" />}
-          trend={t("student.enrolled_trend") || "+2 this month"}
+          trend={t("student.enrolled_trend")}
         />
         <StatCard
-          label={t("student.mastered") || "Mastered"}
+          label={t("student.mastered")}
           value={completedCount}
           icon={<Star className="w-5 h-5" />}
-          trend={t("student.mastered_trend") || "Top 5% student"}
+          trend={t("student.mastered_trend")}
         />
         <StatCard
-          label={t("student.engaged") || "Engaged"}
+          label={t("student.engaged")}
           value={inProgressCount}
           icon={<Zap className="w-5 h-5" />}
-          trend={t("student.engaged_trend") || "Daily streak: 4"}
+          trend={t("student.engaged_trend")}
         />
         <StatCard
-          label={t("student.certificates") || "Certificates"}
-          value={completedCount} // Mocking match with completed
+          label={t("student.certificates")}
+          value={completedCount} 
           icon={<Award className="w-5 h-5" />}
-          trend={t("student.certificates_trend") || "Verified assets"}
+          trend={t("student.certificates_trend")}
         />
       </div>
 
@@ -186,15 +187,15 @@ export function StudentDashboard() {
       <div className="space-y-8">
         <div className="flex justify-between items-end">
           <div className="space-y-1">
-            <h2 className="text-3xl font-black tracking-tight text-foreground">{t("student.continue_mission") || "Continue the Mission"}</h2>
-            <p className="text-muted-foreground font-medium text-sm">{t("student.mission_subtitle") || "Pick up exactly where you left off."}</p>
+            <h2 className="text-3xl font-black tracking-tight text-foreground">{t("student.continue_mission")}</h2>
+            <p className="text-muted-foreground font-medium text-sm">{t("student.mission_subtitle")}</p>
           </div>
 
           <Link
             href="/dashboard/student/my-courses"
             className="group h-11 px-6 bg-secondary border border-border rounded-xl flex items-center gap-3 text-[10px] font-black uppercase tracking-widest text-foreground hover:bg-primary hover:text-white transition-all"
           >
-            {t("student.all_courses") || "All Courses"}
+            {t("student.all_courses")}
             <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
