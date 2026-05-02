@@ -21,6 +21,8 @@ export const metadata: Metadata = {
 
 import FirebaseAuthProvider from "@/providers/FirebaseAuthProvider";
 import AiAssistant from "@/components/shared/AiAssistant";
+import { SocketProvider } from "@/providers/SocketProvider";
+import { NotificationListener } from "@/components/shared/NotificationListener";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Read lang from cookie (set by i18n on client)
@@ -47,9 +49,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body>
         <Providers>
           <FirebaseAuthProvider>
-            <LenisProvider>{children}</LenisProvider>
-            <Toaster position="top-center" reverseOrder={false} />
-            <AiAssistant />
+            <SocketProvider>
+              <LenisProvider>{children}</LenisProvider>
+              <Toaster position="top-center" reverseOrder={false} />
+              <NotificationListener />
+              <AiAssistant />
+            </SocketProvider>
           </FirebaseAuthProvider>
         </Providers>
       </body>

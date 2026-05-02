@@ -23,9 +23,13 @@ Whether you are looking to monetize your expertise or upskill with new knowledge
 | 🔍 **Intelligent Search** | Semantic AI search with insights, smart course matching, and filtering capabilities. |
 | 🎯 **Smart Recommendations** | Personalized course recommendations based on user history and preferences. |
 | 🌍 **Multi-Language (i18n)** | Native support for multiple languages including English, Bengali, Arabic (RTL), French, and Spanish, powered by Intlayer & AI. |
+| 💼 **Jobs & Careers Board** | Dedicated job portal for users to apply to platform careers, with admin application tracking. |
+| 📹 **Live Sessions** | Integrated live session management for instructors to schedule and host real-time classes. |
+| 📊 **Advanced Analytics** | Comprehensive admin analytics dashboard with data visualization and CSV/PDF export capabilities. |
+| ✉️ **Dynamic Contact Forms** | Fully functional contact pages utilizing EmailJS for reliable communication. |
 | 💳 **Stripe Integration** | Seamless and secure payment flow for paid course enrollments. |
 | 🔐 **Secure Authentication** | Firebase-powered Email/Password and Google Social Login with state synced via Redux Toolkit. |
-| 📱 **Responsive & Modern UI** | Mobile-first design, beautiful animations, and full RTL layout support for Arabic users. |
+| 📱 **Responsive & Modern UI** | Mobile-first design, beautiful toast notifications (`react-hot-toast`), interactive maps (`react-leaflet`), and full RTL layout support for Arabic users. |
 
 ---
 
@@ -40,6 +44,9 @@ Whether you are looking to monetize your expertise or upskill with new knowledge
 | **Firebase** | Authentication (Email/Google) |
 | **Intlayer 8.6 & OpenRouter** | AI-Driven Content Management and Automated Translations |
 | **Stripe** | Payment processing |
+| **EmailJS** | Client-side email sending |
+| **React Hot Toast** | Beautiful, lightweight global notifications |
+| **React Leaflet** | Interactive mapping for contact sections |
 | **Lucide React** | Modern, clean iconography |
 
 ---
@@ -88,10 +95,12 @@ pnpm dev
 | `/` | Landing Page showcasing platform features and top courses | Public |
 | `/courses` | Browse, search, and filter the course catalog | Public |
 | `/courses/[id]` | Detailed course view, curriculum, and enrollment | Public |
+| `/careers` | View and apply for open job positions | Public |
+| `/contact` | Get in touch with platform support via interactive forms | Public |
 | `/login` & `/signup` | Secure authentication flows | Public |
 | `/dashboard/student/*` | Student progress, enrolled courses, and recommendations | Protected |
-| `/dashboard/instructor/*` | Instructor course management, assignments, and modules | Protected |
-| `/dashboard/admin/*` | Platform administration and refund policy management | Protected |
+| `/dashboard/instructor/*` | Instructor course management, assignments, modules, and live sessions | Protected |
+| `/dashboard/admin/*` | Platform administration, advanced analytics, user management, and job postings | Protected |
 
 ---
 
