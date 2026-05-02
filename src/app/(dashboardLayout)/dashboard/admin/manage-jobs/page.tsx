@@ -30,7 +30,7 @@ import {
   useGetAllApplicationsQuery 
 } from "@/redux/features/job/jobApi"
 import { useForm } from "react-hook-form"
-import { toast } from "react-toastify"
+import toast from "react-hot-toast"
 import { format } from "date-fns"
 
 export default function ManageJobsPage() {

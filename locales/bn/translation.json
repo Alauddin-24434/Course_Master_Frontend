@@ -310,7 +310,10 @@
     "refund_policy": "রিফান্ড নীতি",
     "systems_active": "সিস্টেম সক্রিয়",
     "handcrafted": "শিক্ষকদের জন্য হাতে তৈরি",
-    "copyright": "সমস্ত অধিকার সংরক্ষিত"
+    "copyright": "সমস্ত অধিকার সংরক্ষিত",
+    "email_required": "ইমেল প্রয়োজন",
+    "subscribe_success": "সফলভাবে সাবস্ক্রাইব করা হয়েছে!",
+    "subscribe_error": "সাবস্ক্রাইব করতে ব্যর্থ হয়েছে"
   },
   "upcoming": {
     "title": "এখন এবং আসন্ন",

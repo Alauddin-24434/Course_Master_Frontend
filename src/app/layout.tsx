@@ -4,8 +4,7 @@ import Script from 'next/script'
 import "./globals.css";
 import { Providers } from "@/components/ReduxProvider";
 import { cookies } from 'next/headers'; // next 13.4+
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 import LenisProvider from "./LenisProvider";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
@@ -49,7 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers>
           <FirebaseAuthProvider>
             <LenisProvider>{children}</LenisProvider>
-            <ToastContainer position="top-right" autoClose={3000} hideProgressBar />
+            <Toaster position="top-center" reverseOrder={false} />
             <AiAssistant />
           </FirebaseAuthProvider>
         </Providers>

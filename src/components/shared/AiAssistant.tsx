@@ -5,6 +5,7 @@ import { Bot, Send, X, MessageSquare, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { useAppSelector } from "@/redux/hooks";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 const AiAssistant = () => {
   const { t } = useTranslation();
@@ -80,8 +81,9 @@ const AiAssistant = () => {
           }
         }
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("AI Chat Error:", error);
+      toast.error(error.message || t("ai_assistant.error_msg"));
       const errorMessage = {
         role: "assistant",
         content: t("ai_assistant.error_msg"),

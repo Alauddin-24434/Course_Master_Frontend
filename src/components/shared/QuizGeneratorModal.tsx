@@ -11,6 +11,7 @@ import { Loader2, Sparkles, CheckCircle2, XCircle, ArrowRight, RefreshCw } from 
 import axios from "axios";
 import { useAppSelector } from "@/redux/hooks";
 import { useTranslation } from "react-i18next";
+import toast from "react-hot-toast";
 
 interface QuizQuestion {
   question: string;
@@ -46,8 +47,9 @@ const QuizGeneratorModal = ({ lessonId, isOpen, onClose }: { lessonId: string; i
         }
       );
       setQuiz(response.data.data);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Quiz Error:", error);
+      toast.error(error.message || t("ai_quiz.error"));
     } finally {
       setIsLoading(false);
     }

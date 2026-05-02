@@ -235,7 +235,7 @@ export function PlatformAnalytics({
 
         {/* Course Distribution */}
         <div className="bg-card border border-border/60 rounded-[3rem] p-10 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center gap-10">
-           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-[80px] -mr-32 -mt-32"></div>
+        
            <div className="relative w-48 h-48 flex-shrink-0">
               <DonutChart data={courseDistribution} />
               <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -306,7 +306,7 @@ export function PlatformAnalytics({
             <div className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8">
                  {/* Insights Card */}
                 <div className="p-8 bg-card border border-primary/20 rounded-[2rem] flex flex-col justify-between gap-8 shadow-xl relative overflow-hidden">
-                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary/0 via-primary/50 to-primary/0"></div>
+                    {/* Removed top gradient line */}
                     <div className="flex items-center gap-6">
                         <div className="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center border border-primary/30">
                             <Zap className="w-8 h-8 text-primary" />
@@ -465,7 +465,7 @@ function BarChart({ data, color, labels = [] }: { data: number[], color: string,
       {data.map((val, i) => (
         <div key={i} className="flex-1 h-full group relative flex flex-col justify-end items-center">
           <div 
-            className="w-full bg-gradient-to-t from-primary/80 to-primary/20 rounded-2xl transition-all duration-500 group-hover:from-primary group-hover:to-primary/40 group-hover:scale-105 cursor-pointer relative"
+            className="w-full bg-primary/20 rounded-2xl transition-all duration-500 group-hover:bg-primary group-hover:scale-105 cursor-pointer relative"
             style={{ height: `${(val / (max || 1)) * 100}%` }}
           >
              <div className="absolute top-[-40px] left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity bg-zinc-950 text-white text-[10px] font-black px-2.5 py-1.5 rounded-lg border border-white/10 shadow-xl whitespace-nowrap">

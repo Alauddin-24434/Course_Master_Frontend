@@ -1,11 +1,63 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
-import { Mail, Phone, MapPin, Send, MessageSquare } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageSquare, Clock } from "lucide-react";
 import { Section } from "./ui/section";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import toast from "react-hot-toast";
+import emailjs from '@emailjs/browser';
+import { trackEvent } from "@/lib/gtag";
 
 export function ContactSection() {
   const { t } = useTranslation();
+
+  const contactSchema = z.object({
+    fullName: z.string().min(2, t("contact.validation.name_min") || "Name must be at least 2 characters"),
+    email: z.string().email(t("contact.validation.email_invalid") || "Invalid email address"),
+    subject: z.string().min(3, t("contact.validation.subject_min") || "Subject must be at least 3 characters"),
+    message: z.string().min(10, t("contact.validation.message_min") || "Message must be at least 10 characters"),
+  });
+
+  type ContactFormValues = z.infer<typeof contactSchema>;
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+  });
+
+  const onSubmit = async (data: ContactFormValues) => {
+    try {
+      trackEvent('contact_section_submit', { subject: data.subject });
+      
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: data.fullName,
+          from_email: data.email,
+          subject: data.subject,
+          message: data.message,
+        },
+        publicKey
+      );
+
+      toast.success(t("contact.success_toast") || "Message sent successfully!");
+      reset();
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      toast.error(t("contact.error_toast") || "Failed to send message.");
+    }
+  };
 
   return (
     <Section className="bg-secondary/5 relative overflow-hidden">
@@ -71,31 +123,44 @@ export function ContactSection() {
 
           {/* --- Contact Form --- */}
           <div className="p-10 bg-card border border-border rounded-[3rem] shadow-xl shadow-primary/5 relative overflow-hidden">
-            <form className="space-y-6 relative z-10">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6 relative z-10">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t("contact.form_name")}</label>
-                  <input type="text" placeholder="John Doe" className="w-full h-14 px-6 bg-secondary/20 border border-border rounded-2xl focus:outline-none focus:border-primary transition-all font-medium placeholder:opacity-30" />
+                  <input {...register("fullName")} type="text" placeholder="John Doe" className={`w-full h-14 px-6 bg-secondary/20 border rounded-2xl focus:outline-none focus:border-primary transition-all font-medium placeholder:opacity-30 ${errors.fullName ? "border-red-500/50" : "border-border"}`} />
+                  {errors.fullName && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.fullName.message}</p>}
                 </div>
                 <div className="space-y-2">
                   <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t("contact.form_email")}</label>
-                  <input type="email" placeholder="john@example.com" className="w-full h-14 px-6 bg-secondary/20 border border-border rounded-2xl focus:outline-none focus:border-primary transition-all font-medium placeholder:opacity-30" />
+                  <input {...register("email")} type="email" placeholder="john@example.com" className={`w-full h-14 px-6 bg-secondary/20 border rounded-2xl focus:outline-none focus:border-primary transition-all font-medium placeholder:opacity-30 ${errors.email ? "border-red-500/50" : "border-border"}`} />
+                  {errors.email && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.email.message}</p>}
                 </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t("contact.form_subject")}</label>
-                <input type="text" placeholder="Inquiry about instructor onboarding" className="w-full h-14 px-6 bg-secondary/20 border border-border rounded-2xl focus:outline-none focus:border-primary transition-all font-medium placeholder:opacity-30" />
+                <input {...register("subject")} type="text" placeholder="Inquiry about instructor onboarding" className={`w-full h-14 px-6 bg-secondary/20 border rounded-2xl focus:outline-none focus:border-primary transition-all font-medium placeholder:opacity-30 ${errors.subject ? "border-red-500/50" : "border-border"}`} />
+                {errors.subject && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.subject.message}</p>}
               </div>
 
               <div className="space-y-2">
                 <label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground ml-1">{t("contact.form_message")}</label>
-                <textarea rows={4} placeholder="Tell us more about your needs..." className="w-full p-6 bg-secondary/20 border border-border rounded-3xl focus:outline-none focus:border-primary transition-all font-medium resize-none placeholder:opacity-30"></textarea>
+                <textarea {...register("message")} rows={4} placeholder="Tell us more about your needs..." className={`w-full p-6 bg-secondary/20 border rounded-3xl focus:outline-none focus:border-primary transition-all font-medium resize-none placeholder:opacity-30 ${errors.message ? "border-red-500/50" : "border-border"}`}></textarea>
+                {errors.message && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.message.message}</p>}
               </div>
 
-              <button className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3">
-                {t("contact.form_submit")}
-                <Send className="w-4 h-4" />
+              <button 
+                disabled={isSubmitting}
+                className="w-full h-16 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs hover:shadow-2xl hover:shadow-primary/20 hover:-translate-y-1 active:scale-95 transition-all flex items-center justify-center gap-3 disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isSubmitting ? (
+                  <Clock className="w-5 h-5 animate-spin" />
+                ) : (
+                  <>
+                    {t("contact.form_submit")}
+                    <Send className="w-4 h-4" />
+                  </>
+                )}
               </button>
             </form>
           </div>

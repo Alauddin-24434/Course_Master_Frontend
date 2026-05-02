@@ -1,11 +1,32 @@
 "use client";
 
-import Link from "next/link"
+import { useState } from "react"
+import toast from "react-hot-toast"
+import { useSubscribeNewsletterMutation } from "@/redux/features/newsletter/newsletterApi"
 import { useTranslation } from "react-i18next"
-import { Facebook, Twitter, Linkedin, Youtube, Send } from "lucide-react"
+import { Facebook, Twitter, Linkedin, Youtube, Send, Loader2 } from "lucide-react"
+import Link from "next/link";
 
 export function Footer() {
   const { t } = useTranslation();
+  const [email, setEmail] = useState("");
+  const [subscribeNewsletter, { isLoading }] = useSubscribeNewsletterMutation();
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error(t("footer.email_required") || "Email is required");
+      return;
+    }
+
+    try {
+      await subscribeNewsletter({ email }).unwrap();
+      toast.success(t("footer.subscribe_success") || "Subscribed successfully!");
+      setEmail("");
+    } catch (error: any) {
+      toast.error(error?.data?.message || t("footer.subscribe_error") || "Failed to subscribe");
+    }
+  };
 
   return (
     <footer className="footer-gradient relative overflow-hidden pt-20 lg:pt-32 pb-12 bg-card/30 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] border-t border-primary/5">
@@ -48,16 +69,23 @@ export function Footer() {
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">{t("footer.stay_in_orbit")}</p>
                 <h3 className="text-lg font-black tracking-tight text-foreground">{t("footer.subscribe_newsletter")}</h3>
               </div>
-              <div className="relative group">
+              <form onSubmit={handleSubscribe} className="relative group">
                 <input 
                   type="email" 
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder={t("footer.newsletter_placeholder")} 
                   className="w-full h-16 pl-6 pr-16 bg-background/50 border border-primary/10 rounded-2xl text-xs font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/30 focus:bg-background outline-none transition-all shadow-sm"
+                  disabled={isLoading}
                 />
-                <button className="absolute right-2 top-2 h-12 w-12 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:shadow-lg hover:shadow-primary/40 transition-all active:scale-95 group-hover:rotate-6">
-                   <Send className="w-5 h-5" />
+                <button 
+                  type="submit"
+                  disabled={isLoading}
+                  className="absolute right-2 top-2 h-12 w-12 bg-primary text-primary-foreground rounded-xl flex items-center justify-center hover:shadow-lg hover:shadow-primary/40 transition-all active:scale-95 group-hover:rotate-6 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                   {isLoading ? <Loader2 className="w-5 h-5 animate-spin" /> : <Send className="w-5 h-5" />}
                 </button>
-              </div>
+              </form>
             </div>
 
             <div className="flex gap-4">

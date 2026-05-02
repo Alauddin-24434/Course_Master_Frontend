@@ -40,7 +40,7 @@ function AdminAnalyticsContent() {
       {/* Header with platform status */}
       <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 pb-10 border-b border-border relative overflow-hidden group">
         <div className="space-y-4 relative z-10">
-            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-blue-600/10 text-blue-600 rounded-full border border-blue-600/20 text-xs font-black uppercase tracking-widest">
+            <div className="inline-flex items-center gap-3 px-4 py-1.5 bg-secondary text-foreground rounded-full border border-border text-xs font-black uppercase tracking-widest">
                 <ShieldCheck className="w-3.5 h-3.5" /> {t('admin.analytics.subtitle')}
             </div>
             <h1 className="text-6xl font-black tracking-tighter text-foreground leading-tight">
@@ -52,7 +52,7 @@ function AdminAnalyticsContent() {
         </div>
         
         <div className="flex flex-wrap gap-4 relative z-10">
-            <div className="px-8 py-5 bg-primary text-primary-foreground rounded-[2rem] shadow-xl shadow-primary/30 flex flex-col items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer">
+            <div className="px-8 py-5 bg-primary text-primary-foreground rounded-[2rem] shadow-sm flex flex-col items-center justify-center transition-all hover:scale-105 active:scale-95 cursor-pointer">
                 <span className="text-3xl font-black tabular-nums">{stats.engagementRate || 0}%</span>
                 <span className="text-[10px] font-black uppercase tracking-widest opacity-80">{t('admin.analytics.engagement')}</span>
             </div>

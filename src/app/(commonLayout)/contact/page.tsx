@@ -5,7 +5,8 @@ import { useEffect, useRef, useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { toast } from "react-toastify"
+import toast from "react-hot-toast"
+import emailjs from '@emailjs/browser';
 import {
   Mail,
   Phone,
@@ -53,10 +54,27 @@ export default function ContactPage() {
   const onSubmit = async (data: ContactFormValues) => {
     try {
       trackEvent('contact_page_submit', { subject: data.subject });
-      await new Promise((resolve) => setTimeout(resolve, 1500))
+      
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "";
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "";
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "";
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: data.fullName,
+          from_email: data.email,
+          subject: data.subject,
+          message: data.message,
+        },
+        publicKey
+      );
+
       toast.success(t("contact.success_toast") || "Message sent successfully!")
       reset()
     } catch (error) {
+      console.error("EmailJS Error:", error);
       toast.error(t("contact.error_toast") || "Failed to send message.")
     }
   }

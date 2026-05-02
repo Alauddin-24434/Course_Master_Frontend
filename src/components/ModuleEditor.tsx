@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 import {
 
@@ -44,15 +45,19 @@ export default function ModuleEditor({
 
   // Add Module
   const onAddModule = async (val: ModuleForm) => {
-    if (!selectedCourseId) return alert("Select a course first");
+    if (!selectedCourseId) {
+      toast.error("Select a course first");
+      return;
+    }
     const data = { courseId: selectedCourseId, title: val.title };
     try {
       await addModule(data).unwrap();
+      toast.success("Module added successfully");
       reset();
       refetch();
-    } catch (err) {
+    } catch (err: any) {
       console.error(err);
-      alert("Add module failed");
+      toast.error(err?.data?.message || "Add module failed");
     }
   };
 

@@ -308,7 +308,10 @@
     "refund_policy": "Refund Policy",
     "systems_active": "Systems Active",
     "handcrafted": "Handcrafted for Instructors",
-    "copyright": "All rights reserved"
+    "copyright": "All rights reserved",
+    "email_required": "Email is required",
+    "subscribe_success": "Subscribed successfully!",
+    "subscribe_error": "Failed to subscribe"
   },
   "upcoming": {
     "title": "Now & Upcoming",

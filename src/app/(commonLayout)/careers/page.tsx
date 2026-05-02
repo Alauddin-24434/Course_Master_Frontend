@@ -22,7 +22,7 @@ import { useGetAllJobsQuery, useApplyForJobMutation } from "@/redux/features/job
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import * as z from "zod"
-import { toast } from "react-toastify"
+import toast from "react-hot-toast"
 
 const applicationSchema = z.object({
   fullName: z.string().min(2, "Full name must be at least 2 characters"),

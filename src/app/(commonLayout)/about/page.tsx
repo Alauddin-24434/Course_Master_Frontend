@@ -9,10 +9,7 @@ export default function AboutPage() {
 
   return (
     <main className="min-h-screen py-24 relative overflow-hidden">
-      {/* Decorative Orbs */}
-      <div className="absolute top-0 left-0 w-[50rem] h-[50rem] bg-primary/5 blur-[120px] rounded-full -translate-y-1/2 -translate-x-1/2"></div>
-      <div className="absolute bottom-0 right-0 w-[40rem] h-[40rem] bg-purple-500/5 blur-[120px] rounded-full translate-y-1/2 translate-x-1/2"></div>
-
+    
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-32 relative z-10">
         
         {/* Mission Section */}

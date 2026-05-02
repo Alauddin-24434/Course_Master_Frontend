@@ -10,6 +10,7 @@
     "lang": "npx intlayer fill"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@hookform/resolvers": "^5.2.2",
     "@openrouter/ai-sdk-provider": "^2.5.1",
     "@radix-ui/react-dialog": "^1.1.15",
@@ -41,7 +42,6 @@
     "react-leaflet": "^5.0.0",
     "react-markdown": "^10.1.0",
     "react-redux": "^9.2.0",
-    "react-toastify": "^11.0.5",
     "recharts": "^3.8.1",
     "redux-persist": "^6.0.0",
     "tailwind-merge": "^3.4.0",
