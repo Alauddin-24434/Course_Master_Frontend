@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Loader2 } from "lucide-react"
-import { useEffect, useMemo } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useTranslation } from "react-i18next"
 
 
@@ -16,6 +16,7 @@ export interface SessionFormValues {
   title: string
   description: string
   thumbnail?: string
+  thumbnailFile?: File
   sessionDate: string
   registrationDeadline: string
   maxCapacity?: number
@@ -31,14 +32,13 @@ interface LiveSessionFormProps {
 
 export function LiveSessionForm({ initialData, onSubmit, isLoading }: LiveSessionFormProps) {
   const { t } = useTranslation()
+  const [thumbPreview, setThumbPreview] = useState<string | null>(initialData?.thumbnail || null)
 
   const sessionSchema = useMemo(() => z.object({
     title: z.string().min(3, t("live_sessions.validation.title_min")),
     description: z.string().min(10, t("live_sessions.validation.desc_min")),
-    thumbnail: z.preprocess(
-      (val) => (val === "" ? undefined : val),
-      z.string().url(t("live_sessions.validation.url_invalid")).optional()
-    ),
+    thumbnail: z.string().optional(),
+    thumbnailFile: z.any().optional(),
     sessionDate: z.string().min(1, t("live_sessions.validation.date_required")),
     registrationDeadline: z.string().min(1, t("live_sessions.validation.deadline_required")),
     maxCapacity: z.preprocess(
@@ -56,9 +56,10 @@ export function LiveSessionForm({ initialData, onSubmit, isLoading }: LiveSessio
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors },
   } = useForm<SessionFormValues>({
-    resolver: zodResolver(sessionSchema) as any,
+    resolver: zodResolver(sessionSchema as any),
     defaultValues: {
       title: "",
       description: "",
@@ -70,6 +71,7 @@ export function LiveSessionForm({ initialData, onSubmit, isLoading }: LiveSessio
       isPublished: false,
     },
   })
+
   useEffect(() => {
     if (initialData) {
       reset({
@@ -82,8 +84,20 @@ export function LiveSessionForm({ initialData, onSubmit, isLoading }: LiveSessio
         meetingLink: initialData.meetingLink || "",
         isPublished: initialData.isPublished || false,
       })
+      setThumbPreview(initialData.thumbnail || null)
     }
   }, [initialData, reset])
+
+  const handleThumbChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    setValue("thumbnailFile", file)
+
+    const reader = new FileReader()
+    reader.onload = () => setThumbPreview(reader.result as string)
+    reader.readAsDataURL(file)
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -133,12 +147,22 @@ export function LiveSessionForm({ initialData, onSubmit, isLoading }: LiveSessio
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="text-sm font-bold">{t("live_sessions.form.thumbnail")}</label>
-            <Input 
-              {...register("thumbnail")} 
-              placeholder={t("live_sessions.form.thumbnail_placeholder")}
-              className="h-12 rounded-xl"
-            />
-            {errors.thumbnail && <p className="text-xs text-destructive font-medium">{errors.thumbnail.message}</p>}
+            <div className="flex items-center gap-4">
+              <div className="flex-1">
+                <Input 
+                  type="file"
+                  accept="image/*"
+                  onChange={handleThumbChange}
+                  className="h-12 rounded-xl cursor-pointer file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all"
+                />
+              </div>
+              {thumbPreview && (
+                <div className="w-16 h-12 rounded-lg overflow-hidden border border-border/50 flex-shrink-0">
+                  <img src={thumbPreview} className="w-full h-full object-cover" alt="Preview" />
+                </div>
+              )}
+            </div>
+            {errors.thumbnailFile && <p className="text-xs text-destructive font-medium">{(errors.thumbnailFile as any).message}</p>}
           </div>
 
           <div className="space-y-2">

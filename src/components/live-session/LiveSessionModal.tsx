@@ -14,6 +14,7 @@ import {
 } from "@/redux/features/liveSession/liveSessionApi"
 import { useTranslation } from "react-i18next"
 import toast from "react-hot-toast"
+import { useState } from "react"
 
 interface LiveSessionModalProps {
   isOpen: boolean
@@ -26,15 +27,47 @@ export function LiveSessionModal({ isOpen, onClose, session, onSuccess }: LiveSe
   const { t } = useTranslation()
   const [createSession, { isLoading: isCreating }] = useCreateSessionMutation()
   const [updateSession, { isLoading: isUpdating }] = useUpdateSessionMutation()
+  const [isUploading, setIsUploading] = useState(false)
 
   const handleSubmit = async (data: any) => {
     try {
+      setIsUploading(true)
+      let thumbnailUrl = data.thumbnail || (session?.thumbnail || "")
+
+      // Upload to Cloudinary if a new file is selected
+      if (data.thumbnailFile) {
+        const fd = new FormData()
+        fd.append("file", data.thumbnailFile)
+        fd.append("upload_preset", "course_thumbnails")
+
+        const res = await fetch(
+          "https://api.cloudinary.com/v1_1/dyfamn6rm/image/upload",
+          {
+            method: "POST",
+            body: fd,
+          }
+        )
+
+        const json = await res.json()
+        if (json.secure_url) {
+          thumbnailUrl = json.secure_url
+        } else {
+          toast.error(t("live_sessions.modal.error_upload"))
+          setIsUploading(false)
+          return
+        }
+      }
+
       // Ensure date fields are properly formatted as full ISO-8601 DateTime strings for Prisma
       const payload = {
         ...data,
+        thumbnail: thumbnailUrl,
         sessionDate: new Date(data.sessionDate).toISOString(),
         registrationDeadline: new Date(data.registrationDeadline).toISOString(),
       }
+      
+      // Remove thumbnailFile from payload as it's not needed by the backend
+      delete (payload as any).thumbnailFile
 
       if (session) {
         await updateSession({ id: session.id, ...payload }).unwrap()
@@ -47,6 +80,8 @@ export function LiveSessionModal({ isOpen, onClose, session, onSuccess }: LiveSe
       onClose()
     } catch (err: any) {
       toast.error(err?.data?.message || t("live_sessions.modal.error_create"))
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -68,7 +103,7 @@ export function LiveSessionModal({ isOpen, onClose, session, onSuccess }: LiveSe
           <LiveSessionForm 
             initialData={session} 
             onSubmit={handleSubmit} 
-            isLoading={isCreating || isUpdating} 
+            isLoading={isCreating || isUpdating || isUploading} 
           />
         </div>
       </DialogContent>

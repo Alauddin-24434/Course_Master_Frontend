@@ -3,13 +3,21 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
-import { ArrowRight, Sparkles, Users, TrendingUp } from "lucide-react"
+import { ArrowRight, Sparkles, Users, TrendingUp, Play } from "lucide-react"
 import { trackEvent } from "@/lib/gtag"
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog"
 
 export function HeroAnimated() {
   const { t } = useTranslation()
   const ref = useRef<HTMLDivElement>(null)
   const [isInView, setIsInView] = useState(false)
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -85,7 +93,7 @@ export function HeroAnimated() {
               </div>
 
               {/* AUTO-SCROLLING AREA */}
-              <div className="relative w-full h-full overflow-hidden bg-background">
+              <div className="relative w-full h-full overflow-hidden bg-background group/mockup">
                 <div className="animate-auto-scroll w-full">
                   <img
                     src="/hero.jpg"
@@ -97,6 +105,26 @@ export function HeroAnimated() {
                     alt="SaaS Preview Repeat"
                     className="w-full h-auto object-top"
                   />
+                </div>
+
+                {/* PREMIUM PLAY BUTTON */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover/mockup:bg-black/10 transition-all duration-700">
+                  <button 
+                    onClick={() => setIsVideoOpen(true)}
+                    className="relative group/play flex items-center justify-center scale-110 md:scale-125"
+                  >
+                    {/* Glow Effect */}
+                    <div className="absolute inset-0 bg-primary/40 rounded-full blur-3xl group-hover/play:bg-primary/60 transition-all duration-700 animate-pulse" />
+                    
+                    {/* Elegant Breathing Rings */}
+                    <div className="absolute w-28 h-28 border-2 border-primary/20 rounded-full animate-[ping_3s_cubic-bezier(0,0,0.2,1)_infinite]" />
+                    <div className="absolute w-20 h-20 border border-primary/30 rounded-full animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]" />
+                    
+                    {/* Button Body */}
+                    <div className="relative w-20 h-20 bg-primary text-primary-foreground rounded-full flex items-center justify-center shadow-[0_0_50px_-10px_rgba(var(--primary),0.6)] border-4 border-background/20 group-hover/play:scale-105 group-hover/play:border-background/40 transition-all duration-500">
+                      <Play className="w-10 h-10 fill-current ml-1.5 drop-shadow-lg" />
+                    </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -129,6 +157,27 @@ export function HeroAnimated() {
           </div>
         </div>
       </div>
+
+      {/* VIDEO MODAL */}
+      <Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+        <DialogContent className="sm:max-w-[900px] p-0 overflow-hidden bg-black border-none rounded-[2rem] shadow-2xl">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Course Master Platform Overview</DialogTitle>
+            <DialogDescription>
+              A visual tour of the Course Master platform and its features.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="relative pt-[56.25%] w-full">
+            <iframe 
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/YXlEzAWzuXw?autoplay=1" 
+              title="Course Preview"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+              allowFullScreen
+            ></iframe>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <style jsx>{`
         @keyframes grid-move {
