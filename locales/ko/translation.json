@@ -40,7 +40,8 @@
     "explore_courses": "코스 탐색",
     "analytics": "분석",
     "manage_jobs": "작업 관리",
-    "dash": "대시보드"
+    "dash": "대시보드",
+    "policies": ""
   },
   "home": {
     "title": "어디서나 Anything 学習",
@@ -48,7 +49,9 @@
     "cta": "코스 검색",
     "featured": "추천 과정",
     "featured_desc": "세계 최고의 강사로부터 배우기",
-    "view_all": "모두 보기"
+    "view_all": "모두 보기",
+    "featured_start": " ",
+    "featured_end": " "
   },
   "hero": {
     "featured": "추천 과정",
@@ -281,7 +284,9 @@
     "placeholder_name": "존 도",
     "placeholder_email": "john@example.com",
     "placeholder_subject": "이 메시지는 무엇에 관한 것입니까?",
-    "placeholder_message": "우리가 어떻게 도와드릴 수 있나요..."
+    "placeholder_message": "우리가 어떻게 도와드릴 수 있나요...",
+    "testimonial_title_start": " ",
+    "testimonial_title_end": " "
   },
   "footer": {
     "explore": "강의 살펴보기",
@@ -546,7 +551,9 @@
     "form_email": "이메일 주소",
     "form_subject": "우리가 어떻게 도와드릴까요?",
     "form_message": "메시지 상세",
-    "form_submit": "대화를 시작합니다"
+    "form_submit": "대화를 시작합니다",
+    "title_start": " ",
+    "title_end": " "
   },
   "student": {
     "achievement_unlocked": "성과를 달성했습니다",
@@ -732,7 +739,9 @@
     "value3_desc": "당신은 단지 학생이 아니라 글로벌 창작자들의 집단의 일부입니다.",
     "value4_title": "감동",
     "value4_desc": "우리는 인간의 잠재력과 고품질 교육의 영향에 대해 깊이 관심を持って 있습니다.",
-    "success_rate": "성공률"
+    "success_rate": "성공률",
+    "title_start": " ",
+    "title_end": " "
   },
   "how_it_works": {
     "title": "작동 방식",
@@ -758,7 +767,9 @@
     "drag_drop": "Drag & Drop 빌더",
     "ready_teaching": "시작하기 준비好了",
     "teaching_italic": "教学?",
-    "contact_sales": "판매 문의"
+    "contact_sales": "판매 문의",
+    "title_start": " ",
+    "title_end": " "
   },
   "seo": {
     "home_title": "CourseMaster | 종합 학습 플랫폼",
@@ -783,7 +794,9 @@
     "q4": "CourseMaster에서 강사로 활동할 수 있나요?",
     "a4": "네, 가능합니다. 과목에 대한 전문성이 있다면 대시보드에서 강사로 신청할 수 있으며 강의를 시작할 수 있습니다.",
     "q5": "환불 정책은 무엇인가요?",
-    "a5": "대부분의 과정에 대해 30일 돈 환불 보장을 제공합니다. 만족하지 못한 경우 구매 후 30일 이내에 환불을 요청할 수 있습니다."
+    "a5": "대부분의 과정에 대해 30일 돈 환불 보장을 제공합니다. 만족하지 못한 경우 구매 후 30일 이내에 환불을 요청할 수 있습니다.",
+    "title_start": " ",
+    "title_end": " "
   },
   "careers": {
     "badge": "저희의 사명에 동참하세요",
@@ -867,7 +880,9 @@
     "section3_title": "3. 지적 재산권",
     "section3_desc": "Platform에서 제공하는 모든 콘텐츠(비디오, 전사본, 다운로드 가능한 자산 포함)는 CourseMaster 또는その 강사의 독점적 재산입니다. 승인되지 않은 복제 또는 배포는 엄격하게 금지되어 있습니다.",
     "section4_title": "4. 행동강령",
-    "section4_desc": "사용자는 전문적이고 존중하는 환경을 유지해야 합니다. 괴롭힘, 증오 발언 또는 플랫폼 보안을 훼손하는 시도는 즉시 책임，没有 환불로 인해 액세스가 종료됩니다."
+    "section4_desc": "사용자는 전문적이고 존중하는 환경을 유지해야 합니다. 괴롭힘, 증오 발언 또는 플랫폼 보안을 훼손하는 시도는 즉시 책임，没有 환불로 인해 액세스가 종료됩니다.",
+    "title_start": " ",
+    "title_end": " "
   },
   "refund_policy": {
     "badge": "만족 보장",
@@ -908,7 +923,9 @@
     "manage_title": "",
     "manage_desc": ". , ",
     "accept_all": "",
-    "reject_non": ""
+    "reject_non": "",
+    "title_start": " ",
+    "title_end": " "
   },
   "trust_bar": {
     "text": ""

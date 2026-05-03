@@ -74,11 +74,11 @@ export default function CareersPage() {
   }
 
   return (
-    <main className="min-h-screen bg-background pt-32 pb-24">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 space-y-24 md:space-y-32 relative z-10">
         
         {/* --- Hero Section --- */}
-        <div className="max-w-4xl mx-auto text-center space-y-8 mb-32">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-primary/20">
              <Sparkles className="w-3.5 h-3.5" /> {t("careers.badge")}
           </div>
@@ -92,7 +92,7 @@ export default function CareersPage() {
         </div>
 
         {/* --- Culture Section --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-40">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
            <CultureCard 
               icon={<Zap className="w-6 h-6" />}
               title={t("careers.culture1_title")}
@@ -240,7 +240,7 @@ export default function CareersPage() {
         )}
 
         {/* --- Benefits Section --- */}
-        <div className="mt-40 grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
            <div className="space-y-10">
               <div className="space-y-4">
                  <h2 className="text-5xl font-black tracking-tight">{t("careers.perks_title")}</h2>
@@ -283,7 +283,7 @@ export default function CareersPage() {
         </div>
 
         {/* --- Open Application --- */}
-        <div className="mt-40 bg-zinc-950 rounded-[4rem] p-12 md:p-20 text-center space-y-10 relative overflow-hidden">
+        <div className="bg-zinc-950 rounded-[4rem] p-12 md:p-20 text-center space-y-10 relative overflow-hidden">
            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-500 to-primary"></div>
            <div className="space-y-4 relative z-10">
               <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">{t("careers.no_role_title")}</h2>

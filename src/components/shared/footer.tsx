@@ -29,11 +29,11 @@ export function Footer() {
   };
 
   return (
-    <footer className="footer-gradient relative overflow-hidden pt-20 lg:pt-32 pb-12 bg-card/30 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] border-t border-primary/5">
+    <footer className="footer-gradient relative overflow-hidden pt-16 lg:pt-20 pb-8 bg-card/30 shadow-[0_-20px_80px_-20px_rgba(0,0,0,0.1)] border-t border-primary/5">
 
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-24 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-16 mb-12">
           
           {/* Brand & Newsletter Column */}
           <div className="lg:col-span-5 space-y-12">

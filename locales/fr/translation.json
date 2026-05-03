@@ -40,7 +40,8 @@
     "careers": "Carrières",
     "analytics": "Analytiques",
     "manage_jobs": "Gérer les emplois",
-    "dash": "Tableau de bord"
+    "dash": "Tableau de bord",
+    "policies": "Politiques"
   },
   "home": {
     "title": "Apprendre tout, tout le temps",
@@ -48,7 +49,9 @@
     "cta": "Explorer les cours",
     "featured": "Cours en vedette",
     "featured_desc": "Apprenez des meilleurs enseignants du monde",
-    "view_all": "Voir tout"
+    "view_all": "Voir tout",
+    "featured_start": "Tech les mieux notés",
+    "featured_end": "Cours de certification"
   },
   "hero": {
     "featured": "Cours en vedette",
@@ -283,7 +286,9 @@
     "placeholder_name": "Jean Doe",
     "placeholder_email": "jean@example.com",
     "placeholder_subject": "À quel sujet?",
-    "placeholder_message": "Dites-nous comment nous pouvons vous aider..."
+    "placeholder_message": "Dites-nous comment nous pouvons vous aider...",
+    "testimonial_title_start": "Étudiant vérifié",
+    "testimonial_title_end": "Avis"
   },
   "footer": {
     "explore": "Parcourir les cours",
@@ -383,7 +388,9 @@
     "form_email": "Adresse email",
     "form_subject": "Comment pouvons-nous vous aider?",
     "form_message": "Détails du message",
-    "form_submit": "Initialiser la conversation"
+    "form_submit": "Initialiser la conversation",
+    "title_start": "Construisons quelque chose",
+    "title_end": "Ensemble c'est mieux"
   },
   "student": {
     "achievement_unlocked": "Réalisation débloquée",
@@ -569,7 +576,9 @@
     "value3_desc": "Vous n'êtes pas juste un étudiant, vous faites partie d'un collectif mondial de créateurs.",
     "value4_title": "Passion",
     "value4_desc": "Nous nous soucions profondément du potentiel humain et de l'impact de l'éducation de qualité.",
-    "success_rate": "Taux de réussite"
+    "success_rate": "Taux de réussite",
+    "title_start": "Éducation",
+    "title_end": "Révolution"
   },
   "how_it_works": {
     "title": "Comment cela fonctionne",
@@ -595,7 +604,9 @@
     "drag_drop": "Constructeur glisser-déposer",
     "ready_teaching": "Prêt à commencer",
     "teaching_italic": "enseigner?",
-    "contact_sales": "Contactez nos ventes"
+    "contact_sales": "Contactez nos ventes",
+    "title_start": "Commencez votre parcours tech",
+    "title_end": "Parcours d'apprentissage"
   },
   "seo": {
     "home_title": "CourseMaster | La plateforme d'apprentissage ultime",
@@ -752,7 +763,9 @@
     "q4": "Puis-je devenir instructeur sur CourseMaster ?",
     "a4": "Oui, vous le pouvez. Si vous avez une expertise dans un sujet, vous pouvez postuler pour devenir instructeur depuis votre tableau de bord et commencer à enseigner.",
     "q5": "Quelle est la politique de remboursement ?",
-    "a5": "Nous offrons une garantie de remboursement de 30 jours sur la plupart des cours. Si vous n'êtes pas satisfait, vous pouvez demander un remboursement dans les 30 jours suivant l'achat."
+    "a5": "Nous offrons une garantie de remboursement de 30 jours sur la plupart des cours. Si vous n'êtes pas satisfait, vous pouvez demander un remboursement dans les 30 jours suivant l'achat.",
+    "title_start": "Questions fréquentes sur",
+    "title_end": "Nos cours de tech"
   },
   "ai_assistant": {
     "mentor_title": "Guide IA",
@@ -906,7 +919,9 @@
     "section3_title": "3. Propriété intellectuelle",
     "section3_desc": "Tout le contenu fourni sur la plateforme, y compris les vidéos, les transcriptions et les ressources téléchargeables, reste la propriété exclusive de CourseMaster ou de ses instructeurs. La reproduction ou la distribution non autorisée est strictement interdite.",
     "section4_title": "4. Code de conduite",
-    "section4_desc": "Les utilisateurs doivent maintenir un environnement professionnel et respectueux. Toute forme de harcèlement, de discours de haine ou de tentative de compromission de la sécurité de la plateforme entraînera une termination immédiate de l'accès sans remboursement."
+    "section4_desc": "Les utilisateurs doivent maintenir un environnement professionnel et respectueux. Toute forme de harcèlement, de discours de haine ou de tentative de compromission de la sécurité de la plateforme entraînera une termination immédiate de l'accès sans remboursement.",
+    "title_start": "Conditions de la plateforme",
+    "title_end": "de service"
   },
   "refund_policy": {
     "badge": "Satisfaction garantie",
@@ -947,7 +962,9 @@
     "manage_title": "Comment gérer les cookies",
     "manage_desc": "La plupart des navigateurs Web vous permettent de contrôler les cookies via leurs préférences de paramètres. Cependant, si vous limitez la capacité des sites Web à définir des cookies, vous pouvez aggraver votre expérience utilisateur globale, car elle ne sera plus personnalisée.",
     "accept_all": "Accepter tous les cookies",
-    "reject_non": "Rejeter les non essentiels"
+    "reject_non": "Rejeter les non essentiels",
+    "title_start": "Gestion de vos",
+    "title_end": "Miettes numériques"
   },
   "trust_bar": {
     "text": "Fait confiance par les équipes mondiales de premier plan"

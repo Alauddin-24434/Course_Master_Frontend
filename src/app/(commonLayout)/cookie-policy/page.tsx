@@ -6,12 +6,10 @@ import { Cookie, Info, Settings, ShieldCheck, ArrowDown, Fingerprint } from "luc
 export default function CookiePolicyPage() {
   const { t } = useTranslation();
   return (
-    <main className="min-h-screen bg-background pb-32">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
       
       {/* --- Page Header --- */}
-      <section className="relative pt-32 pb-20 overflow-hidden text-center">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-[40rem] h-[40rem] bg-emerald-500/5 blur-[120px] rounded-full translate-y-1/2 -translate-x-1/2"></div>
+      <section className="relative z-10 text-center">
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700">
@@ -21,8 +19,8 @@ export default function CookiePolicyPage() {
             </div>
             
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-              {t("cookie_policy.title")} <br />
-              <span className="text-primary italic font-serif">{t("cookie_policy.title_italic")}</span>
+              {t("cookie_policy.title_start")} <br />
+              <span className="text-primary italic font-serif">{t("cookie_policy.title_end")}</span>
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground font-medium">

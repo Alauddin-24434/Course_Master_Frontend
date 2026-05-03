@@ -63,21 +63,18 @@ export function ContactSection() {
   };
 
   return (
-    <Section className="bg-secondary/5 relative overflow-hidden">
-
-
-      <div className="max-w-7xl mx-auto space-y-16 lg:space-y-24 relative z-10">
+    <Section className="bg-secondary/5 relative overflow-hidden" containerClassName="max-w-7xl">
 
         {/* --- Header Section --- */}
-        <div className="text-center max-w-3xl mx-auto space-y-6">
+        <div className="space-y-4 text-center mx-auto max-w-3xl">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-xs font-black uppercase text-primary tracking-widest">
             <MessageSquare className="w-3 h-3 fill-primary" />
             {t("contact.badge") || "Direct Communication"}
           </div>
-          <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.95]">
-            {t("contact.title") || "Let's Build Something Great Together."}
+          <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-foreground leading-[0.9]">
+            {t("contact.title_start")} <span className="text-primary italic font-serif">{t("contact.title_end")}</span>
           </h2>
-          <p className="text-muted-foreground text-lg font-medium max-w-xl mx-auto italic">
+          <p className="text-muted-foreground text-lg max-w-xl font-medium mx-auto">
             {t("contact.subtitle") || "Whether you have a question about courses, pricing, or partnerships, our team is ready to help you scale your education business."}
           </p>
         </div>
@@ -169,7 +166,6 @@ export function ContactSection() {
           </div>
 
         </div>
-      </div>
     </Section>
   );
 }

@@ -6,12 +6,10 @@ import { RotateCcw, ShieldCheck, Clock, Percent, Mail, ArrowDown } from "lucide-
 export default function RefundPolicyPage() {
   const { t } = useTranslation();
   return (
-    <main className="min-h-screen bg-background pb-32">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
       
       {/* --- Page Header --- */}
-      <section className="relative pt-32 pb-20 overflow-hidden text-center">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent"></div>
-        <div className="absolute top-0 right-1/2 w-[40rem] h-[40rem] bg-amber-500/5 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2"></div>
+      <section className="relative z-10 text-center">
         
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-6 duration-700">

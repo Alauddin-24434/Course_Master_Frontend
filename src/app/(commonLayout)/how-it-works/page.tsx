@@ -45,18 +45,18 @@ export default function HowItWorks() {
   ]
 
   return (
-    <main className="min-h-screen bg-background pt-32 pb-20">
-      <div className="container mx-auto px-4">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 space-y-24 md:space-y-32">
         
         {/* --- Header Section --- */}
-        <div className="max-w-3xl mx-auto text-center mb-20 space-y-6">
+        <div className="max-w-3xl mx-auto text-center space-y-6">
           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20">
             <Rocket className="w-4 h-4 text-primary" />
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{t("nav.how_it_works_subtitle")}</span>
           </div>
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-tight">
-            {t("how_it_works.title")} <br />
-            <span className="text-muted-foreground italic font-serif">{t("nav.how_it_works_step")}</span>
+          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
+            {t("how_it_works.title_start")} <br />
+            <span className="text-primary italic font-serif">{t("how_it_works.title_end")}</span>
           </h1>
           <p className="text-lg text-muted-foreground font-medium">
             {t("how_it_works.subtitle")}
@@ -64,7 +64,7 @@ export default function HowItWorks() {
         </div>
 
         {/* --- Steps Grid --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {steps.map((step, index) => (
             <div key={index} className="relative group p-8 bg-card border border-border rounded-[2rem] hover:border-primary/50 transition-all duration-500">
               <div className="absolute -top-4 -left-4 w-10 h-10 bg-background border border-border rounded-full flex items-center justify-center font-black text-sm text-muted-foreground group-hover:text-primary transition-colors">
@@ -128,7 +128,7 @@ export default function HowItWorks() {
         </div>
 
         {/* --- Final CTA --- */}
-        <div className="mt-32 text-center space-y-8">
+        <div className="text-center space-y-8">
           <h2 className="text-4xl md:text-6xl font-black tracking-tighter">
             {t("how_it_works.ready_teaching")} <span className="italic text-primary">{t("how_it_works.teaching_italic")}</span>
           </h2>

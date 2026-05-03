@@ -98,6 +98,16 @@ export const courseApi = baseApi.injectEndpoints({
       }),
     }),
 
+    // Process Refund
+    refundCourse: build.mutation<any, string>({
+      query: (courseId) => ({
+        url: `/payments/refund`,
+        method: "POST",
+        body: { courseId }
+      }),
+      invalidatesTags: ["Course"],
+    }),
+
     completeLesson: build.mutation<IApiResponse<{ message: string }>, { courseId: string; lessonId: string }>({
       query: ({ courseId, lessonId }) => ({
         url: "/courses/complete-lesson",
@@ -127,6 +137,7 @@ export const {
   useDeleteCourseMutation,
   useEnrollCourseMutation,
   useCreateCheckoutMutation,
+  useRefundCourseMutation,
   useGetMyCoursesQuery,
   useCompleteLessonMutation,
   useTogglePublishMutation,

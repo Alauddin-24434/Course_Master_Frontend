@@ -92,7 +92,7 @@ export function AppSidebar() {
   };
 
   return (
-    <Sidebar className="border-r border-border bg-background/50 backdrop-blur-xl">
+    <Sidebar className="border-r border-border bg-background/95 backdrop-blur-xl md:bg-background/50">
       <SidebarContent className="flex flex-col h-full">
 
         {/* --- BRAND SECTION --- */}

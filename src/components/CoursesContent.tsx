@@ -43,8 +43,8 @@ export default function CoursesContent() {
   const totalPages = Math.ceil(totalCount / 12) || 1;
 
   return (
-    <main className="min-h-screen bg-background pb-32">
-      <div className="container mx-auto px-4 pt-32 -mt-10 relative z-20">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 space-y-24 md:space-y-32 relative z-10">
         <div className="bg-card/50 backdrop-blur-2xl border border-primary/10 rounded-[2.5rem] p-4 lg:p-6 shadow-2xl shadow-primary/5 mb-16">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-5 relative group">

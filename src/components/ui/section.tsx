@@ -15,9 +15,9 @@ export function Section({ children, className, containerClassName, id }: Section
   return (
     <section 
       id={id}
-      className={cn("py-20 lg:py-32 relative overflow-hidden bg-background", className)}
+      className={cn("py-16 md:py-24 lg:py-32 relative overflow-hidden bg-background", className)}
     >
-      <div className={cn("container mx-auto px-4 sm:px-6 lg:px-8 space-y-16 lg:space-y-24 relative z-10", containerClassName)}>
+      <div className={cn("container mx-auto px-4 md:px-8 space-y-12 md:space-y-16 lg:space-y-20 relative z-10", containerClassName)}>
         {children}
       </div>
     </section>

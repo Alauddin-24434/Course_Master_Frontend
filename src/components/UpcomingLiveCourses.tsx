@@ -50,7 +50,7 @@ export function UpcomingLiveCourses() {
   }
 
   return (
-    <Section className="from-transparent to-secondary/10" containerClassName="space-y-12 lg:space-y-16">
+    <Section className="from-transparent to-secondary/10">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-end gap-6">
         <div className="space-y-6 max-w-2xl">

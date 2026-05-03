@@ -7,7 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo } from "react";
 import toast from "react-hot-toast";
 import { PlayCircle, GraduationCap, Sparkles, BookMarked, Loader2, Play } from "lucide-react";
-import { useGetMyCoursesQuery } from "@/redux/features/course/courseAPi";
+import { useGetMyCoursesQuery, useRefundCourseMutation } from "@/redux/features/course/courseAPi";
 
 interface Course {
   id: string;
@@ -16,6 +16,7 @@ interface Course {
   progressPercentage?: number;
   completedLessonsCount?: number;
   totalLessons?: number;
+  enrolledAt?: string;
   instructor?: {
     name?: string;
   };
@@ -24,6 +25,7 @@ interface Course {
 export default function MyCoursesPage() {
   const { t } = useTranslation();
   const { data, isLoading, isError } = useGetMyCoursesQuery();
+  const [refundCourse, { isLoading: isRefunding }] = useRefundCourseMutation();
   const searchParams = useSearchParams();
   const success = searchParams.get("success");
 
@@ -32,6 +34,17 @@ export default function MyCoursesPage() {
       toast.success("Payment successful! Welcome to your course.");
     }
   }, [success]);
+
+  const handleRefund = async (courseId: string) => {
+    if (!window.confirm("Are you sure you want to cancel and refund this course? This action cannot be undone.")) return;
+    
+    try {
+      const res = await refundCourse(courseId).unwrap();
+      toast.success(res?.message || "Refund processed successfully.");
+    } catch (err: any) {
+      toast.error(err?.data?.message || err?.message || "Failed to process refund.");
+    }
+  };
 
   const courses: any[] = data?.data?.courses || data?.data || [];
 
@@ -173,6 +186,13 @@ export default function MyCoursesPage() {
                             <PlayCircle className="w-4 h-4" /> {t("student.my_courses.resume")}
                           </Link>
                       )}
+                      <button
+                        onClick={() => handleRefund(course.id)}
+                        disabled={isRefunding}
+                        className="w-full h-10 flex items-center justify-center gap-2 text-red-500 hover:text-white hover:bg-red-500 bg-red-500/10 border border-red-500/20 text-[10px] font-black uppercase tracking-widest rounded-xl transition-all active:scale-95 disabled:opacity-50"
+                      >
+                        {isRefunding ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : "Cancel & Refund"}
+                      </button>
                   </div>
                 </div>
               </div>

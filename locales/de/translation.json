@@ -40,7 +40,8 @@
     "explore_courses": "Kurse erkunden",
     "analytics": "Analytik",
     "manage_jobs": "Jobs verwalten",
-    "dash": "Dash"
+    "dash": "Dash",
+    "policies": "Richtlinien"
   },
   "home": {
     "title": "Lernen, wo immer Sie wollen",
@@ -48,7 +49,9 @@
     "cta": "Kurse suchen",
     "featured": "Empfohlene Kurse",
     "featured_desc": "Lernen Sie von den besten Instruktoren der Welt",
-    "view_all": "Alle anzeigen"
+    "view_all": "Alle anzeigen",
+    "featured_start": "Top-bewertete Technologie",
+    "featured_end": "Zertifizierungskurse"
   },
   "hero": {
     "featured": "Empfohlene Kurse",
@@ -281,7 +284,9 @@
     "placeholder_name": "John Doe",
     "placeholder_email": "john@example.com",
     "placeholder_subject": "Was betrifft diese Anfrage?",
-    "placeholder_message": "Erzählen Sie uns, wie wir Ihnen helfen können..."
+    "placeholder_message": "Erzählen Sie uns, wie wir Ihnen helfen können...",
+    "testimonial_title_start": "Verifizierter Student",
+    "testimonial_title_end": "Bewertungen"
   },
   "footer": {
     "explore": "Kurse erkunden",
@@ -546,7 +551,9 @@
     "form_email": "E-Mail-Adresse",
     "form_subject": "Wie können wir Ihnen helfen?",
     "form_message": "Nachrichtendetails",
-    "form_submit": "Konversation starten"
+    "form_submit": "Konversation starten",
+    "title_start": "Lasst uns etwas aufbauen",
+    "title_end": "Großartig zusammen"
   },
   "student": {
     "achievement_unlocked": "Erfolg freigeschaltet",
@@ -732,7 +739,9 @@
     "value3_desc": "Du bist nicht nur ein Schüler, sondern Teil einer globalen Gemeinschaft von Kreativen.",
     "value4_title": "Inspiration",
     "value4_desc": "Wir kümmern uns sehr um das menschliche Potenzial und die Auswirkungen einer qualitativ hochwertigen Ausbildung.",
-    "success_rate": "Erfolgsquote"
+    "success_rate": "Erfolgsquote",
+    "title_start": "Bildung",
+    "title_end": "Revolution"
   },
   "how_it_works": {
     "title": "So funktioniert es",
@@ -758,7 +767,9 @@
     "drag_drop": "Drag & Drop-Editor",
     "ready_teaching": "Bereit, loszulegen",
     "teaching_italic": "unterrichten?",
-    "contact_sales": "Kontaktieren Sie den Vertrieb"
+    "contact_sales": "Kontaktieren Sie den Vertrieb",
+    "title_start": "Starten Sie Ihre Technologie",
+    "title_end": "Lernreise"
   },
   "seo": {
     "home_title": "CourseMaster | Ultimate Lernplattform",
@@ -783,7 +794,9 @@
     "q4": "Kann ich ein Instructor auf CourseMaster werden?",
     "a4": "Ja, das können Sie. Wenn Sie Expertenwissen in einem Fachgebiet haben, können Sie sich von Ihrem Dashboard aus als Instructor bewerben und mit dem Unterrichten beginnen.",
     "q5": "Was ist die Rückgaberichtlinie?",
-    "a5": "Wir bieten eine 30-Tage-Geld-zurück-Garantie für die meisten Kurse an. Wenn Sie nicht zufrieden sind, können Sie innerhalb von 30 Tagen nach dem Kauf eine Rückerstattung anfordern."
+    "a5": "Wir bieten eine 30-Tage-Geld-zurück-Garantie für die meisten Kurse an. Wenn Sie nicht zufrieden sind, können Sie innerhalb von 30 Tagen nach dem Kauf eine Rückerstattung anfordern.",
+    "title_start": "Häufige Fragen zu",
+    "title_end": "Unsere Technologie-Kurse"
   },
   "careers": {
     "badge": "Schließen Sie sich unserer Mission an",
@@ -867,7 +880,9 @@
     "section3_title": "3. Geistiges Eigentum",
     "section3_desc": "Alle auf der Plattform bereitgestellten Inhalte - einschließlich Videos, Transkripte und herunterladbarer Assets - bleiben das exklusive Eigentum von CourseMaster oder seinen Dozenten. Eine unbefugte Vervielfältigung oder Verbreitung ist streng verboten.",
     "section4_title": "4. Verhaltenskodex",
-    "section4_desc": "Benutzer müssen ein professionelles und respektvolles Umfeld aufrechterhalten. Jede Form von Belästigung, Hassrede oder Versuch, die Plattformensicherheit zu gefährden, führt zu einer sofortigen Beendigung des Zugriffs ohne Rückerstattung."
+    "section4_desc": "Benutzer müssen ein professionelles und respektvolles Umfeld aufrechterhalten. Jede Form von Belästigung, Hassrede oder Versuch, die Plattformensicherheit zu gefährden, führt zu einer sofortigen Beendigung des Zugriffs ohne Rückerstattung.",
+    "title_start": "Plattformbedingungen",
+    "title_end": "des Dienstes"
   },
   "refund_policy": {
     "badge": "Zufriedenheitsgarantie",
@@ -908,7 +923,9 @@
     "manage_title": "So verwalten Sie Cookies",
     "manage_desc": "Die meisten Webbrowser ermöglichen es Ihnen, Cookies über ihre Einstellungspräferenzen zu kontrollieren. Wenn Sie jedoch die Fähigkeit von Websites einschränken, Cookies zu setzen, können Sie Ihre gesamte Benutzeroberfläche verschlechtern, da sie nicht mehr personalisiert wird.",
     "accept_all": "Alle Cookies akzeptieren",
-    "reject_non": "Nicht essentielle ablehnen"
+    "reject_non": "Nicht essentielle ablehnen",
+    "title_start": "Verwalten Sie Ihre",
+    "title_end": "Digitale Krümel"
   },
   "trust_bar": {
     "text": "Vertrauen von führenden Teams weltweit"

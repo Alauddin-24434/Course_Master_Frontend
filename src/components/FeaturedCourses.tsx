@@ -43,7 +43,7 @@ export function FeaturedCourses() {
   const skeletons = Array.from({ length: limit });
 
   return (
-    <Section className="from-transparent to-secondary/20" containerClassName="space-y-10 lg:space-y-16">
+    <Section className="from-transparent to-secondary/20">
       {/* ================= HEADER ================= */}
       <div className="space-y-6 border-b border-primary/10 pb-0">
         {/* ================= TITLE ================= */}

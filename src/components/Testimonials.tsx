@@ -7,7 +7,7 @@ import { Section } from "./ui/section";
 
 export function Testimonials() {
   const { t } = useTranslation();
-  const { data: reviewData, isLoading } = useGetReviewsQuery(undefined);
+  const { data: reviewData, isLoading } = useGetReviewsQuery({ limit: 4 });
 
   const staticReviews = [
     {
@@ -43,45 +43,27 @@ export function Testimonials() {
   return (
     <Section>
       {/* Header Section */}
-      <div className="text-center max-w-3xl mx-auto space-y-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-[10px] font-black uppercase text-primary tracking-[0.2em]">
+      <div className="space-y-4 text-center mx-auto max-w-3xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-xs font-black uppercase text-primary tracking-widest">
           <Star className="w-3 h-3 fill-primary" />
           {t("extra.voices_success") || "Wall of Love"}
         </div>
-        <h2 className="text-4xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.95]">
-          {t("extra.testimonial_title") || "Trusted by thousands of educators."}
+        <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-foreground leading-[0.9]">
+          {t("extra.testimonial_title_start")} <span className="text-primary italic font-serif">{t("extra.testimonial_title_end")}</span>
         </h2>
-        <p className="text-muted-foreground text-lg font-medium max-w-xl mx-auto italic">
-          &quot;{t("extra.testimonial_subtitle") || "Join the global community of instructors making an impact and building their brand."}&quot;
+        <p className="text-muted-foreground text-lg max-w-xl font-medium mx-auto">
+          {t("extra.testimonial_subtitle") || "Join the global community of instructors making an impact and building their brand."}
         </p>
       </div>
 
-      {/* Marquee Rows - Only show if reviews exist */}
+      {/* Reviews Grid - Only show if reviews exist */}
       {finalReviews.length > 0 ? (
-        <div className="flex flex-col gap-10">
-          {/* Row 1: Leftward Scroll */}
-          <div className="relative flex overflow-x-hidden group">
-            <div className="flex animate-marquee py-4 gap-8 group-hover:[animation-play-state:paused]">
-              {[...finalReviews, ...finalReviews].map((review: any, idx: number) => (
-                <ReviewCard key={`row1-${idx}`} review={review} />
-              ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto py-4 px-4">
+          {finalReviews.map((review: any, idx: number) => (
+            <div key={idx} className="flex justify-center w-full">
+              <ReviewCard review={review} />
             </div>
-            {/* Edge Gradients for smooth fade */}
-            <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none"></div>
-          </div>
-
-          {/* Row 2: Rightward Scroll */}
-          <div className="relative flex overflow-x-hidden group">
-            <div className="flex animate-marquee-reverse py-4 gap-8 group-hover:[animation-play-state:paused]">
-              {[...[...finalReviews].reverse(), ...[...finalReviews].reverse()].map((review: any, idx: number) => (
-                <ReviewCard key={`row2-${idx}`} review={review} />
-              ))}
-            </div>
-            {/* Edge Gradients */}
-            <div className="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-background via-background/80 to-transparent z-10 pointer-events-none"></div>
-            <div className="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-background via-background/80 to-transparent z-10 pointer-events-none"></div>
-          </div>
+          ))}
         </div>
       ) : (
         <div className="text-center">
@@ -96,40 +78,40 @@ function ReviewCard({ review }: { review: any }) {
   const { t } = useTranslation();
   const reviewer = review.user || {};
   return (
-    <div className="inline-flex flex-col w-[350px] sm:w-[450px] bg-card/40 backdrop-blur-xl p-10 rounded-[3rem] border border-primary/10 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_20px_50px_-10px_rgba(var(--primary),0.1)] group">
+    <div className="flex flex-col w-full h-full bg-card/40 backdrop-blur-xl p-6 md:p-8 rounded-[2.5rem] border border-primary/10 hover:border-primary/30 transition-all duration-500 hover:shadow-[0_20px_50px_-10px_rgba(var(--primary),0.1)] group">
 
       {/* Top Section: Rating & Quote Icon */}
-      <div className="flex items-center justify-between mb-8">
-        <div className="flex gap-1">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex gap-1 flex-wrap">
           {[...Array(5)].map((_, i) => (
             <Star key={i} className={`w-3.5 h-3.5 ${i < review.rating ? "fill-primary text-primary" : "text-muted-foreground/30"}`} />
           ))}
         </div>
-        <div className="w-12 h-12 bg-primary/5 rounded-2xl flex items-center justify-center border border-primary/10 group-hover:bg-primary/10 transition-colors">
-          <Quote className="w-6 h-6 text-primary/20 group-hover:text-primary transition-colors" />
+        <div className="w-10 h-10 shrink-0 bg-primary/5 rounded-xl flex items-center justify-center border border-primary/10 group-hover:bg-primary/10 transition-colors">
+          <Quote className="w-4 h-4 text-primary/20 group-hover:text-primary transition-colors" />
         </div>
       </div>
 
       {/* Testimonial Content */}
-      <p className="text-lg font-bold leading-relaxed text-foreground/90 whitespace-normal mb-10 tracking-tight italic">
+      <p className="text-sm md:text-base font-bold leading-relaxed text-foreground/90 whitespace-normal mb-6 tracking-tight italic flex-grow">
         &quot;{review.content}&quot;
       </p>
 
       {/* Reviewer Details */}
-      <div className="flex items-center gap-4 border-t border-primary/10 pt-8">
-        <div className="relative">
+      <div className="flex items-center gap-3 border-t border-primary/10 pt-6 mt-auto">
+        <div className="relative shrink-0">
           <img
             src={reviewer.avatar || `https://i.pravatar.cc/150?u=${reviewer.name}`}
             alt={reviewer.name}
-            className="w-14 h-14 rounded-2xl object-cover border-2 border-background shadow-lg group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0"
+            className="w-12 h-12 rounded-xl object-cover border-2 border-background shadow-lg group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0"
           />
-          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-primary rounded-full border-2 border-background flex items-center justify-center shadow-sm">
-            <Star className="w-2.5 h-2.5 fill-primary-foreground text-primary-foreground" />
+          <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-primary rounded-full border-2 border-background flex items-center justify-center shadow-sm">
+            <Star className="w-2 h-2 fill-primary-foreground text-primary-foreground" />
           </div>
         </div>
-        <div className="space-y-0.5">
-          <h4 className="font-black text-base text-foreground tracking-tight">{reviewer.name || t("testimonials.anonymous")}</h4>
-          <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] leading-none">{reviewer.role || t("testimonials.verified")}</p>
+        <div className="space-y-0.5 overflow-hidden">
+          <h4 className="font-black text-sm text-foreground tracking-tight truncate">{reviewer.name || t("testimonials.anonymous")}</h4>
+          <p className="text-[9px] font-bold text-primary uppercase tracking-[0.2em] leading-none truncate">{reviewer.role || t("testimonials.verified")}</p>
         </div>
       </div>
     </div>

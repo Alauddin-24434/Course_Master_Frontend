@@ -40,7 +40,8 @@
     "careers": "Carreras",
     "analytics": "Análisis",
     "manage_jobs": "Gestionar Trabajos",
-    "dash": "Panel"
+    "dash": "Panel",
+    "policies": "Políticas"
   },
   "home": {
     "title": "Aprende cualquier cosa, en cualquier momento",
@@ -48,7 +49,9 @@
     "cta": "Explora Cursos",
     "featured": "Cursos Destacados",
     "featured_desc": "Aprende de los mejores profesores del mundo",
-    "view_all": "Ver todo"
+    "view_all": "Ver todo",
+    "featured_start": "Tecnología con mejor calificación",
+    "featured_end": "Cursos de certificación"
   },
   "hero": {
     "featured": "Cursos Destacados",
@@ -283,7 +286,9 @@
     "placeholder_name": "Juan Doe",
     "placeholder_email": "juan@ejemplo.com",
     "placeholder_subject": "¿De qué se trata esto?",
-    "placeholder_message": "Dinos cómo podemos ayudarte..."
+    "placeholder_message": "Dinos cómo podemos ayudarte...",
+    "testimonial_title_start": "Estudiante verificado",
+    "testimonial_title_end": "Reseñas"
   },
   "footer": {
     "explore": "Explorar cursos",
@@ -383,7 +388,9 @@
     "form_email": "Dirección de correo electrónico",
     "form_subject": "¿En qué podemos ayudarte?",
     "form_message": "Detalles del mensaje",
-    "form_submit": "Iniciar conversación"
+    "form_submit": "Iniciar conversación",
+    "title_start": "Construyamos algo",
+    "title_end": "Grandes juntos"
   },
   "student": {
     "achievement_unlocked": "Logro Desbloqueado",
@@ -569,7 +576,9 @@
     "value3_desc": "No eres solo un estudiante; eres parte de una colectiva global de creadores.",
     "value4_title": "Pasión",
     "value4_desc": "Nos importa profundamente el potencial humano y el impacto de la educación de calidad.",
-    "success_rate": "Tasa de éxito"
+    "success_rate": "Tasa de éxito",
+    "title_start": "Educación",
+    "title_end": "Revolución"
   },
   "how_it_works": {
     "title": "Cómo funciona",
@@ -595,7 +604,9 @@
     "drag_drop": "Constructor de arrastrar y soltar",
     "ready_teaching": "Listo para empezar",
     "teaching_italic": "¿enseñando?",
-    "contact_sales": "Contacta con las Ventas"
+    "contact_sales": "Contacta con las Ventas",
+    "title_start": "Comienza tu camino en tecnología",
+    "title_end": "Viaje de aprendizaje"
   },
   "seo": {
     "home_title": "CourseMaster | La plataforma de aprendizaje definitiva",
@@ -752,7 +763,9 @@
     "q4": "¿Puedo convertirme en instructor en CourseMaster!",
     "a4": "Sí, puedes. Si tienes experiencia en un tema, puedes solicitar convertirte en instructor desde tu panel de control y empezar a enseñar.",
     "q5": "¿Cuál es la política de reembolso!",
-    "a5": "Ofrecemos una garantía de devolución de dinero de 30 días para la mayoría de los cursos. Si no está satisfecho, puede solicitar un reembolso dentro de los 30 días posteriores a la compra."
+    "a5": "Ofrecemos una garantía de devolución de dinero de 30 días para la mayoría de los cursos. Si no está satisfecho, puede solicitar un reembolso dentro de los 30 días posteriores a la compra.",
+    "title_start": "Preguntas comunes sobre",
+    "title_end": "Nuestros cursos de tecnología"
   },
   "ai_assistant": {
     "mentor_title": "Mentor de IA",
@@ -906,7 +919,9 @@
     "section3_title": "3. Propiedad Intelectual",
     "section3_desc": "Todo el contenido proporcionado en la plataforma, incluyendo videos, transcripciones y activos descargables, remains la propiedad exclusiva de CourseMaster o sus instructores. La reproducción o distribución no autorizada está estrictamente prohibida.",
     "section4_title": "4. Código de Conducta",
-    "section4_desc": "Los usuarios deben mantener un entorno profesional y respetuoso. Cualquier forma de acoso, discurso de odio o intento de comprometer la seguridad de la plataforma resultará en la terminación inmediata del acceso sin reembolso."
+    "section4_desc": "Los usuarios deben mantener un entorno profesional y respetuoso. Cualquier forma de acoso, discurso de odio o intento de comprometer la seguridad de la plataforma resultará en la terminación inmediata del acceso sin reembolso.",
+    "title_start": "Términos de la plataforma",
+    "title_end": "de servicio"
   },
   "refund_policy": {
     "badge": "Satisfacción Garantizada",
@@ -947,7 +962,9 @@
     "manage_title": "Cómo administrar cookies",
     "manage_desc": "La mayoría de los navegadores web permiten controlar las cookies a través de sus preferencias de configuración. Sin embargo, si limita la capacidad de los sitios web para establecer cookies, puede empeorar su experiencia general del usuario, ya que ya no estará personalizada.",
     "accept_all": "Aceptar todas las cookies",
-    "reject_non": "Rechazar no esenciales"
+    "reject_non": "Rechazar no esenciales",
+    "title_start": "Gestión de tus",
+    "title_end": "Migas digitales"
   },
   "trust_bar": {
     "text": "Confiado por equipos líderes de todo el mundo"

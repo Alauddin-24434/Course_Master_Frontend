@@ -83,10 +83,9 @@ export default function ContactPage() {
   const position: [number, number] = [22.701, 90.3535]; // Barishal
 
   return (
-    <main className="min-h-screen py-24 relative overflow-hidden bg-background">
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-7xl mx-auto space-y-20">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 space-y-24 md:space-y-32 relative z-10">
+        <div className="max-w-7xl mx-auto">
 
           {/* Header Section */}
           <div className="text-center max-w-3xl mx-auto space-y-6">
@@ -95,7 +94,8 @@ export default function ContactPage() {
             </div>
 
             <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-foreground leading-[0.9]">
-              {t("contact.title") || "Contact Our Team"}
+              {t("contact.title_start")} <br />
+              <span className="text-primary italic font-serif">{t("contact.title_end")}</span>
             </h1>
 
             <p className="text-muted-foreground text-lg md:text-xl font-medium leading-relaxed">

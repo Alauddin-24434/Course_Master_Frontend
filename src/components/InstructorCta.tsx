@@ -18,18 +18,17 @@ export function InstructorCTA() {
         <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-16">
 
           {/* Left Content */}
-          <div className="max-w-xl space-y-8 text-center lg:text-left">
+          <div className="max-w-xl space-y-4 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 rounded-full border border-primary/20 text-xs font-black uppercase text-primary tracking-widest">
               <Zap className="w-3 h-3 fill-primary animate-pulse" />
               {t("extra.for_instructors")}
             </div>
 
-            <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-foreground leading-[1.1]">
-              {t("extra.instructor_cta_title")} <br />
-              <span className="text-muted-foreground font-serif italic">{t("extra.instructor_cta_millions")}</span>
+            <h2 className="text-5xl md:text-6xl font-black tracking-tighter text-foreground leading-[0.9]">
+              {t("extra.instructor_cta_title")} <span className="text-primary italic font-serif">{t("extra.instructor_cta_millions")}</span>
             </h2>
 
-            <p className="text-muted-foreground text-lg font-medium leading-relaxed">
+            <p className="text-muted-foreground text-lg max-w-xl font-medium pt-2">
               {t("extra.instructor_cta_desc")}
             </p>
 

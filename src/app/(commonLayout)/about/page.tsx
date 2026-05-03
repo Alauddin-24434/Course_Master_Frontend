@@ -8,9 +8,8 @@ export default function AboutPage() {
   const { t } = useTranslation()
 
   return (
-    <main className="min-h-screen py-24 relative overflow-hidden">
-    
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 space-y-32 relative z-10">
+    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 space-y-24 md:space-y-32 relative z-10">
         
         {/* Mission Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
@@ -18,8 +17,9 @@ export default function AboutPage() {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-[0.2em] border border-primary/20">
                     <Zap className="w-3.5 h-3.5 fill-primary" /> {t("about.badge")}
                 </div>
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.85] italic">
-                    {t("about.title")}
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-foreground leading-[0.85]">
+                    {t("about.title_start")} <br />
+                    <span className="text-primary italic font-serif">{t("about.title_end")}</span>
                 </h1>
                 <p className="text-xl md:text-2xl font-serif text-muted-foreground leading-relaxed">
                     {t("about.subtitle")}
@@ -37,15 +37,14 @@ export default function AboutPage() {
             </div>
 
             <div className="relative aspect-square">
-                 <div className="absolute inset-4 rounded-[4rem] bg-gradient-to-tr from-primary/20 to-purple-500/20 rotate-6 border border-primary/10 transition-transform hover:rotate-3 duration-700"></div>
-                 <div className="absolute inset-4 rounded-[4rem] bg-background border border-border shadow-2xl flex items-center justify-center overflow-hidden">
-                    <div className="p-12 space-y-6 text-center">
-                        <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto border border-primary/10 mb-2">
-                            <Target className="w-10 h-10 text-primary animate-pulse" />
-                        </div>
-                        <h3 className="text-3xl font-black tracking-tight italic">{t("about.mission_title")}</h3>
-                        <p className="font-medium text-muted-foreground leading-relaxed">{t("about.mission_desc")}</p>
-                    </div>
+               
+                 <div className="absolute inset-4 rounded-[4rem] bg-background border border-border shadow-2xl overflow-hidden group">
+                     { }
+                     <img 
+                        src="/hero.jpg" 
+                        alt="About CourseMaster" 
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90"
+                     />
                  </div>
             </div>
         </div>

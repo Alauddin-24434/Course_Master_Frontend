@@ -40,7 +40,8 @@
     "explore_courses": "Esplora corsi",
     "analytics": "Analisi",
     "manage_jobs": "Gestisci lavori",
-    "dash": "Dash"
+    "dash": "Dash",
+    "policies": "Politiche"
   },
   "home": {
     "title": "Impara qualsiasi cosa, ovunque",
@@ -48,7 +49,9 @@
     "cta": "Cerca corsi",
     "featured": "Corsi Consigliati",
     "featured_desc": "Impara dai migliori istruttori del mondo",
-    "view_all": "Visualizza Tutti"
+    "view_all": "Visualizza Tutti",
+    "featured_start": "Tech Valutate",
+    "featured_end": "Corsi di Certificazione"
   },
   "hero": {
     "featured": "Corsi Consigliati",
@@ -281,7 +284,9 @@
     "placeholder_name": "John Doe",
     "placeholder_email": "john@example.com",
     "placeholder_subject": "A cosa si riferisce?",
-    "placeholder_message": "Dici ci come possiamo aiutarti..."
+    "placeholder_message": "Dici ci come possiamo aiutarti...",
+    "testimonial_title_start": "Studente Verificato",
+    "testimonial_title_end": "Recensioni"
   },
   "footer": {
     "explore": "Esplora Corsi",
@@ -546,7 +551,9 @@
     "form_email": "Indirizzo email",
     "form_subject": "In che modo possiamo aiutarti?",
     "form_message": "Dettagli del messaggio",
-    "form_submit": "Avvia conversazione"
+    "form_submit": "Avvia conversazione",
+    "title_start": "Costruiamo Qualcosa",
+    "title_end": "Grandi Insieme"
   },
   "student": {
     "achievement_unlocked": "Obiettivo raggiunto",
@@ -732,7 +739,9 @@
     "value3_desc": "Non sei solo uno studente; fai parte di un collettivo globale di creatori.",
     "value4_title": "Ispirazione",
     "value4_desc": "Ci preoccupiamo profondamente del potenziale umano e dell'impatto dell'istruzione di qualità.",
-    "success_rate": "Tasso di successo"
+    "success_rate": "Tasso di successo",
+    "title_start": "Istruzione",
+    "title_end": "Rivoluzione"
   },
   "how_it_works": {
     "title": "Come funziona",
@@ -758,7 +767,9 @@
     "drag_drop": "Costruttore trascina e rilascia",
     "ready_teaching": "Pronto per iniziare",
     "teaching_italic": "insegnare?",
-    "contact_sales": "Contattare il reparto vendite"
+    "contact_sales": "Contattare il reparto vendite",
+    "title_start": "Inizia il Tuo Percorso Tech",
+    "title_end": "Percorso di Apprendimento"
   },
   "seo": {
     "home_title": "CourseMaster | Piattaforma di apprendimento definitiva",
@@ -783,7 +794,9 @@
     "q4": "Posso diventare un insegnante su CourseMaster?",
     "a4": "Sì, puoi. Se hai competenze in una materia, puoi candidarti per diventare un insegnante dal tuo cruscotto e iniziare a insegnare.",
     "q5": "Qual è la politica di rimborso?",
-    "a5": "Offriamo una garanzia di rimborso di 30 giorni su la maggior parte dei corsi. Se non sei soddisfatto, puoi richiedere un rimborso entro 30 giorni dall'acquisto."
+    "a5": "Offriamo una garanzia di rimborso di 30 giorni su la maggior parte dei corsi. Se non sei soddisfatto, puoi richiedere un rimborso entro 30 giorni dall'acquisto.",
+    "title_start": "Domande Comuni Su",
+    "title_end": "I Nostri Corsi di Tech"
   },
   "careers": {
     "badge": "Unisciti alla nostra missione",
@@ -867,7 +880,9 @@
     "section3_title": "3. Proprietà Intellettuale",
     "section3_desc": "Tutto il contenuto fornito sulla piattaforma, compresi video, trascrizioni e asset scaricabili, rimane di proprietà esclusiva di CourseMaster o dei suoi insegnanti. La riproduzione o distribuzione non autorizzata è严amente proibita.",
     "section4_title": "4. Codice di Condotta",
-    "section4_desc": "Gli utenti devono mantenere un ambiente professionale e rispettoso. Ogni forma di molestia, discorso d'odio o tentativo di compromettere la sicurezza della piattaforma comporterà la terminazione immediata dell'accesso senza rimborso."
+    "section4_desc": "Gli utenti devono mantenere un ambiente professionale e rispettoso. Ogni forma di molestia, discorso d'odio o tentativo di compromettere la sicurezza della piattaforma comporterà la terminazione immediata dell'accesso senza rimborso.",
+    "title_start": "Termini della Piattaforma",
+    "title_end": "di Servizio"
   },
   "refund_policy": {
     "badge": "Soddisfazione Garantita",
@@ -908,7 +923,9 @@
     "manage_title": "Come gestire i cookie",
     "manage_desc": "La maggior parte dei browser web consente di controllare i cookie attraverso le impostazioni delle preferenze. Tuttavia, se si limita la capacità dei siti web di impostare i cookie, è possibile peggiorare l'esperienza utente complessiva, poiché non sarà più personalizzata.",
     "accept_all": "Accetta tutti i cookie",
-    "reject_non": "Rifiuta i non essenziali"
+    "reject_non": "Rifiuta i non essenziali",
+    "title_start": "Gestione dei Tuoi",
+    "title_end": "Briciole Digitali"
   },
   "trust_bar": {
     "text": "Affidato da squadre leader in tutto il mondo"
