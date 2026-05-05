@@ -1,14 +1,10 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import Script from 'next/script'
 import "./globals.css";
 import { Providers } from "@/components/ReduxProvider";
-import { cookies } from 'next/headers'; // next 13.4+
+import { cookies } from 'next/headers';
 import { Toaster } from "react-hot-toast";
 import LenisProvider from "./LenisProvider";
-
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "CourseMaster - Learn Better",

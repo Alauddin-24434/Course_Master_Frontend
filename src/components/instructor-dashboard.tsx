@@ -3,7 +3,6 @@
 import { useTranslation, Trans } from "react-i18next";
 
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi";
-import { useGetAllUsersQuery } from "@/redux/features/user/userApi";
 import { Users, BookOpen, Inbox, DollarSign, Sparkles, FolderOpen, ArrowRight } from "lucide-react";
 import { AdminCoursesTable } from "./admin-courses-table";
 import { DashboardStatCard } from "./dashboard/stat-card";
@@ -23,10 +22,8 @@ export function InstructorDashboard() {
   const { data, isLoading } = useGetInstructorAnalyticsQuery();
   const statistics = useMemo(() => data?.data?.statistics || {}, [data]);
   const { data: coursesData } = useGetAllCoursesQuery({ limit: 1000 });
-  const { data: usersData } = useGetAllUsersQuery();
 
   const courses = coursesData?.data?.courses || [];
-  const users = usersData?.data?.users || usersData?.data || [];
 
   if (isLoading) {
     return (
