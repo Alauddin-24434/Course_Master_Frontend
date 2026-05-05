@@ -10,6 +10,7 @@ import {
   TrendingUp,
   Target
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next';
 
 export function StudentAnalytics({ 
   statistics = {} 
@@ -17,31 +18,31 @@ export function StudentAnalytics({
   statistics?: any 
 }) {
   const completionRate = statistics.overallProgressVal || 0;
-
+ const {t} = useTranslation();
   return (
     <div className="space-y-12">
       {/* Header Insights */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           <StudentStatCard 
-            label="Enrolled Courses" 
+            label={t("student.analytics.enrolled_courses")} 
             value={statistics.totalEnrolled || 0} 
             icon={<BookOpen className="w-6 h-6 text-blue-500" />}
             color="blue"
           />
           <StudentStatCard 
-            label="Completed Courses" 
+            label={t("student.analytics.completed_courses")} 
             value={statistics.completedCount || 0} 
             icon={<Award className="w-6 h-6 text-emerald-500" />}
             color="emerald"
           />
           <StudentStatCard 
-            label="Lessons Completed" 
+            label={t("student.analytics.lessons_completed")} 
             value={statistics.lessonsCompleted || 0} 
             icon={<CheckCircle className="w-6 h-6 text-purple-500" />}
             color="purple"
           />
           <StudentStatCard 
-            label="Pending Tasks" 
+            label={t("student.analytics.pending_tasks")} 
             value={statistics.pendingTasks || 0} 
             icon={<Clock className="w-6 h-6 text-rose-500" />}
             color="rose"
@@ -55,9 +56,9 @@ export function StudentAnalytics({
                   <div className="space-y-1">
                       <h3 className="text-xl font-black italic flex items-center gap-3">
                           <Target className="w-6 h-6 text-primary" />
-                          Learning Progress
+                          {t("student.analytics.learning_progress")}
                       </h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Success rate across all courses</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{t("student.analytics.progress_desc")}</p>
                   </div>
                   <div className="text-3xl font-black italic text-primary">{completionRate}%</div>
               </div>
@@ -88,18 +89,17 @@ export function StudentAnalytics({
                   </svg>
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
                       <span className="text-4xl font-black italic tracking-tighter">{statistics.completedCount || 0}</span>
-                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Certified</span>
+                      <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("student.analytics.certified")}</span>
                   </div>
               </div>
-
 
               <div className="mt-12 p-6 bg-primary/5 rounded-3xl border border-primary/10 flex items-center gap-6">
                   <div className="w-12 h-12 bg-primary/20 rounded-2xl flex items-center justify-center">
                       <Zap className="w-6 h-6 text-primary" />
                   </div>
                   <div>
-                      <p className="text-sm font-black italic">Keep it up!</p>
-                      <p className="text-xs text-muted-foreground">You are doing better than 75% of other students this month.</p>
+                      <p className="text-sm font-black italic">{t("student.analytics.keep_it_up")}</p>
+                      <p className="text-xs text-muted-foreground">{t("student.analytics.better_than")}</p>
                   </div>
               </div>
           </div>
@@ -110,33 +110,33 @@ export function StudentAnalytics({
                   <div className="space-y-1">
                       <h3 className="text-xl font-black italic flex items-center gap-3">
                           <TrendingUp className="w-6 h-6 text-emerald-500" />
-                          Activity Breakdown
+                          {t("student.analytics.activity_breakdown")}
                       </h3>
-                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Visualizing your engagement metrics</p>
+                      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{t("student.analytics.activity_desc")}</p>
                   </div>
 
                   <div className="space-y-8">
-                      <ProgressRow label="Curriculum Progress" value={completionRate} color="bg-emerald-500" />
+                      <ProgressRow label={t("student.analytics.curriculum_progress")} value={completionRate} color="bg-emerald-500" />
                       <ProgressRow 
-                        label="In Progress Courses" 
+                        label={t("student.analytics.in_progress")} 
                         value={statistics.totalEnrolled > 0 ? Math.round((statistics.inProgressCount / statistics.totalEnrolled) * 100) : 0} 
                         color="bg-blue-500" 
                       />
                       <ProgressRow 
-                        label="Lesson Completion" 
+                        label={t("student.analytics.lesson_completion")} 
                         value={statistics.totalEnrolled > 0 ? Math.round((statistics.lessonsCompleted / (statistics.lessonsCompleted + statistics.pendingTasks || 1)) * 100) : 0} 
                         color="bg-purple-500" 
                       />
                   </div>
-
               </div>
 
               <button className="w-full py-5 bg-primary text-white rounded-[2rem] text-xs font-black uppercase tracking-widest hover:scale-[1.02] active:scale-[0.98] transition-all shadow-xl shadow-primary/20 mt-10">
-                  Download Study Report
+                  {t("student.analytics.download_report")}
               </button>
           </div>
       </div>
     </div>
+
   )
 }
 

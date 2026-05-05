@@ -235,6 +235,10 @@
         "enrollments": "登録者",
         "revenue": "収益",
         "growth": "アクティブ成長"
+      },
+      "insights": "プラトフォーム構文",
+      "status": {
+        "active": "消べしてくる"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "検証済み",
       "management": "経営チーム",
       "director": "アカデミー理事"
+    },
+    "analytics": {
+      "enrolled_courses": "参入したコース",
+      "completed_courses": "完了したコース",
+      "lessons_completed": "試みを終了",
+      "pending_tasks": "終了の作事",
+      "learning_progress": "削院値",
+      "progress_desc": "部分中の完了率",
+      "activity_breakdown": "動作書断",
+      "activity_desc": "プラテフォーム構文",
+      "curriculum_progress": "カリクルムプレス",
+      "in_progress": "参入試みくるコース",
+      "lesson_completion": "試みを終了",
+      "download_report": "ストディーモートをディウンルード",
+      "keep_it_up": "またはいにちはに！",
+      "better_than": "今月は他の75％の学生よりも良くやっています.",
+      "certified": "認定済み"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "知的資産",
     "global_reach": "グローバルリーチ",
     "student_engagement": "学礟手掴動",
-    "platform_earnings": "プラトフォーム販済"
+    "platform_earnings": "プラトフォーム販済",
+    "analytics": {
+      "performance_center": "インストラクターパフォーマンスセンター",
+      "center_subtitle": "カリキュラムと生徒の関与に関する包括的なデータ",
+      "export_students": "生徒データのエクスポート",
+      "performance_report": "パフォーマンスレポート",
+      "est_earnings": "推定純利益",
+      "top_courses": "最高の成果を上げているコース",
+      "metrics_desc": "登録および収益メトリックスに基づく",
+      "students_enrolled": "登録した生徒",
+      "gross_revenue": "総収益"
+    }
   },
   "info": {
     "avg_monthly": "1月表発放",

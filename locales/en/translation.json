@@ -226,6 +226,7 @@
         "avg_ltv": "Avg. LTV",
         "total_assets": "Total Assets",
         "enrollments": "Enrollments",
+        "insights": "Platform Insights",
         "insights_desc": "Based on your <1>{{count}} courses</1>, the most successful category is <3>{{category}}</3> with <5>{{percent}}%</5> market share.",
         "stats": {
             "students": "Students",
@@ -234,6 +235,9 @@
             "enrollments": "Enrollments",
             "revenue": "Revenue",
             "growth": "Active Growth"
+        },
+        "status": {
+            "active": "Active"
         }
     },
     "table": {
@@ -563,6 +567,23 @@
     "in_residence": "In Residence",
     "course_progress_label": "Course Progress",
     "sync_failed": "Failed to synchronize courses",
+    "analytics": {
+      "enrolled_courses": "Enrolled Courses",
+      "completed_courses": "Completed Courses",
+      "lessons_completed": "Lessons Completed",
+      "pending_tasks": "Pending Tasks",
+      "learning_progress": "Learning Progress",
+      "progress_desc": "Success rate across all courses",
+      "activity_breakdown": "Activity Breakdown",
+      "activity_desc": "Visualizing your engagement metrics",
+      "curriculum_progress": "Curriculum Progress",
+      "in_progress": "In Progress Courses",
+      "lesson_completion": "Lesson Completion",
+      "download_report": "Download Study Report",
+      "keep_it_up": "Keep it up!",
+      "better_than": "You are doing better than 75% of other students this month.",
+      "certified": "Certified"
+    },
     "resume_learning": "Resume Learning",
     "next_up": "Next up:",
     "resume_desc": "Continue where you left off in this course.",
@@ -699,7 +720,18 @@
     "knowledge_assets": "Knowledge Assets",
     "global_reach": "Global Reach",
     "student_engagement": "Student Engagement",
-    "platform_earnings": "Platform Earnings"
+    "platform_earnings": "Platform Earnings",
+    "analytics": {
+      "performance_center": "Instructor Performance Center",
+      "center_subtitle": "Comprehensive data on your curriculum and student engagement",
+      "export_students": "Export Student Data",
+      "performance_report": "Performance Report",
+      "est_earnings": "Estimated Net Earnings",
+      "top_courses": "Top Performing Courses",
+      "metrics_desc": "Based on enrollment and revenue metrics",
+      "students_enrolled": "Students enrolled",
+      "gross_revenue": "Gross Revenue"
+    }
   },
   "info": {
     "avg_monthly": "Avg. Monthly",

@@ -235,6 +235,10 @@
         "enrollments": "등록",
         "revenue": "수익",
         "growth": "활동성 성장"
+      },
+      "insights": "플랫폼 인사이트",
+      "status": {
+        "active": "활성화"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "었다",
       "management": "큨는 없는",
       "director": "주세 언너 취럼"
+    },
+    "analytics": {
+      "enrolled_courses": "등록된 강의",
+      "completed_courses": "완료된 강의",
+      "lessons_completed": "수강한 강의",
+      "pending_tasks": "연기된 작업",
+      "learning_progress": "학습 진행률",
+      "progress_desc": "모든 강의의 성공률",
+      "activity_breakdown": "활동 분해도",
+      "activity_desc": "귀하의 참여 지표 시각화",
+      "curriculum_progress": "교육 과정 진행률",
+      "in_progress": "진행 중인 강의",
+      "lesson_completion": "레슨 완료",
+      "download_report": "학습 보고서 다운로드",
+      "keep_it_up": "계속하세요!",
+      "better_than": "카치 신결 모드가 75%를 따라 등 수 있가 단음.",
+      "certified": "합바드가"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "지식 자산",
     "global_reach": "전 세계적 범위",
     "student_engagement": "학생 참여도",
-    "platform_earnings": "플랫폼 수익"
+    "platform_earnings": "플랫폼 수익",
+    "analytics": {
+      "performance_center": "언결 유타 총",
+      "center_subtitle": "지도 디랔게 결과 언결 총 일반",
+      "export_students": "언결 모드 속장 중",
+      "performance_report": "유타 등롭",
+      "est_earnings": "지도 백 원 일반",
+      "top_courses": "신결 없는 총",
+      "metrics_desc": "지도 등 결과 지도 백 원 일반",
+      "students_enrolled": "언결 모드",
+      "gross_revenue": "지도 마머"
+    }
   },
   "info": {
     "avg_monthly": "평균 월간",

@@ -235,6 +235,10 @@
         "enrollments": "Inscrições",
         "revenue": "Receita",
         "growth": "Crescimento Ativo"
+      },
+      "insights": "Visão Geral da Plataforma",
+      "status": {
+        "active": "Ativo"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "Verificado",
       "management": "Equipe de Gestão",
       "director": "Diretor da Academia"
+    },
+    "analytics": {
+      "enrolled_courses": "Cursos Matriculados",
+      "completed_courses": "Cursos Concluídos",
+      "lessons_completed": "Lições Concluídas",
+      "pending_tasks": "Tarefas Pendentes",
+      "learning_progress": "Progresso de Aprendizado",
+      "progress_desc": "Taxa de Sucesso em Todos os Cursos",
+      "activity_breakdown": "Análise de Atividades",
+      "activity_desc": "Visualizando suas Métricas de Engajamento",
+      "curriculum_progress": "Progresso do Currículo",
+      "in_progress": "Cursos em Andamento",
+      "lesson_completion": "Conclusão de Lições",
+      "download_report": "Baixar Relatório de Estudo",
+      "keep_it_up": "Mantenha o Bom Trabalho!",
+      "better_than": "Você está indo melhor do que 75% dos outros alunos este mês.",
+      "certified": "Certificado"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "Ativos de Conhecimento",
     "global_reach": "Alcance Global",
     "student_engagement": "Engajamento dos Alunos",
-    "platform_earnings": "Ganhos da Plataforma"
+    "platform_earnings": "Ganhos da Plataforma",
+    "analytics": {
+      "performance_center": "Centro de Desempenho do Instrutor",
+      "center_subtitle": "Dados abrangentes sobre seu currículo e engajamento do aluno",
+      "export_students": "Exportar Dados do Aluno",
+      "performance_report": "Relatório de Desempenho",
+      "est_earnings": "Ganhos Líquidos Estimados",
+      "top_courses": "Cursos com Melhor Desempenho",
+      "metrics_desc": "Com base em métricas de matrícula e receita",
+      "students_enrolled": "Alunos matriculados",
+      "gross_revenue": "Receita Bruta"
+    }
   },
   "info": {
     "avg_monthly": "Média Mensal",

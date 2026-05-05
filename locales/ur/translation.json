@@ -235,6 +235,10 @@
         "enrollments": " داخلے",
         "revenue": "آمدنی",
         "growth": "ایکٹو گراوٹ"
+      },
+      "insights": "پلیٹ فارم انسائٹس",
+      "status": {
+        "active": "/icon"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "ويريفايد",
       "management": "مینیجمنٹ ٹیم",
       "director": "اکیڈمی ڈائریکٹر"
+    },
+    "analytics": {
+      "enrolled_courses": "رکنیت کے کورسز",
+      "completed_courses": "مکمل شدہ کورسز",
+      "lessons_completed": "سبق مکمل ہوئے",
+      "pending_tasks": "لंबیت کے کام",
+      "learning_progress": "سیکھنے کی پیش رفت",
+      "progress_desc": "تمام کورسز میں کامیابی کی شرح",
+      "activity_breakdown": "سرگرمی ٹوٹل ڈاؤن",
+      "activity_desc": "اپنی مشغولیت کی میٹرکس کی بصریště",
+      "curriculum_progress": "معلوطہ پیش رفت",
+      "in_progress": "عمل میں کورسز",
+      "lesson_completion": "سبق کی تکمیل",
+      "download_report": "تجزیہ رپورٹ ڈاؤن لوڈ کریں",
+      "keep_it_up": "iệt جاری",
+      "better_than": "آپ اس ماہ دوسرے طلبا کے 75% سے بہتر 수행 کر رہے ہیں۔",
+      "certified": "سرٹیفائیڈ"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "نऑلج اثاثے",
     "global_reach": "گلوبل ریچ",
     "student_engagement": "سٹوڈنٹ انگیجمنٹ",
-    "platform_earnings": "پلیٹ فارم کی کمائی"
+    "platform_earnings": "پلیٹ فارم کی کمائی",
+    "analytics": {
+      "performance_center": "انسٹرکٹر پرفارمنس سینٹر",
+      "center_subtitle": "آپ کے نصاب اور طالب علموں کی شمولیت پر جامع معلومات",
+      "export_students": "طالب علم کے ڈیٹا کو برآمد کریں",
+      "performance_report": "پرفارمنس رپورٹ",
+      "est_earnings": "تخمینہ زرمبادلہ آمدنی",
+      "top_courses": "سب سے بہتر کارکردگی والے کورسز",
+      "metrics_desc": "ضمیمہ اور آمدنی کے میٹرکس کی بنیاد پر",
+      "students_enrolled": "ٹھیک شدہ طالب علم",
+      "gross_revenue": "خام آمدنی"
+    }
   },
   "info": {
     "avg_monthly": "اوسط ماہانہ",

@@ -59,16 +59,16 @@ export function InstructorAnalytics({
                   <ShieldCheck className="w-7 h-7 text-primary" />
               </div>
               <div>
-                  <h4 className="text-lg font-black italic">Instructor Performance Center</h4>
-                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">Comprehensive data on your curriculum and student engagement</p>
+                  <h4 className="text-lg font-black italic">{t("instructor.analytics.performance_center")}</h4>
+                  <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">{t("instructor.analytics.center_subtitle")}</p>
               </div>
           </div>
           <div className="flex items-center gap-4 w-full md:w-auto">
               <button onClick={handleExportCSV} className="flex-1 md:flex-none px-8 py-4 bg-card border border-border hover:border-primary/50 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2">
-                  <Inbox className="w-4 h-4" /> Export Student Data
+                  <Inbox className="w-4 h-4" /> {t("instructor.analytics.export_students")}
               </button>
               <button onClick={() => window.print()} className="flex-1 md:flex-none px-8 py-4 bg-primary text-primary-foreground rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all shadow-xl shadow-primary/20 flex items-center justify-center gap-2 hover:scale-105 active:scale-95">
-                  <TrendingUp className="w-4 h-4" /> Performance Report
+                  <TrendingUp className="w-4 h-4" /> {t("instructor.analytics.performance_report")}
               </button>
           </div>
       </div>
@@ -83,11 +83,11 @@ export function InstructorAnalytics({
                 ${statistics.totalRevenue?.toLocaleString() || 0}
               </h3>
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">
-                Estimated Net Earnings
+                {t("instructor.analytics.est_earnings")}
               </p>
             </div>
             <div className="flex items-center gap-2 px-4 py-1.5 bg-emerald-500/10 text-emerald-500 rounded-full text-[10px] font-black uppercase tracking-widest border border-emerald-500/20">
-              <ArrowUpRight className="w-3.5 h-3.5" /> +{statistics.engagementRate || 0}% Engagement
+              <ArrowUpRight className="w-3.5 h-3.5" /> +{statistics.engagementRate || 0}% {t("instructor.student_engagement")}
             </div>
           </div>
           <div className="h-64 w-full relative">
@@ -95,15 +95,15 @@ export function InstructorAnalytics({
           </div>
           <div className="grid grid-cols-3 gap-6 mt-10 pt-10 border-t border-border/40">
              <div className="space-y-2">
-                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Courses</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("instructor.active_courses")}</p>
                 <p className="text-xl font-black italic text-foreground">{statistics.totalCourses || 0}</p>
              </div>
              <div className="space-y-2">
-                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Unique Students</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("instructor.unique_students")}</p>
                 <p className="text-xl font-black italic text-foreground">{statistics.totalStudents || 0}</p>
              </div>
              <div className="space-y-2">
-                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Total Lessons</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">{t("nav.lessons")}</p>
                 <p className="text-xl font-black italic text-primary">{statistics.totalLessons || 0}</p>
              </div>
           </div>
@@ -114,9 +114,9 @@ export function InstructorAnalytics({
             <div className="space-y-1">
                 <h3 className="text-xl font-black italic flex items-center gap-3">
                     <TrendingUp className="w-5 h-5 text-primary" />
-                    Top Performing Courses
+                    {t("instructor.analytics.top_courses")}
                 </h3>
-                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">Based on enrollment and revenue metrics</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground opacity-60">{t("instructor.analytics.metrics_desc")}</p>
             </div>
             
             <div className="space-y-5">
@@ -128,18 +128,19 @@ export function InstructorAnalytics({
                             </div>
                             <div>
                                 <p className="text-sm font-black truncate max-w-[200px]">{c.title}</p>
-                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{c._count?.enrolledUsers || 0} Students enrolled</p>
+                                <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-widest">{c._count?.enrolledUsers || 0} {t("instructor.analytics.students_enrolled")}</p>
                             </div>
                         </div>
                         <div className="text-right">
                             <p className="text-lg font-black text-emerald-500">${(c.price * (c._count?.enrolledUsers || 0)).toLocaleString()}</p>
-                            <p className="text-[9px] text-muted-foreground uppercase font-black">Gross Revenue</p>
+                            <p className="text-[9px] text-muted-foreground uppercase font-black">{t("instructor.analytics.gross_revenue")}</p>
                         </div>
                     </div>
                 ))}
             </div>
         </div>
       </div>
+
     </div>
   )
 }

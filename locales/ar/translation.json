@@ -245,7 +245,11 @@
       "avg_ltv": "متوسط القيمة الحياتية",
       "total_assets": "إجمالي الأصول",
       "enrollments": "التسجيلات",
-      "insights_desc": "بالنظر إلى دوراتك {{count}}<1></1> ، الفئة الأكثر نجاحًا هي {{percent}}{{category}}</2></3> بنسبة سوق <5><3>%</3></5>"
+      "insights_desc": "بالنظر إلى دوراتك {{count}}<1></1> ، الفئة الأكثر نجاحًا هي {{percent}}{{category}}</2></3> بنسبة سوق <5><3>%</3></5>",
+      "insights": "إشارات المنصة",
+      "status": {
+        "active": "نشط"
+      }
     }
   },
   "requirements": {
@@ -509,7 +513,24 @@
     "resume_desc": "استمر من حيث انتهيت في هذا الدورة.",
     "start_lesson": "ابدأ الدرس",
     "all_categories": "جميع الفئات",
-    "welcome_title": "مرحباً مرة أخرى ، <br /> <1>{{name}}</1>"
+    "welcome_title": "مرحباً مرة أخرى ، <br /> <1>{{name}}</1>",
+    "analytics": {
+      "enrolled_courses": "الدورات المسجلة",
+      "completed_courses": "الدورات المكتملة",
+      "lessons_completed": "الدروس المكتملة",
+      "pending_tasks": "المهام المعلقة",
+      "learning_progress": "تقدم التعلم",
+      "progress_desc": "معدل النجاح في جميع الدورات",
+      "activity_breakdown": "تحليل النشاط",
+      "activity_desc": "ت_PICTURE chuyến 参与指标",
+      "curriculum_progress": "تقدم المناهج",
+      "in_progress": "الدورات قيد التقدم",
+      "lesson_completion": "إكمال الدرس",
+      "download_report": "تنزيل تقرير الدراسة",
+      "keep_it_up": "استمر!",
+      "better_than": "أنت تأτύ更 tốt من 75٪ من الطلاب الآخرين هذا الشهر.",
+      "certified": "معتمد"
+    }
   },
   "instructor": {
     "revenue_title": "الأرباح وال许多.",
@@ -549,7 +570,18 @@
     "global_reach": "الوصول العالمي",
     "student_engagement": "مشاركة الطلاب",
     "platform_earnings": "أرباح المنصة",
-    "platform_performance_formatted": "اداء <br /> <1>المنصة</1>"
+    "platform_performance_formatted": "اداء <br /> <1>المنصة</1>",
+    "analytics": {
+      "performance_center": "مركز أداء المدرسين",
+      "center_subtitle": "بيانات شاملة عن مناهجك وتفاعل الطلاب",
+      "export_students": "استيراد بيانات الطلاب",
+      "performance_report": "تقرير الأداء",
+      "est_earnings": "تقدير الأرباح الشبكة",
+      "top_courses": "الدورات الأكثر أداءً",
+      "metrics_desc": "استنادًا إلى مقاييس التسجيل والإيرادات",
+      "students_enrolled": "الطلاب المسجلون",
+      "gross_revenue": "الإيرادات الإجمالية"
+    }
   },
   "info": {
     "avg_monthly": "معدل شهري متوسطة",

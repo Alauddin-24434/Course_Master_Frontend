@@ -235,6 +235,10 @@
         "enrollments": "Anmeldungen",
         "revenue": "Umsatz",
         "growth": "Aktives Wachstum"
+      },
+      "insights": "Plattform-Einblicke",
+      "status": {
+        "active": "Aktiv"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "Verifiziert",
       "management": "Geschäftsführungsteam",
       "director": "Akademiedirektor"
+    },
+    "analytics": {
+      "enrolled_courses": "Eingeschriebene Kurse",
+      "completed_courses": "Abgeschlossene Kurse",
+      "lessons_completed": "Abgeschlossene Lektionen",
+      "pending_tasks": "Ausstehende Aufgaben",
+      "learning_progress": "Lernfortschritt",
+      "progress_desc": "Erfolgsquote in allen Kursen",
+      "activity_breakdown": "Aktivitäts-Zerlegung",
+      "activity_desc": "Visualisierung Ihrer Engagement-Metriken",
+      "curriculum_progress": "Curriculum-Fortschritt",
+      "in_progress": "Laufende Kurse",
+      "lesson_completion": "Lektionsabschluss",
+      "download_report": "Lernbericht herunterladen",
+      "keep_it_up": "Weiter so!",
+      "better_than": "Sie machen es besser als 75% der anderen Schüler in diesem Monat.",
+      "certified": "Zertifiziert"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "Wissensvermögen",
     "global_reach": "Globale Reichweite",
     "student_engagement": "Schülerengagement",
-    "platform_earnings": "Plattformverdient"
+    "platform_earnings": "Plattformverdient",
+    "analytics": {
+      "performance_center": "Lehrerleistungscenter",
+      "center_subtitle": "Umfassende Daten zu Ihrem Lehrplan und der Schülerbeteiligung",
+      "export_students": "Schülerdaten exportieren",
+      "performance_report": "Leistungsbericht",
+      "est_earnings": "Geschätzter Nettoerlös",
+      "top_courses": "Beste Kurse",
+      "metrics_desc": "Basierend auf Einschreibungs- und Umsatzkennzahlen",
+      "students_enrolled": "Bruttoumsatz",
+      "gross_revenue": "Bruttoumsatz"
+    }
   },
   "info": {
     "avg_monthly": "Durchschnittlich monatlich",

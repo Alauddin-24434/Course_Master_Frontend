@@ -235,6 +235,10 @@
         "enrollments": "नामांकन",
         "revenue": "राजस्व",
         "growth": "सक्रिय वृद्धि"
+      },
+      "insights": "प्लेटफ़ॉर्म अंतर्दृष्टि",
+      "status": {
+        "active": "सक्रिय"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "सत्यापित",
       "management": "प्रबंधन टीम",
       "director": "अकादमी निदेशक"
+    },
+    "analytics": {
+      "enrolled_courses": "नामांकित कोर्स",
+      "completed_courses": "पूर्ण कोर्स",
+      "lessons_completed": "पाठ पूर्ण किए",
+      "pending_tasks": "लंबित कार्य",
+      "learning_progress": "शिक्षा प्रगति",
+      "progress_desc": "सभी कोर्स में सफलता दर",
+      "activity_breakdown": "गतिविधि विभाजन",
+      "activity_desc": "आपके जुड़ाव मेट्रिक्स को दृश्य hóa करना",
+      "curriculum_progress": "पाठ्यक्रम प्रगति",
+      "in_progress": "प्रगति में कोर्स",
+      "lesson_completion": "पाठ पूर्णता",
+      "download_report": "अध्ययन रिपोर्ट डाउनलोड करें",
+      "keep_it_up": "इसे जारी रखें!",
+      "better_than": "आप इस महीने दूसरे 75% छात्रों से बेहतर प्रदर्शन कर रहे हैं।",
+      "certified": "प्रमाणित"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "ज्ञान संपत्ति",
     "global_reach": "वैश्विक पहुँच",
     "student_engagement": "छात्र जुड़ाव",
-    "platform_earnings": "मंच आय"
+    "platform_earnings": "मंच आय",
+    "analytics": {
+      "performance_center": "प्रदर्शन केंद्र",
+      "center_subtitle": "आपके पाठ्यक्रम और छात्र जुड़ाव पर व्यापक जानकारी",
+      "export_students": "छात्र डेटा निर्यात",
+      "performance_report": "प्रदर्शन रिपोर्ट",
+      "est_earnings": "अनुमानित शुद्ध आय",
+      "top_courses": "शीर्ष प्रदर्शन करने वाले पाठ्यक्रम",
+      "metrics_desc": "नामांकन और राजस्व मापदंडों के आधार पर",
+      "students_enrolled": "नामांकित छात्र",
+      "gross_revenue": "कुल राजस्व"
+    }
   },
   "info": {
     "avg_monthly": "औसत मासिक",

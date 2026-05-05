@@ -235,6 +235,10 @@
         "enrollments": "பதிவுகள்",
         "revenue": "வருவாய்",
         "growth": "செயல்பாட்டு வளர்ச்சி"
+      },
+      "insights": "தள அறிக்கைகள்",
+      "status": {
+        "active": "செயலில்"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "பரிசோதிக்கப்பட்ட",
       "management": "நிர்வாக குழு",
       "director": "அகாடமி இயக்குநர்"
+    },
+    "analytics": {
+      "enrolled_courses": "பதிவு செய்யப்பட்ட பாடங்கள்",
+      "completed_courses": "முடிக்கப்பட்ட பாடங்கள்",
+      "lessons_completed": "பாடங்கள் முடிக்கப்பட்டன",
+      "pending_tasks": "நிகழ்நேர பணிகள்",
+      "learning_progress": "கற்றல் முன்னேற்றம்",
+      "progress_desc": "அனைத்து பாடங்களின் வெற்றி விகிதம்",
+      "activity_breakdown": "செயல்பாடு பகுப்பாய்வு",
+      "activity_desc": "உங்கள் ஈடுபாட்டு அளவுருக்களை வரைபடமாக்குதல்",
+      "curriculum_progress": "பாடத்திட்ட முன்னேற்றம்",
+      "in_progress": "நடப்பில் உள்ள பாடங்கள்",
+      "lesson_completion": "பாடம் முடிக்கும்",
+      "download_report": "படிப்பு அறிக்கையை பதிவிறக்குங்கள்",
+      "keep_it_up": "நன்றாக செய்யவும்!",
+      "better_than": "இந்த மாதத்தில் மற்ற மாணவர்களில் 75% ஐ விட நீங்கள் சிறப்பாக செயல்படுகிறீர்கள்.",
+      "certified": "சான்றிதழ் பெற்ற"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "அறிவு சொத்துகள்",
     "global_reach": "உலகளாவிய எட்டுதல்",
     "student_engagement": "மாணவர் ஈடுபாடு",
-    "platform_earnings": "தள வருவாய்"
+    "platform_earnings": "தள வருவாய்",
+    "analytics": {
+      "performance_center": "ஆசிரியர் செயல்திறன் மையம்",
+      "center_subtitle": "உங்கள் பாடத்திட்டம் மற்றும் மாணவர் ஈடுபாட்டின் மேம்பட்ட தரவு",
+      "export_students": "மாணவர் தரவை ஏற்றுமதி செய்ய",
+      "performance_report": "செயல்திறன் அறிக்கை",
+      "est_earnings": "மதிப்பிடப்பட்ட நிகர வருவாய்",
+      "top_courses": "சிறப்பாக செயல்படும் படிப்புகள்",
+      "metrics_desc": "பதிவு மற்றும் வருவாய் மீள் அளவுகோல்களின் அடிப்படையில்",
+      "students_enrolled": "Students enrolled",
+      "gross_revenue": "Gross Revenue"
+    }
   },
   "info": {
     "avg_monthly": "சராசரி மாதாந்திர",

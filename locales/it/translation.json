@@ -235,6 +235,10 @@
         "enrollments": "Iscrizioni",
         "revenue": "Ricavi",
         "growth": "Crescita attiva"
+      },
+      "insights": "Informazioni sulla piattaforma",
+      "status": {
+        "active": "Attivo"
       }
     },
     "table": {
@@ -672,6 +676,23 @@
       "verified": "Verificato",
       "management": "Team di Gestione",
       "director": "Direttore dell'Accademia"
+    },
+    "analytics": {
+      "enrolled_courses": "Corsi iscritti",
+      "completed_courses": "Corsi completati",
+      "lessons_completed": "Lezioni completate",
+      "pending_tasks": "Compiti in sospeso",
+      "learning_progress": "Progressi dell'apprendimento",
+      "progress_desc": "Tasso di successo in tutti i corsi",
+      "activity_breakdown": "Riepilogo dell'attività",
+      "activity_desc": "Visualizzazione dei metrics di engagement",
+      "curriculum_progress": "Progressi del curriculum",
+      "in_progress": "Corsi in corso",
+      "lesson_completion": "Completamento della lezione",
+      "download_report": "Scarica la relazione di studio",
+      "keep_it_up": "Continua così!",
+      "better_than": "Stai andando meglio del 75% degli altri studenti questo mese.",
+      "certified": "Certificato"
     }
   },
   "instructor": {
@@ -712,7 +733,18 @@
     "knowledge_assets": "Beni di Conoscenza",
     "global_reach": "Raggi globale",
     "student_engagement": " Coinvolgimento degli studenti",
-    "platform_earnings": "Guadagni della piattaforma"
+    "platform_earnings": "Guadagni della piattaforma",
+    "analytics": {
+      "performance_center": "Centro delle prestazioni degli istruttori",
+      "center_subtitle": "Dati completi sul tuo curriculum e sull'interazione degli studenti",
+      "export_students": "Esporta dati degli studenti",
+      "performance_report": "Rapporto sulle prestazioni",
+      "est_earnings": "Guadagno netto stimato",
+      "top_courses": "Corsi con le migliori prestazioni",
+      "metrics_desc": "Basato sui dati di iscrizione e fatturato",
+      "students_enrolled": "Studenti iscritti",
+      "gross_revenue": "Ricavo lordo"
+    }
   },
   "info": {
     "avg_monthly": "Medio mensile",

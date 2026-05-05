@@ -245,7 +245,11 @@
       "avg_ltv": "Valor LTV Prom.",
       "total_assets": "Activos Totales",
       "enrollments": "Inscripciones",
-      "insights_desc": "Basado en tus {{count}}<1> cursos</1>, la categoría más exitosa es {{percent}}{{category}}</3> con <5><3>%</5> de participación de mercado."
+      "insights_desc": "Basado en tus {{count}}<1> cursos</1>, la categoría más exitosa es {{percent}}{{category}}</3> con <5><3>%</5> de participación de mercado.",
+      "insights": "Perspectivas de la plataforma",
+      "status": {
+        "active": "Activo"
+      }
     }
   },
   "requirements": {
@@ -509,7 +513,24 @@
     "resume_desc": "Continúa donde lo dejaste en este curso.",
     "start_lesson": "Comenzar lección",
     "all_categories": "Todas las categorías",
-    "welcome_title": "Bienvenido de vuelta, <br /> <1>{{name}}</1>"
+    "welcome_title": "Bienvenido de vuelta, <br /> <1>{{name}}</1>",
+    "analytics": {
+      "enrolled_courses": "Cursos inscritos",
+      "completed_courses": "Cursos completados",
+      "lessons_completed": "Lecciones completadas",
+      "pending_tasks": "Tareas pendientes",
+      "learning_progress": "Progreso de aprendizaje",
+      "progress_desc": "Tasa de éxito en todos los cursos",
+      "activity_breakdown": "Desglose de actividad",
+      "activity_desc": "Visualizando tus métricas de compromiso",
+      "curriculum_progress": "Progreso del plan de estudios",
+      "in_progress": "Cursos en progreso",
+      "lesson_completion": "Completar lección",
+      "download_report": "Descargar informe de estudio",
+      "keep_it_up": "¡Sigue así!",
+      "better_than": "Estás mejorando más que el 75% de los otros estudiantes este mes.",
+      "certified": "Certificado"
+    }
   },
   "instructor": {
     "revenue_title": "Ganancias y Regalías.",
@@ -549,7 +570,18 @@
     "global_reach": "Alcance global",
     "student_engagement": "Participación estudiantil",
     "platform_earnings": "Ingresos de la plataforma",
-    "platform_performance_formatted": "Plataforma <br /> <1>Rendimiento</1>"
+    "platform_performance_formatted": "Plataforma <br /> <1>Rendimiento</1>",
+    "analytics": {
+      "performance_center": "Centro de Rendimiento de Instructores",
+      "center_subtitle": "Datos comprensivos sobre tu currículo y la participación de los estudiantes",
+      "export_students": "Exportar datos de estudiantes",
+      "performance_report": "Informe de Rendimiento",
+      "est_earnings": "Ganancias Netas Estimadas",
+      "top_courses": "Cursos con Mejor Rendimiento",
+      "metrics_desc": "Basado en métricas de inscripción y revenIDO",
+      "students_enrolled": "Estudiantes inscritos",
+      "gross_revenue": "Ingresos Brutos"
+    }
   },
   "info": {
     "avg_monthly": "Mes promedio",

@@ -221,9 +221,9 @@
           "revenue": "রাজস্ব",
           "growth": "সক্রিয় প্রবৃদ্ধি"
       },
-      "export_center": "প্ল্যাটফর্ম রপ্তানি কেন্দ্র",
+      "export_center": "প্ল্যাটফর্ম এক্সপোর্ট সেন্টার",
       "data_aggregation": "ডেটা এগ্রিগেশন v2.4",
-      "csv_export": "সিএসভি রপ্তানি",
+      "csv_export": "সিএসভি এক্সপোর্ট",
       "pdf_report": "পিডিএফ প্রতিবেদন তৈরি করুন",
       "revenue_stream": "রাজস্ব স্রোত বিশ্লেষণ",
       "strategic_allocation": "কৌশলগত বিষয়বস্তু বরাদ্দ",
@@ -236,7 +236,11 @@
       "avg_ltv": "গড় এলটিভি",
       "total_assets": "মোট সম্পদ",
       "enrollments": "তালিকাভুক্তি",
-      "insights_desc": "আপনার {{count}}<1> কোর্স</1> এর উপর ভিত্তি করে, সবচেয়ে সফল বিভাগ হল {{percent}}{{category}}</3> <5><3>%</5> বাজার শেয়ার সহ"
+      "insights": "প্ল্যাটফর্ম ইনসাইটস",
+      "insights_desc": "আপনার {{count}}<1> কোর্স</1> এর উপর ভিত্তি করে, সবচেয়ে সফল বিভাগ হল {{category}} যা <5><3>{{percent}}%</3></5> বাজার শেয়ার সহ",
+      "status": {
+        "active": "সক্রিয়"
+      }
     },
     "table": {
       "asset": "কৌশলগত সম্পদ",
@@ -566,6 +570,23 @@
     "in_residence": "রিজিডেন্সে",
     "course_progress_label": "কোর্স প্রগতি",
     "sync_failed": "কোর্স সিঙ্ক্রোনাইজ করতে ব্যর্থ হয়েছে",
+    "analytics": {
+      "enrolled_courses": "এনরোল করা কোর্স",
+      "completed_courses": "সম্পন্ন করা কোর্স",
+      "lessons_completed": "সম্পন্ন করা লেসন",
+      "pending_tasks": "বাকি থাকা কাজ",
+      "learning_progress": "শেখার অগ্রগতি",
+      "progress_desc": "সব কোর্সে সাফল্যের হার",
+      "activity_breakdown": "অ্যাক্টিভিটি ব্রেকডাউন",
+      "activity_desc": "আপনার এনগেজমেন্ট মেট্রিক্স দেখুন",
+      "curriculum_progress": "কারিকুলাম অগ্রগতি",
+      "in_progress": "চলমান কোর্স",
+      "lesson_completion": "লেসন সম্পন্ন করার হার",
+      "download_report": "স্টাডি রিপোর্ট ডাউনলোড করুন",
+      "keep_it_up": "চালিয়ে যান!",
+      "better_than": "আপনি এই মাসে ৭৫% শিক্ষার্থীর চেয়ে ভালো করছেন।",
+      "certified": "প্রত্যয়িত"
+    },
     "payments": {
       "badge": "একাডেমিক বিনিয়োগের ইতিহাস",
       "title": "অর্থপ্রদান &",
@@ -703,6 +724,17 @@
     "global_reach": "বৈশ্বিক পৌঁছ",
     "student_engagement": "ছাত্র সম্পৃক্ততা",
     "platform_earnings": "প্ল্যাটফর্ম উপার্জন",
+    "analytics": {
+      "performance_center": "ইন্সট্রাক্টর পারফরম্যান্স সেন্টার",
+      "center_subtitle": "আপনার কারিকুলাম এবং শিক্ষার্থীদের এনগেজমেন্টের বিস্তারিত তথ্য",
+      "export_students": "শিক্ষার্থীদের ডেটা এক্সপোর্ট করুন",
+      "performance_report": "পারফরম্যান্স রিপোর্ট",
+      "est_earnings": "আনুমানিক নিট আয়",
+      "top_courses": "শীর্ষ পারফরম্যান্স কোর্স",
+      "metrics_desc": "এনরোলমেন্ট এবং রাজস্ব মেট্রিক্সের ওপর ভিত্তি করে",
+      "students_enrolled": "শিক্ষার্থী এনরোল করেছে",
+      "gross_revenue": "মোট রাজস্ব"
+    },
     "platform_performance_formatted": "প্ল্যাটফর্ম <br /> <1>কর্মক্ষমতা</1>"
   },
   "info": {

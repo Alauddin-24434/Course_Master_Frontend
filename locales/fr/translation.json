@@ -245,7 +245,11 @@
       "avg_ltv": "Valeur moyenne du client",
       "total_assets": "Actifs totaux",
       "enrollments": "Inscriptions",
-      "insights_desc": "Sur la base de vos {{count}}<1> cours</1>, la catégorie la plus réussie est {{percent}}{{category}}</3> avec <5><3>%</5> de part de marché."
+      "insights_desc": "Sur la base de vos {{count}}<1> cours</1>, la catégorie la plus réussie est {{percent}}{{category}}</3> avec <5><3>%</5> de part de marché.",
+      "insights": "Aperçus de la plateforme",
+      "status": {
+        "active": "Actif"
+      }
     }
   },
   "requirements": {
@@ -509,7 +513,24 @@
     "resume_desc": "Reprenez où vous vous êtes arrêté dans ce cours.",
     "start_lesson": "Démarrer la leçon",
     "all_categories": "Toutes les catégories",
-    "welcome_title": "Bienvenue, <br /> <1>{{name}}</1>"
+    "welcome_title": "Bienvenue, <br /> <1>{{name}}</1>",
+    "analytics": {
+      "enrolled_courses": "Cours inscrits",
+      "completed_courses": "Cours terminés",
+      "lessons_completed": "Leçons terminées",
+      "pending_tasks": "Tâches en attente",
+      "learning_progress": "Progrès d'apprentissage",
+      "progress_desc": "Taux de réussite dans tous les cours",
+      "activity_breakdown": "Décomposition de l'activité",
+      "activity_desc": "Visualisation de vos métriques d'engagement",
+      "curriculum_progress": "Progrès du curriculum",
+      "in_progress": "Cours en cours",
+      "lesson_completion": "Complétion de la leçon",
+      "download_report": "Télécharger le rapport d'étude",
+      "keep_it_up": "Continuez ainsi !",
+      "better_than": "Vous allez mieux que 75% des autres étudiants ce mois-ci.",
+      "certified": "Certifié"
+    }
   },
   "instructor": {
     "revenue_title": "Gains et redevances.",
@@ -549,7 +570,18 @@
     "global_reach": "Portée mondiale",
     "student_engagement": "Engagement des étudiants",
     "platform_earnings": "Gains de la plateforme",
-    "platform_performance_formatted": "Plateforme <br /> <1>Performance</1>"
+    "platform_performance_formatted": "Plateforme <br /> <1>Performance</1>",
+    "analytics": {
+      "performance_center": "Centre de performance des instructeurs",
+      "center_subtitle": "Données complètes sur votre cursus et l'engagement des étudiants",
+      "export_students": "Exporter les données des étudiants",
+      "performance_report": "Rapport de performance",
+      "est_earnings": "Gains nets estimés",
+      "top_courses": "Cours les plus performants",
+      "metrics_desc": "Basé sur les mesures d'inscription et de revenu",
+      "students_enrolled": "Étudiants inscrits",
+      "gross_revenue": "Revenu brut"
+    }
   },
   "info": {
     "avg_monthly": "Moyenne mensuelle",
