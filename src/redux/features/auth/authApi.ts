@@ -35,6 +35,14 @@ const authApi = baseApi.injectEndpoints({
         body,
       }),
     }),
+
+    // ===== ✅ Logout user =====
+    logout: build.mutation<void, void>({
+      query: () => ({
+        url: '/auth/logout',
+        method: 'POST',
+      }),
+    }),
   }),
 });
 
@@ -43,6 +51,7 @@ export const {
   useSignUpMutation,
   useLoginMutation,
   useSyncFirebaseMutation,
+  useLogoutMutation,
 } = authApi;
 
 export default authApi;

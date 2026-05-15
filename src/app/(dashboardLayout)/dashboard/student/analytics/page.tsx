@@ -4,15 +4,8 @@ import { useGetStudentAnalyticsQuery } from "@/redux/features/dashboard/dashboar
 import { Loader2, ShieldCheck, Trophy, Target, Zap } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { StudentAnalytics } from "@/components/dashboard/StudentAnalytics"
-import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute"
-import { Role } from "@/interfaces/user.interface"
-
 export default function StudentAnalyticsPage() {
-  return (
-    <RoleProtectedRoute allowedRoles={[Role.student]}>
-      <StudentAnalyticsContent />
-    </RoleProtectedRoute>
-  )
+  return <StudentAnalyticsContent />
 }
 
 function StudentAnalyticsContent() {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Palette, Check } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 const themes = [
   {
@@ -53,6 +54,7 @@ export function ThemeSwitcher() {
     }
 
     setCurrentTheme(themeName);
+    trackEvent('change_theme', { theme_name: themeName });
     localStorage.setItem("app-theme", themeName);
     setIsOpen(false);
   };

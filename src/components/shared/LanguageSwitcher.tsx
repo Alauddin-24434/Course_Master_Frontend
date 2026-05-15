@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Globe, ChevronDown, Check } from "lucide-react";
+import { trackEvent } from "@/lib/gtag";
 
 const languages = [
   { code: "en", name: "English" },
@@ -41,6 +42,7 @@ export function LanguageSwitcher() {
     document.documentElement.lang = lng;
     // Update direction for RTL languages (Arabic and Urdu)
     document.documentElement.dir = (lng === "ar" || lng === "ur") ? "rtl" : "ltr";
+    trackEvent('language_changed', { language_code: lng });
     setIsOpen(false);
   };
 

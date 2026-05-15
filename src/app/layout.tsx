@@ -15,8 +15,10 @@ export const metadata: Metadata = {
   },
 };
 
+import { Suspense } from "react";
 import FirebaseAuthProvider from "@/providers/FirebaseAuthProvider";
 import AiAssistant from "@/components/shared/AiAssistant";
+import GoogleAnalytics from "@/components/shared/GoogleAnalytics";
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   // Read lang from cookie (set by i18n on client)
@@ -26,22 +28,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
   return (
     <html lang={lang} dir={isRtl ? 'rtl' : 'ltr'} suppressHydrationWarning>
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-LY3F193D6E"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-LY3F193D6E');
-          `}
-        </Script>
-      </head>
+      <head />
       <body>
         <Providers>
+          <Suspense fallback={null}>
+            <GoogleAnalytics />
+          </Suspense>
           <FirebaseAuthProvider>
    
               <LenisProvider>{children}</LenisProvider>

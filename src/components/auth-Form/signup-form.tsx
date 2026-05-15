@@ -5,7 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslation } from "react-i18next";
 import { User, Mail, Lock, Eye, EyeOff, GraduationCap, Briefcase } from "lucide-react";
 import {
@@ -48,6 +48,9 @@ export function SignupForm() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const [signUp] = useSignUpMutation();
   const [syncFirebase] = useSyncFirebaseMutation();
 
@@ -95,7 +98,7 @@ export function SignupForm() {
       
       trackEvent('sign_up', { method: 'Google' });
       toast.success("Logged in with Google!");
-      router.push("/");
+      router.push(callbackUrl);
     } catch (error: any) {
       toast.error(error.message || "Google signup failed");
     }
@@ -109,7 +112,7 @@ export function SignupForm() {
 
       trackEvent('sign_up', { method: 'Email', role: data.role });
       toast.success("Account created successfully!");
-      router.push("/");
+      router.push(callbackUrl);
     } catch (err: any) {
       const message = err?.data?.message || err?.message || "Signup failed";
       toast.error(message);

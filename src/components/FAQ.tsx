@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Plus, Minus, HelpCircle } from "lucide-react";
 import { Section } from "./ui/section";
+import { trackEvent } from "@/lib/gtag";
 
 export function FAQ() {
   const { t } = useTranslation();
@@ -55,7 +56,13 @@ export function FAQ() {
                 }`}
             >
               <button
-                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                onClick={() => {
+                  const isOpening = openIndex !== idx;
+                  setOpenIndex(openIndex === idx ? null : idx);
+                  if (isOpening) {
+                    trackEvent('faq_expand', { question: faq.question });
+                  }
+                }}
                 className="w-full px-6 py-6 md:px-8 md:py-8 flex items-center justify-between text-left gap-4"
               >
                 <span className={`text-lg md:text-xl font-black tracking-tight transition-colors ${openIndex === idx ? "text-primary" : "text-foreground group-hover:text-primary"

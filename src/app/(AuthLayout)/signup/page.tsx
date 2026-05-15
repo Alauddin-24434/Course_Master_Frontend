@@ -1,12 +1,14 @@
-"use client"
+"use client";
 
-import { SignupForm } from "@/components/auth-Form/signup-form"
-
-import { useTranslation } from "react-i18next"
-// import { GradientOrb } from "@/components/gradient-orb"
+import { useTranslation } from "react-i18next";
+import { SignupForm } from "@/components/auth-Form/signup-form";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function SignupPage() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center py-12 px-4 relative overflow-hidden">
@@ -29,7 +31,7 @@ export default function SignupPage() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-8 font-medium">
-          Already have an account? <a href="/login" className="text-primary font-bold hover:underline">Sign In here</a>
+          Already have an account? <Link href={`/login${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`} className="text-primary font-bold hover:underline">Sign In here</Link>
         </p>
       </div>
     </main>

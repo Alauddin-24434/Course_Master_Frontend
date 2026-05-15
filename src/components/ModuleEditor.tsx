@@ -9,10 +9,10 @@ import {
   useGetCourseByIdQuery,
 } from "@/redux/features/course/courseAPi";
 import {
- 
+
   useAddModuleMutation,
 
-} from "@/redux/features/module/courseModuleApi";
+} from "@/redux/features/module/moduleApi";
 
 type ModuleForm = { title: string };
 
@@ -39,7 +39,7 @@ export default function ModuleEditor({
   const { register, handleSubmit, reset } = useForm<ModuleForm>({
     defaultValues: { title: "" },
   });
-     useEffect(() => {
+  useEffect(() => {
     if (selectedCourseId) refetch();
   }, [selectedCourseId, refetch]);
 
@@ -92,7 +92,7 @@ export default function ModuleEditor({
             </button>
           </form>
 
-       
+
         </>
       )}
     </div>

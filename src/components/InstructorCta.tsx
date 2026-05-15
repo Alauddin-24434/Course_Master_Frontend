@@ -45,6 +45,7 @@ export function InstructorCTA() {
 
               <Link
                 href="/how-it-works"
+                onClick={() => trackEvent('instructor_cta_click', { type: 'how_it_works' })}
                 className="h-16 px-10 bg-card/80 border border-border text-foreground rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-accent hover:text-primary transition-all flex items-center justify-center"
               >
                 {t("extra.learn_how_works")}

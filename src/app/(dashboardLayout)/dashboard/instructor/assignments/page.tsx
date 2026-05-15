@@ -1,14 +1,19 @@
 "use client"
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import toast from "react-hot-toast";
-import { 
-  useGetAllAssignmentsQuery, 
-  useCreateAssignmentMutation, 
-  useUpdateAssignmentMutation, 
+import {
+  useGetAllAssignmentsQuery,
+  useCreateAssignmentMutation,
+  useUpdateAssignmentMutation,
   useDeleteAssignmentMutation,
   useGetAllModulesQuery
-} from "@/redux/features/module/courseModuleApi";
-import { Loader2, Plus, Edit, Trash2, X, Edit2, FileText } from "lucide-react";
+} from "@/redux/features/module/moduleApi";
+import DashboardHeader from "@/components/common/DashboardHeader";
+import DashboardCard from "@/components/common/DashboardCard";
+import DashboardFilterBar from "@/components/common/DashboardFilterBar";
+import DataTable, { Column } from "@/components/common/DataTable";
+import Pagination from "@/components/common/Pagination";
+import { Edit2, FileText, Loader2, Plus, Trash2, X } from "lucide-react";
 
 export default function AssignmentsPage() {
   const { data: assignmentsData, isLoading: queriesLoading } = useGetAllAssignmentsQuery();
@@ -24,6 +29,25 @@ export default function AssignmentsPage() {
   const [editingAssignment, setEditingAssignment] = useState<any>(null);
   const [formData, setFormData] = useState({ description: "", moduleId: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 8;
+  const [search, setSearch] = useState("");
+  const [moduleFilter, setModuleFilter] = useState("");
+
+  const filteredAssignments = useMemo(() => {
+    return assignments.filter((assignment: any) => {
+        const matchesSearch = assignment.description.toLowerCase().includes(search.toLowerCase());
+        const matchesModule = moduleFilter ? assignment.moduleId === moduleFilter : true;
+        return matchesSearch && matchesModule;
+    });
+  }, [assignments, search, moduleFilter]);
+
+  const totalPages = Math.ceil(filteredAssignments.length / itemsPerPage);
+  const paginatedAssignments = useMemo(() => {
+    const start = (page - 1) * itemsPerPage;
+    return filteredAssignments.slice(start, start + itemsPerPage);
+  }, [filteredAssignments, page]);
 
   const openModal = (assignment?: any) => {
     if (assignment) {
@@ -74,118 +98,123 @@ export default function AssignmentsPage() {
     }
   };
 
+  const columns: Column<any>[] = [
+    {
+      header: "Assignment Details",
+      accessor: (assignment) => <p className="font-bold text-foreground text-sm line-clamp-2 max-w-sm">{assignment.description}</p>
+    },
+    {
+      header: "Module",
+      accessor: (assignment) => (
+        <div className="flex flex-col">
+          <span className="font-bold text-sm text-foreground">{assignment.module?.title || "N/A"}</span>
+          <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{assignment.module?.course?.title || ""}</span>
+        </div>
+      )
+    },
+    {
+      header: "Submission Type",
+      align: "center",
+      accessor: () => (
+        <div className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-500 border border-emerald-500/20`}>
+          Standard
+        </div>
+      )
+    },
+    {
+      header: "Actions",
+      align: "right",
+      accessor: (assignment) => (
+        <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
+          <button
+            onClick={() => openModal(assignment)}
+            className="h-9 px-4 bg-background border border-border/50 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center gap-2 shadow-sm"
+          >
+            <Edit2 className="w-3.5 h-3.5" /> Edit
+          </button>
+          <button
+            onClick={() => handleDelete(assignment.id)}
+            className="h-9 w-9 bg-background border border-border/50 rounded-xl flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all shadow-sm"
+          >
+            <Trash2 className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      )
+    }
+  ];
+
   return (
     <div className="container mx-auto p-4 md:p-8 space-y-10 max-w-7xl">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-        <div className="space-y-2">
-           <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-widest border border-primary/20">
-              <FileText className="w-3.5 h-3.5" /> Course Evaluation
-           </div>
-           <h1 className="text-4xl md:text-5xl font-black tracking-tighter text-foreground leading-tight italic">
-              Manage Assignments.
-           </h1>
-           <p className="text-muted-foreground font-medium max-w-xl">
-              Create tasks, require submissions, and evaluate student progress with structured assignments.
-           </p>
-        </div>
-        <button 
-          onClick={() => openModal()} 
-          className="h-14 px-8 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
-        >
-          <Plus className="w-4 h-4" /> Create Assignment
-        </button>
-      </div>
+      <DashboardHeader 
+        badgeIcon={<FileText className="w-3.5 h-3.5" />}
+        badgeText="Course Evaluation"
+        title="Manage Assignments."
+        subtitle="Create tasks, require submissions, and evaluate student progress with structured assignments."
+        action={
+          <button
+            onClick={() => openModal()}
+            className="h-14 px-8 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all"
+          >
+            <Plus className="w-4 h-4" /> Create Assignment
+          </button>
+        }
+      />
 
-      {queriesLoading ? (
-        <div className="flex flex-col items-center justify-center py-32 space-y-4">
-            <Loader2 className="w-10 h-10 animate-spin text-primary/30" />
-            <p className="text-sm font-black uppercase tracking-widest text-muted-foreground animate-pulse">Loading Assignments...</p>
-        </div>
-      ) : (
-        <div className="bg-card border border-border/60 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/5">
-          {assignments.length === 0 ? (
-             <div className="flex flex-col items-center justify-center py-40 text-center space-y-6">
-                <div className="w-24 h-24 bg-secondary/50 rounded-full flex items-center justify-center text-muted-foreground/20">
-                    <FileText className="w-12 h-12" />
-                </div>
-                <div className="space-y-1">
-                    <h4 className="text-xl font-black italic">No Assignments Found.</h4>
-                    <p className="text-sm font-medium text-muted-foreground">Start challenging your students to test their knowledge.</p>
-                </div>
-            </div>
-          ) : (
-            <div className="overflow-x-auto w-full">
-              <table className="w-full">
-                <thead>
-                  <tr className="bg-muted/30">
-                    <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Assignment Details</th>
-                    <th className="px-8 py-5 text-left text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Module</th>
-                    <th className="px-8 py-5 text-center text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Submission Type</th>
-                    <th className="px-8 py-5 text-right text-[10px] font-black uppercase tracking-widest text-muted-foreground border-b border-border/50">Actions</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-border/50">
-                  {assignments.map((assignment: any) => (
-                    <tr key={assignment.id} className="group hover:bg-muted/20 transition-colors">
-                      <td className="px-8 py-6">
-                          <p className="font-bold text-foreground text-sm line-clamp-2 max-w-sm">{assignment.description}</p>
-                      </td>
-                      <td className="px-8 py-6">
-                         <div className="flex flex-col">
-                            <span className="font-bold text-sm text-foreground">{assignment.module?.title || "N/A"}</span>
-                            <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">{assignment.module?.course?.title || ""}</span>
-                        </div>
-                      </td>
-                      <td className="px-8 py-6 text-center">
-                         <div className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest bg-emerald-500/10 text-emerald-500 border border-emerald-500/20`}>
-                            Standard
-                         </div>
-                      </td>
-                      <td className="px-8 py-6 text-right">
-                         <div className="flex items-center justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button
-                                onClick={() => openModal(assignment)}
-                                className="h-9 px-4 bg-background border border-border/50 rounded-xl text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-primary hover:text-white hover:border-primary transition-all flex items-center gap-2 shadow-sm"
-                            >
-                                <Edit2 className="w-3.5 h-3.5" /> Edit
-                            </button>
-                            <button
-                                onClick={() => handleDelete(assignment.id)}
-                                className="h-9 w-9 bg-background border border-border/50 rounded-xl flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white hover:border-red-500 transition-all shadow-sm"
-                            >
-                                <Trash2 className="w-3.5 h-3.5" />
-                            </button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      )}
+      <DashboardFilterBar 
+        search={search}
+        onSearchChange={(val) => { setSearch(val); setPage(1); }}
+        searchPlaceholder="Search assignments..."
+        filterValue={moduleFilter}
+        onFilterChange={(val) => { setModuleFilter(val); setPage(1); }}
+        filterPlaceholder="All Modules"
+        filterOptions={modules.map((m: any) => ({ value: m.id, label: m.title }))}
+      />
+
+      <DashboardCard
+        footer={
+            totalPages > 1 && (
+                <Pagination 
+                    currentPage={page}
+                    totalPages={totalPages}
+                    onPageChange={(newPage) => setPage(newPage)}
+                />
+            )
+        }
+      >
+        <DataTable
+          columns={columns}
+          data={paginatedAssignments}
+          isLoading={queriesLoading}
+          loadingMessage="Loading Assignments..."
+          emptyState={{
+            title: "No Assignments Found.",
+            description: "Start challenging your students to test their knowledge.",
+            icon: <FileText className="w-12 h-12" />
+          }}
+        />
+      </DashboardCard>
+     
 
       {/* Modern Dialog Overlay */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
           <div className="bg-card border border-border/60 w-full max-w-lg p-8 rounded-[2.5rem] shadow-2xl relative max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
             <button onClick={closeModal} className="absolute right-8 top-8 text-muted-foreground hover:text-foreground transition-colors">
-                <X className="w-5 h-5" />
+              <X className="w-5 h-5" />
             </button>
             <div className="mb-8">
-                <h2 className="text-2xl font-black tracking-tight italic">{editingAssignment ? "Edit Assignment." : "New Assignment."}</h2>
-                <p className="text-sm text-muted-foreground font-medium">Configure the assignment details and requirements.</p>
+              <h2 className="text-2xl font-black tracking-tight italic">{editingAssignment ? "Edit Assignment." : "New Assignment."}</h2>
+              <p className="text-sm text-muted-foreground font-medium">Configure the assignment details and requirements.</p>
             </div>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Target Module</label>
-                <select 
+                <select
                   required
                   disabled={!!editingAssignment}
-                  value={formData.moduleId} 
-                  onChange={e => setFormData({...formData, moduleId: e.target.value})}
+                  value={formData.moduleId}
+                  onChange={e => setFormData({ ...formData, moduleId: e.target.value })}
                   className="w-full h-14 px-6 bg-secondary/30 border border-transparent rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold text-sm cursor-pointer disabled:opacity-50"
                 >
                   <option value="" disabled>Select a module...</option>
@@ -198,12 +227,12 @@ export default function AssignmentsPage() {
 
               <div className="space-y-2">
                 <label className="text-xs font-black uppercase tracking-widest text-muted-foreground ml-1">Assignment Description</label>
-                <textarea 
+                <textarea
                   required
                   rows={4}
                   placeholder="e.g. Write a 500 word essay about React components..."
-                  value={formData.description} 
-                  onChange={e => setFormData({...formData, description: e.target.value})}
+                  value={formData.description}
+                  onChange={e => setFormData({ ...formData, description: e.target.value })}
                   className="w-full px-6 py-4 bg-secondary/30 border border-transparent rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold placeholder:opacity-50 resize-none"
                 />
               </div>
@@ -211,8 +240,8 @@ export default function AssignmentsPage() {
               <div className="pt-6 flex justify-end gap-3 flex-col sm:flex-row">
                 <button type="button" onClick={closeModal} className="h-14 px-8 bg-secondary/50 hover:bg-secondary rounded-2xl text-xs font-black uppercase tracking-widest text-foreground transition-all">Cancel</button>
                 <button type="submit" disabled={isSubmitting} className="h-14 px-8 bg-primary rounded-2xl text-xs font-black uppercase tracking-widest text-white flex items-center justify-center gap-2 hover:scale-[1.02] active:scale-95 disabled:opacity-50 transition-all shadow-xl shadow-primary/20">
-                    {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
-                    {editingAssignment ? "Save Changes" : "Create Assignment"}
+                  {isSubmitting && <Loader2 className="w-4 h-4 animate-spin" />}
+                  {editingAssignment ? "Save Changes" : "Create Assignment"}
                 </button>
               </div>
             </form>

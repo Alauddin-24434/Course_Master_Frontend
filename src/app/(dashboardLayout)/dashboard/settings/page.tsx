@@ -1,54 +1,42 @@
 "use client";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "@/redux/store";
 import {
   User,
   Mail,
   Shield,
-  Calendar,
-  Camera,
+  Clock,
   Edit3,
   CheckCircle2,
-  Clock,
   ExternalLink,
   Sparkles,
   Upload,
+  ArrowRight,
 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "react-hot-toast";
 import { updateProfile } from "firebase/auth";
 import { auth } from "@/lib/firebase";
 import { useSyncFirebaseMutation } from "@/redux/features/auth/authApi";
-import { useDispatch } from "react-redux";
 import { setUser } from "@/redux/features/auth/authSlice";
+import DashboardHeader from "@/components/common/DashboardHeader";
+import DashboardCard from "@/components/common/DashboardCard";
 
-// ---------- TYPES ----------
-type InfoItemProps = {
-  icon: React.ReactNode;
-  label: string;
-  value: string;
-  isCaps?: boolean;
-};
-
-type StatusItemProps = {
-  icon: React.ReactNode;
-  label: string;
-  status: string;
-};
+// ---------- COMPONENTS ----------
 
 export default function ProfilePage() {
   const { user } = useSelector((state: RootState) => state.mentoroAuth);
-  
   const [syncFirebase] = useSyncFirebaseMutation();
   const dispatch = useDispatch();
   const [isUploading, setIsUploading] = useState(false);
+  const [activeTab, setActiveTab] = useState<"profile" | "security">("profile");
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
   const handleProfileUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) return;
-    
     setIsUploading(true);
     const formData = new FormData(e.currentTarget);
     const file = (formData.get("avatar") as File);
@@ -57,8 +45,8 @@ export default function ProfilePage() {
     try {
       let avatarUrl = user.avatar || "";
 
-      // 1. Upload to Cloudinary if file exists
       if (file && file.size > 0) {
+        toast.loading("Uploading image...", { id: "uploading" });
         const cloudData = new FormData();
         cloudData.append("file", file);
         cloudData.append("upload_preset", "course_thumbnails");
@@ -67,11 +55,16 @@ export default function ProfilePage() {
           "https://api.cloudinary.com/v1_1/dyfamn6rm/image/upload",
           { method: "POST", body: cloudData }
         );
+        
+        if (!cloudRes.ok) {
+          throw new Error("Failed to upload image to Cloudinary");
+        }
+
         const cloudJson = await cloudRes.json();
         avatarUrl = cloudJson.secure_url;
+        toast.dismiss("uploading");
       }
 
-      // 2. Sync with Firebase Profile
       if (auth.currentUser) {
         await updateProfile(auth.currentUser, {
           displayName: name,
@@ -79,16 +72,14 @@ export default function ProfilePage() {
         });
       }
 
-      // 3. Sync with Backend
       const response = await syncFirebase({
         email: user.email,
         name: name,
-        avatar: avatarUrl
+        avatar: avatarUrl,
       }).unwrap();
 
-      // 4. Update Redux State
       dispatch(setUser({ user: response.data.user, token: response.data.accessToken }));
-      
+      setImagePreview(null);
       toast.success("Profile updated successfully!");
     } catch (err: any) {
       console.error(err);
@@ -112,174 +103,238 @@ export default function ProfilePage() {
   }
 
   return (
-    <div className="container mx-auto p-4 md:p-8 max-w-5xl space-y-12">
+    <div className="container mx-auto p-4 md:p-8 max-w-7xl space-y-12 animate-in fade-in slide-in-from-bottom-6 duration-1000">
 
-      {/* HEADER */}
-      <div className="space-y-2">
-        <div className="inline-flex items-center gap-2 px-3 py-1 bg-primary/10 text-primary rounded-full text-[10px] font-black uppercase tracking-widest border border-primary/20">
-          <Shield className="w-3.5 h-3.5" /> Identity & Security
-        </div>
+      <DashboardHeader
+        badgeIcon={<Shield className="w-3.5 h-3.5" />}
+        badgeText="Identity & Security"
+        title="Settings & Privacy."
+        subtitle="Manage your public appearance, account security, and personalized experience across the Mentoro ecosystem."
+      />
 
-        <h1 className="text-4xl md:text-5xl font-black tracking-tighter italic">
-          Your Personal Identity.
-        </h1>
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
-        <p className="text-muted-foreground font-medium max-w-xl">
-          Manage your public appearance and account security.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-
-        {/* LEFT */}
-        <div className="space-y-8">
-
-          {/* PROFILE CARD */}
-          <div className="bg-card border rounded-[3rem] p-10 text-center group shadow-xl relative overflow-hidden">
-
-            <div className="relative w-32 h-32 mx-auto">
-              <div className="absolute inset-0 bg-primary/20 blur-[30px] rounded-full scale-110"></div>
-              <img 
-                src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}&background=random`} 
-                alt={user.name} 
-                className="w-full h-full rounded-full object-cover border-4 border-background relative z-10"
+        {/* SIDEBAR NAVIGATION */}
+        <div className="lg:col-span-3 space-y-6">
+          <div className="bg-card border border-border/60 rounded-[2.5rem] p-8 shadow-xl">
+            <div className="relative w-24 h-24 mx-auto mb-6">
+              <div className="absolute inset-0 bg-primary/20 blur-[20px] rounded-full scale-110"></div>
+              <img
+                src={user.avatar || `https://ui-avatars.com/api/?name=${user.name}&background=random`}
+                alt={user.name}
+                className="w-full h-full rounded-full object-cover border-4 border-background relative z-10 shadow-lg"
               />
+              <div className="absolute -bottom-1 -right-1 w-7 h-7 bg-green-500 border-4 border-background rounded-full z-20"></div>
+            </div>
+            <div className="text-center space-y-1">
+              <h3 className="text-xl font-black truncate">{user.name}</h3>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{user.role}</p>
             </div>
 
-            <h2 className="text-2xl font-black mt-6">{user.name}</h2>
-
-            <div className="mt-2 inline-flex items-center gap-2 px-3 py-1 bg-secondary rounded-full text-[10px] font-bold uppercase">
-              <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-              Verified {user.role}
-            </div>
-          </div>
-
-          {/* STATUS */}
-          <div className="bg-zinc-900 text-white rounded-[2.5rem] p-8 space-y-6">
-            <h4 className="text-sm font-black uppercase text-primary">
-              Account Status
-            </h4>
-
-            <div className="space-y-4">
-              <StatusItem
-                icon={<CheckCircle2 className="w-4 h-4" />}
-                label="Email Verified"
-                status="Active"
+            <div className="mt-10 space-y-2">
+              <TabButton
+                active={activeTab === "profile"}
+                onClick={() => setActiveTab("profile")}
+                icon={<User className="w-4 h-4" />}
+                label="Profile Details"
               />
-
-              <StatusItem
-                icon={<Clock className="w-4 h-4" />}
-                label="Member Since"
-                status={
-                  user.createdAt
-                    ? new Date(user.createdAt).getFullYear().toString()
-                    : "N/A"
-                }
+              <TabButton
+                active={activeTab === "security"}
+                onClick={() => setActiveTab("security")}
+                icon={<Shield className="w-4 h-4" />}
+                label="Account Security"
               />
             </div>
           </div>
-        </div>
 
-        {/* RIGHT */}
-        <div className="lg:col-span-2 space-y-8 bg-card border rounded-[3rem] p-10">
-
-          {/* BASIC INFO */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-black">Basic Information</h3>
-
-            <div className="grid md:grid-cols-2 gap-8 mb-8">
-              <InfoItem icon={<Shield />} label="Role" value={user.role} isCaps />
-              <InfoItem icon={<Calendar />} label="Member Since" value={user.createdAt ? new Date(user.createdAt).toLocaleDateString() : "Present"} />
-            </div>
-
-            <form ref={formRef} onSubmit={handleProfileUpdate} className="space-y-6 bg-secondary/30 p-6 rounded-2xl border border-border">
-              <h4 className="text-sm font-bold uppercase text-primary mb-4 flex items-center gap-2">
-                <Edit3 className="w-4 h-4" /> Edit Profile
+           <div className="bg-card border border-border/60 rounded-[2.5rem] p-8 space-y-6 shadow-xl relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-1000"></div>
+              <h4 className="text-[10px] font-black uppercase text-muted-foreground tracking-widest border-l-2 border-primary pl-3 relative z-10">
+                Account Status
               </h4>
+              <div className="space-y-5 relative z-10">
+                <StatusItem
+                  icon={<CheckCircle2 className="w-4 h-4" />}
+                  label="Verified"
+                  status="Active"
+                  isDark={false}
+                />
+                <StatusItem
+                  icon={<Clock className="w-4 h-4" />}
+                  label="Member"
+                  status={user.createdAt ? new Date(user.createdAt).getFullYear().toString() : "2024"}
+                  isDark={false}
+                />
+              </div>
+           </div>
+        </div>
 
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">Display Name</label>
-                  <input 
-                    name="name" 
-                    defaultValue={user.name} 
-                    className="w-full bg-background border rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none" 
-                  />
-                </div>
+        {/* CONTENT AREA */}
+        <div className="lg:col-span-9">
+          {activeTab === "profile" && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+              <DashboardCard
+                header={
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
+                      <Edit3 className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black italic">Curate Your Profile.</h3>
+                      <p className="text-sm font-medium text-muted-foreground">This information will be displayed publicly to other students and instructors.</p>
+                    </div>
+                  </div>
+                }
+              >
+                <form ref={formRef} onSubmit={handleProfileUpdate} className="p-8 space-y-8">
+                  <div className="grid md:grid-cols-2 gap-8">
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest ml-1">Display Name</label>
+                      <div className="relative">
+                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <input
+                          name="name"
+                          defaultValue={user.name}
+                          className="w-full bg-secondary/30 border border-transparent focus:border-primary/50 focus:bg-background rounded-2xl py-4 pl-12 pr-4 outline-none transition-all font-bold text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest ml-1">Email Address (Read-only)</label>
+                      <div className="relative">
+                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                        <input
+                          readOnly
+                          value={user.email}
+                          className="w-full bg-secondary/10 border border-transparent rounded-2xl py-4 pl-12 pr-4 outline-none cursor-not-allowed text-muted-foreground font-bold text-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">Avatar Image</label>
-                  <div className="relative border-2 border-dashed border-muted-foreground/30 rounded-xl px-4 py-6 hover:bg-background transition-colors text-center cursor-pointer overflow-hidden">
-                    <input 
-                      type="file" 
-                      name="avatar" 
-                      accept="image/*"
-                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer" 
-                    />
-                    <Upload className="w-6 h-6 text-muted-foreground mx-auto mb-2" />
-                    <span className="text-sm font-medium text-muted-foreground">Click or Drag to Upload to Cloudinary</span>
+                  <div className="space-y-4">
+                    <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest ml-1">Avatar Identity</label>
+                    <div className="relative border-2 border-dashed border-border hover:border-primary/50 hover:bg-primary/5 rounded-[2rem] p-10 transition-all text-center cursor-pointer group overflow-hidden">
+                                    <input 
+                                        type="file" 
+                                        name="avatar" 
+                                        accept="image/*"
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            if (file) {
+                                                const reader = new FileReader();
+                                                reader.onloadend = () => setImagePreview(reader.result as string);
+                                                reader.readAsDataURL(file);
+                                            }
+                                        }}
+                                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10" 
+                                    />
+                                    {imagePreview ? (
+                                        <div className="relative z-0">
+                                            <img src={imagePreview} alt="Preview" className="w-24 h-24 rounded-2xl mx-auto object-cover shadow-lg border-2 border-primary/20" />
+                                            <p className="mt-3 font-black text-xs uppercase text-primary">New Identity Selected</p>
+                                        </div>
+                                    ) : (
+                                        <div className="relative z-0 space-y-3">
+                                            <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                                                <Upload className="w-7 h-7 text-muted-foreground" />
+                                            </div>
+                                            <div>
+                                                <p className="font-black text-sm uppercase tracking-tight">Drop your visual identity here</p>
+                                                <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Supports JPG, PNG or WebP (Max 2MB)</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                    {isUploading && (
+                                        <div className="absolute inset-0 bg-background/60 backdrop-blur-sm z-20 flex items-center justify-center animate-in fade-in">
+                                            <div className="flex flex-col items-center gap-3">
+                                                <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                                                <p className="text-[10px] font-black uppercase tracking-widest text-primary">Uploading...</p>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                  </div>
+
+                  <div className="flex justify-end pt-4">
+                    <button
+                      disabled={isUploading}
+                      type="submit"
+                      className="h-14 px-10 bg-primary text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center gap-3 shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-50"
+                    >
+                      {isUploading ? "Synchronizing..." : "Synchronize Profile"}
+                      <Sparkles className="w-4 h-4" />
+                    </button>
+                  </div>
+                </form>
+              </DashboardCard>
+            </div>
+          )}
+
+          {activeTab === "security" && (
+            <div className="space-y-8 animate-in fade-in slide-in-from-right-4 duration-500">
+              <DashboardCard
+                header={
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500">
+                      <Shield className="w-6 h-6" />
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-black italic">Lock Down Security.</h3>
+                      <p className="text-sm font-medium text-muted-foreground">Manage your credentials and protect your intellectual assets.</p>
+                    </div>
+                  </div>
+                }
+              >
+                <div className="p-8 space-y-10">
+                  <div className="space-y-6">
+                    <div className="grid md:grid-cols-2 gap-8">
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest ml-1">New Password</label>
+                        <input
+                          type="password"
+                          placeholder="••••••••"
+                          className="w-full bg-secondary/30 border border-transparent focus:border-primary/50 focus:bg-background rounded-2xl py-4 px-6 outline-none transition-all font-bold text-sm"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest ml-1">Confirm New Password</label>
+                        <input
+                          type="password"
+                          placeholder="••••••••"
+                          className="w-full bg-secondary/30 border border-transparent focus:border-primary/50 focus:bg-background rounded-2xl py-4 px-6 outline-none transition-all font-bold text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        type="button"
+                        onClick={() => toast.success("Password update feature coming soon!")}
+                        className="h-14 px-8 bg-zinc-900 text-white rounded-2xl font-black uppercase tracking-widest text-xs flex items-center gap-2 hover:bg-zinc-800 transition-all active:scale-95 shadow-xl shadow-black/10"
+                      >
+                        Update Credentials <Shield className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <hr className="border-border/50" />
+
+                  <div className="space-y-6">
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 bg-indigo-500/10 rounded-xl flex items-center justify-center text-indigo-500">
+                        <ExternalLink className="w-5 h-5" />
+                      </div>
+                      <h4 className="text-lg font-black italic">External Integrations</h4>
+                    </div>
+                    <p className="text-sm font-medium text-muted-foreground">Link your account with external providers for faster authentication and data synchronization.</p>
+                    <button className="w-full h-14 bg-secondary/50 hover:bg-secondary border border-border/60 rounded-2xl flex items-center justify-center gap-3 font-black uppercase text-[10px] tracking-widest transition-all">
+                      Manage External Connections <ArrowRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
-              </div>
-
-              <div className="flex justify-end pt-2">
-                <button disabled={isUploading} type="submit" className="bg-primary text-primary-foreground px-6 py-3 rounded-xl font-bold uppercase text-xs hover:opacity-90 disabled:opacity-50 transition-all flex items-center gap-2">
-                  {isUploading ? "Uploading Data..." : "Save Changes"} <CheckCircle2 className="w-4 h-4" />
-                </button>
-              </div>
-            </form>
-          </div>
-
-          <hr />
-
-          {/* BIO */}
-          <div>
-            <h3 className="text-2xl font-black mb-4">Bio</h3>
-
-            <div className="p-6 bg-secondary/30 rounded-2xl">
-              <p className="text-muted-foreground italic">
-                {user.bio || "No bio added yet."}
-              </p>
+              </DashboardCard>
             </div>
-          </div>
-
-          <hr />
-
-          {/* PASSWORD UPDATE */}
-          <div className="space-y-6">
-            <h3 className="text-2xl font-black">Security & Password</h3>
-            
-            <form className="space-y-4 bg-secondary/30 p-6 rounded-2xl border border-border">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">New Password</label>
-                  <input 
-                    type="password"
-                    placeholder="Min 6 characters" 
-                    className="w-full bg-background border rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">Confirm Password</label>
-                  <input 
-                    type="password"
-                    placeholder="Repeat new password" 
-                    className="w-full bg-background border rounded-xl py-3 px-4 focus:ring-2 focus:ring-primary outline-none" 
-                  />
-                </div>
-              </div>
-              <div className="flex justify-end pt-2">
-                <button type="button" onClick={() => toast.success("Password update feature coming soon!")} className="bg-zinc-900 text-white px-6 py-3 rounded-xl font-bold uppercase text-xs hover:bg-zinc-800 transition-all flex items-center gap-2">
-                  Update Password <Shield className="w-4 h-4" />
-                </button>
-              </div>
-            </form>
-          </div>
-
-          {/* BUTTON */}
-          <button className="w-full h-14 bg-secondary hover:bg-secondary/70 rounded-2xl flex items-center justify-center gap-2 font-bold uppercase text-xs">
-            Connect External Accounts <ExternalLink className="w-4 h-4" />
-          </button>
+          )}
         </div>
 
       </div>
@@ -288,26 +343,30 @@ export default function ProfilePage() {
 }
 
 // ---------- COMPONENTS ----------
-function InfoItem({ icon, label, value, isCaps }: InfoItemProps) {
+function TabButton({ active, onClick, icon, label }: { active: boolean, onClick: () => void, icon: React.ReactNode, label: string }) {
   return (
-    <div>
-      <p className="text-xs uppercase font-bold text-muted-foreground flex items-center gap-2">
-        {icon} {label}
-      </p>
-      <p className={`text-lg font-bold ${isCaps ? "capitalize" : ""}`}>
-        {value}
-      </p>
-    </div>
+    <button
+      onClick={onClick}
+      className={`w-full flex items-center gap-3 px-6 py-4 rounded-2xl transition-all duration-300 font-black uppercase tracking-widest text-[10px]
+        ${active
+          ? "bg-primary text-white shadow-lg shadow-primary/20 translate-x-1"
+          : "text-muted-foreground hover:bg-secondary hover:text-foreground hover:translate-x-1"
+        }`}
+    >
+      {icon}
+      {label}
+    </button>
   );
 }
 
-function StatusItem({ icon, label, status }: StatusItemProps) {
+function StatusItem({ icon, label, status, isDark = true }: { icon: React.ReactNode, label: string, status: string, isDark?: boolean }) {
   return (
-    <div className="flex justify-between text-sm">
-      <span className="flex items-center gap-2 text-gray-300">
-        {icon} {label}
+    <div className="flex justify-between items-center text-xs">
+      <span className={`flex items-center gap-3 font-bold uppercase tracking-widest text-[9px] ${isDark ? "text-zinc-400" : "text-muted-foreground"}`}>
+        <div className={`p-2 rounded-xl backdrop-blur-md border ${isDark ? "bg-zinc-800 text-primary border-zinc-700" : "bg-primary/10 text-primary border-primary/10"}`}>{icon}</div> 
+        {label}
       </span>
-      <span className="font-bold text-primary">{status}</span>
+      <span className={`font-black italic text-sm ${isDark ? "text-primary" : "text-foreground"}`}>{status}</span>
     </div>
   );
 }

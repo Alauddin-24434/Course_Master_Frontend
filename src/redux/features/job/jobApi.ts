@@ -46,9 +46,14 @@ export const jobApi = baseApi.injectEndpoints({
       invalidatesTags: ["Job"],
     }),
     getAllApplications: build.query({
-      query: () => "/jobs/admin/applications",
+      query: (params) => ({
+        url: "/jobs/admin/applications",
+        method: "GET",
+        params,
+      }),
       providesTags: ["Job"],
     }),
+
   }),
 });
 

@@ -6,9 +6,9 @@
 
 ## 📖 About The Project
 
-Mentoro bridges the gap between instructors and students by providing a seamless, interactive platform for **Mentoro** creation, discovery, and learning. It empowers educators with robust **Mentoro** management tools—such as dynamic creation forms, media uploads, and structured lessons—while offering students an intuitive dashboard and a 24/7 AI Mentor to aid their learning journey.
+Mentoro bridges the gap between instructors and students by providing a seamless, interactive platform for course creation, discovery, and learning. It empowers educators with robust course management tools—such as dynamic creation forms, media uploads, and structured lessons—while offering students an intuitive dashboard and a 24/7 AI Mentor to aid their learning journey.
 
-Whether you are looking to monetize your expertise or upskill with new knowledge, Mentoro provides the perfect ecosystem with built‑in payments, multi‑language support, and intelligent search capabilities.
+Whether you are looking to monetize your expertise or upskill with new knowledge, Mentoro provides the perfect ecosystem with built-in payments, multi-language support, and intelligent search capabilities.
 
 ---
 
@@ -17,16 +17,17 @@ Whether you are looking to monetize your expertise or upskill with new knowledge
 | Feature | Description |
 |---|---|
 | 🏫 **Comprehensive Dashboards** | Dedicated intuitive dashboards for Students, Instructors, and Admins. |
-| 📚 **Mentoro Management** | Powerful tools for instructors to create, edit, delete **Mentoro**, and structure modules and lessons. |
-| ☁️ **Media Uploads** | Seamless image and video uploads integrated with Cloudinary for **Mentoro** thumbnails and previews. |
+| 📚 **Course Management** | Powerful tools for instructors to create, edit, delete courses, and structure modules and lessons. |
+| ☁️ **Media Uploads** | Seamless image and video uploads integrated with Cloudinary for course thumbnails and previews. |
 | 🤖 **AI Mentor & Quiz Gen** | Persistent 24/7 AI assistant for instant support and on‑the‑fly quiz generation to test knowledge. |
-| 🔍 **Intelligent Search** | Semantic AI search with insights, smart **Mentoro** matching, and filtering capabilities. |
+| 🔍 **Intelligent Search** | Semantic AI search with insights, smart course matching, and filtering capabilities. |
 | 🌍 **Multi‑Language (i18n)** | Native support for multiple languages including English, Bengali, Arabic (RTL), French, and Spanish, powered by Intlayer & AI. |
 | 💼 **Jobs & Careers Board** | Dedicated job portal for users to apply to platform careers, with admin application tracking. |
 | 📹 **Live Sessions** | Integrated live session management for instructors to schedule and host real‑time classes. |
 | 📊 **Advanced Analytics** | Comprehensive admin analytics dashboard with data visualization and CSV/PDF export capabilities. |
+| 📈 **Google Analytics 4** | Integrated GA4 with automated pageview tracking and custom event logging for user behavior insights. |
 | ✉️ **Dynamic Contact Forms** | Fully functional contact pages utilizing EmailJS for reliable communication. |
-| 💳 **Stripe Integration** | Seamless and secure payment flow for paid **Mentoro** enrollments. |
+| 💳 **Stripe Integration** | Seamless and secure payment flow for paid course enrollments. |
 | 🔐 **Secure Authentication** | Firebase‑powered Email/Password and Google Social Login with state synced via Redux Toolkit. |
 | 📱 **Responsive & Modern UI** | Mobile‑first design, beautiful toast notifications (`react‑hot‑toast`), interactive maps (`react‑leaflet`), and full RTL layout support for Arabic users. |
 
@@ -44,6 +45,7 @@ Whether you are looking to monetize your expertise or upskill with new knowledge
 | **Intlayer 8.6 & OpenRouter** | AI‑Driven Content Management and Automated Translations |
 | **Stripe** | Payment processing |
 | **EmailJS** | Client‑side email sending |
+| **Google Analytics 4** | User behavior tracking and marketing analytics |
 | **React Hot Toast** | Beautiful, lightweight global notifications |
 | **React Leaflet** | Interactive mapping for contact sections |
 | **Lucide React** | Modern, clean iconography |
@@ -64,12 +66,50 @@ pnpm install
 ```
 
 ### 2. Environment Variables
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory and populate it with the following configuration:
+
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-OPENROUTER_API_KEY=your_openrouter_key_here
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:5000
+
+# AI & Content (OpenRouter)
+OPENROUTER_API_KEY=your_openrouter_key
+
+# EmailJS Configuration
+NEXT_PUBLIC_EMAILJS_SERVICE_ID=your_service_id
+NEXT_PUBLIC_EMAILJS_TEMPLATE_ID=your_template_id
+NEXT_PUBLIC_EMAILJS_PUBLIC_KEY=your_public_key
+
+# Google Analytics
+NEXT_PUBLIC_GA_MEASUREMENT_ID=your_ga_measurement_id
+
+# Firebase Configuration
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+
+# Quick Login Credentials (Development)
+NEXT_PUBLIC_ADMIN_EMAIL=admin@mentoro.com
+NEXT_PUBLIC_ADMIN_PASSWORD=password123
+NEXT_PUBLIC_STUDENT_EMAIL=student1@mentoro.com
+NEXT_PUBLIC_STUDENT_PASSWORD=password123
+NEXT_PUBLIC_INSTRUCTOR_EMAIL=instructor1@mentoro.com
+NEXT_PUBLIC_INSTRUCTOR_PASSWORD=password123
 ```
+
+---
+
+## 🔐 Security & Middleware
+
+Mentoro uses a **Server-Side Security Watchdog** (`middleware.ts`) to enforce strict Role-Based Access Control (RBAC).
+
+- **API-Synchronized**: Every protected request triggers a session verification against the Node.js backend.
+- **RBAC Enforcement**: Prevents students from accessing instructor/admin areas and vice versa.
+- **Watchdog Logs**: Real-time security monitoring in the terminal with stylized status alerts.
+- **Fail-Safe**: Automatically clears invalid cookies and redirects to `/login` or `/unauthorized`.
 
 ### 3. Internationalization (AI Translation)
 ```bash
@@ -90,15 +130,16 @@ pnpm dev
 
 | Route | Description | Accessibility |
 |---|---|---|
-| `/` | Landing Page showcasing platform features and top **Mentoro** | Public |
-| `/mentoro` | Browse, search, and filter the **Mentoro** catalog | Public |
-| `/mentoro/[id]` | Detailed **Mentoro** view, curriculum, and enrollment | Public |
+| `/` | Landing Page showcasing platform features and top courses | Public |
+| `/courses` | Browse, search, and filter the course catalog | Public |
+| `/courses/[id]` | Detailed course view, curriculum, and enrollment | Public |
 | `/careers` | View and apply for open job positions | Public |
 | `/contact` | Get in touch with platform support via interactive forms | Public |
+| `/unauthorized` | Premium "Access Denied" page for RBAC violations | Public |
 | `/login` & `/signup` | Secure authentication flows | Public |
-| `/dashboard/student/*` | Student progress and enrolled **Mentoro** | Protected |
-| `/dashboard/instructor/*` | Instructor **Mentoro** management, assignments, modules, and live sessions | Protected |
-| `/dashboard/admin/*` | Platform administration, advanced analytics, user management, and job postings | Protected |
+| `/dashboard/student/*` | Student progress and enrolled courses | Protected |
+| `/dashboard/instructor/*` | Instructor course management, assignments, and live sessions | Protected |
+| `/dashboard/admin/*` | Platform administration, advanced analytics, and user management | Protected |
 
 ---
 

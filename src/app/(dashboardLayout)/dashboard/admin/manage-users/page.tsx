@@ -23,20 +23,29 @@ import {
 import { toast } from "react-hot-toast";
 import { IUser, Role, UserStatus } from "@/interfaces/user.interface";
 import { useState } from "react";
+import Pagination from "@/components/common/Pagination";
+import { useDebounce } from "use-debounce";
+
 
 export default function ManageUsersPage() {
   const { t } = useTranslation();
-  const { data: response, isLoading } = useGetAllUsersQuery();
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch] = useDebounce(searchQuery, 500);
+
+  const { data: response, isLoading } = useGetAllUsersQuery({ 
+    page, 
+    limit, 
+    search: debouncedSearch 
+  });
   const [updateRole, { isLoading: isUpdatingRole }] = useUpdateUserRoleMutation();
   const [updateStatus, { isLoading: isUpdatingStatus }] = useUpdateUserStatusMutation();
-  const [searchQuery, setSearchQuery] = useState("");
 
-  const users = response?.data?.users || response?.data || [];
 
-  const filteredUsers = users.filter((user: IUser) => 
-    user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const users = (response as any)?.data?.data?.users || (response as any)?.data?.users || [];
+
+
 
   const handleRoleChange = async (userId: string, newRole: string) => {
     try {
@@ -93,7 +102,7 @@ export default function ManageUsersPage() {
       <div className="bg-card border border-border/60 rounded-[2.5rem] overflow-hidden shadow-2xl shadow-black/5">
           <div className="p-8 border-b border-border/50 flex items-center justify-between">
               <h3 className="text-xl font-black tracking-tight italic">{t("user_management.active_users")}</h3>
-              <span className="px-3 py-1 bg-secondary rounded-full text-[10px] font-black uppercase tracking-widest text-muted-foreground">{filteredUsers.length} Total</span>
+              <span className="px-3 py-1 bg-secondary rounded-full text-[10px] font-black uppercase tracking-widest text-muted-foreground">{(response as any)?.data?.total || users.length} Total</span>
           </div>
 
           {isLoading ? (
@@ -101,7 +110,8 @@ export default function ManageUsersPage() {
                   <Loader2 className="w-10 h-10 animate-spin text-primary/30" />
                   <p className="text-sm font-black uppercase tracking-widest text-muted-foreground animate-pulse">Syncing identities...</p>
               </div>
-          ) : filteredUsers.length > 0 ? (
+          ) : users.length > 0 ? (
+
               <div className="overflow-x-auto">
                   <table className="w-full">
                       <thead>
@@ -115,7 +125,8 @@ export default function ManageUsersPage() {
                           </tr>
                       </thead>
                       <tbody className="divide-y divide-border/50">
-                          {filteredUsers.map((user: IUser) => (
+                          {users.map((user: IUser) => (
+
                               <tr key={user.id} className="group hover:bg-muted/20 transition-colors">
                                   <td className="px-8 py-6">
                                       <div className="flex items-center gap-4">
@@ -200,7 +211,20 @@ export default function ManageUsersPage() {
                   </div>
               </div>
           )}
+
+          {/* Pagination Controls */}
+          {((response as any)?.data?.data?.totalPages || (response as any)?.data?.totalPages || 0) > 1 && (
+              <div className="border-t border-border/50 bg-muted/5">
+                  <Pagination 
+                      currentPage={page}
+                      totalPages={(response as any)?.data?.data?.totalPages || (response as any)?.data?.totalPages || 0}
+                      onPageChange={(newPage) => setPage(newPage)}
+                  />
+              </div>
+          )}
+
       </div>
+
     </div>
   );
 }

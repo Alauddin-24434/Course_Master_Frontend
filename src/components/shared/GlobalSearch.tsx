@@ -7,6 +7,8 @@ import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi"
 import Link from "next/link"
 import { useTranslation } from "react-i18next"
 
+import { trackEvent } from "@/lib/gtag";
+
 export function GlobalSearch() {
   const { t } = useTranslation()
   const [isOpen, setIsOpen] = useState(false)
@@ -18,6 +20,12 @@ export function GlobalSearch() {
     { search: debouncedSearch, limit: 10 },
     { skip: debouncedSearch.length < 2 }
   )
+
+  useEffect(() => {
+    if (debouncedSearch.length >= 2) {
+      trackEvent('search', { search_term: debouncedSearch });
+    }
+  }, [debouncedSearch]);
 
   const results = coursesData?.data?.courses || []
 

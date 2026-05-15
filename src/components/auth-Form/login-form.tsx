@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import { AppDispatch } from "@/redux/store";
 import {
@@ -30,6 +30,9 @@ type LoginFormValues = z.infer<typeof loginSchema>;
 export function LoginForm() {
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   const [showPassword, setShowPassword] = useState(false);
   const [login] = useLoginMutation();
   const [syncFirebase] = useSyncFirebaseMutation();
@@ -60,7 +63,7 @@ export function LoginForm() {
 
       trackEvent('login', { method: 'Google' });
       toast.success("Logged in with Google!");
-      router.push("/");
+      router.push(callbackUrl);
     } catch (error: any) {
       toast.error(error.message || "Google login failed");
     }
@@ -74,7 +77,7 @@ export function LoginForm() {
 
       trackEvent('login', { method: 'Email' });
       toast.success("Login successful!");
-      router.push("/");
+      router.push(callbackUrl);
     } catch (err: any) {
       const message = err?.data?.message || err?.message || "Login failed";
       toast.error(message);

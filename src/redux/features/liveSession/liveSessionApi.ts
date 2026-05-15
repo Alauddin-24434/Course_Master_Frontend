@@ -3,7 +3,10 @@ import baseApi from "../../baseApi/baseApi";
 const liveSessionApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllSessions: builder.query({
-      query: () => "/live-sessions",
+      query: (params) => ({
+        url: "/live-sessions",
+        params
+      }),
       providesTags: ["LiveSession"] as any,
     }),
     getSessionById: builder.query({

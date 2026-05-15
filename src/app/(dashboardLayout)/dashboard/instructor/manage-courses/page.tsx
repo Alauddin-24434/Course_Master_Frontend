@@ -11,20 +11,41 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { useRouter } from "next/navigation";
 import { useTranslation } from "react-i18next";
+import { useGetCategoriesQuery } from "@/redux/features/category/categoriesApi";
+import Pagination from "@/components/common/Pagination";
+import { Search, Filter, X } from "lucide-react";
+
 
 export default function ManageCourses() {
   const { t } = useTranslation();
   const { user } = useSelector((state: RootState) => state.mentoroAuth);
   const router = useRouter();
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [courseToEdit, setCourseToEdit] = useState<ICourse | null>(null);
+  
+  // Pagination & Filters State
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const limit = 5;
+
   const { data: courses, refetch, isLoading } = useGetAllCoursesQuery(
-    { instructorId: user?.id },
+    { 
+        instructorId: user?.id,
+        page,
+        limit,
+        search,
+        category
+    },
     { skip: !user?.id }
   );
+
   const [deleteCourse] = useDeleteCourseMutation();
   const [togglePublish] = useTogglePublishMutation();
   const [createFeaturedCheckout] = useCreateFeaturedCheckoutMutation();
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [courseToEdit, setCourseToEdit] = useState<ICourse | null>(null);
+  const { data: categories } = useGetCategoriesQuery();
+
+
 
   const handleDelete = async (id: string) => {
     if (window.confirm(t("instructor.manage_courses.delete_confirm"))) {
@@ -58,6 +79,8 @@ export default function ManageCourses() {
       // Error handled by toast.promise
     }
   };
+
+  const courseData = (courses as any)?.data || [];
 
   const handleEdit = (course: any) => {
     setCourseToEdit(course);
@@ -114,7 +137,50 @@ export default function ManageCourses() {
         </button>
       </div>
 
+      {/* Filters Bar */}
+      <div className="flex flex-col md:flex-row gap-4 items-center bg-card border border-border/60 p-4 rounded-3xl shadow-sm">
+        <div className="relative flex-1 w-full">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+            <input 
+                type="text"
+                placeholder="Search your courses..."
+                value={search}
+                onChange={(e) => {
+                    setSearch(e.target.value);
+                    setPage(1);
+                }}
+                className="w-full h-12 pl-11 pr-4 bg-secondary/30 border border-transparent rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold text-sm placeholder:font-medium"
+            />
+            {search && (
+                <button 
+                    onClick={() => setSearch("")}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                >
+                    <X className="w-4 h-4" />
+                </button>
+            )}
+        </div>
+
+        <div className="relative w-full md:w-64">
+            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+            <select
+                value={category}
+                onChange={(e) => {
+                    setCategory(e.target.value);
+                    setPage(1);
+                }}
+                className="w-full h-12 pl-11 pr-4 bg-secondary/30 border border-transparent rounded-2xl focus:ring-2 focus:ring-primary/20 outline-none transition-all font-bold text-sm cursor-pointer appearance-none"
+            >
+                <option value="">All Categories</option>
+                {(categories?.data?.categories || [])?.map((cat: any) => (
+                    <option key={cat.id} value={cat.id}>{cat.name}</option>
+                ))}
+            </select>
+        </div>
+      </div>
+
       <div className="bg-card border border-border/60 rounded-[2.5rem] shadow-2xl shadow-black/5 overflow-hidden">
+
         {/* Course List */}
         <CourseList
           courses={courses}
@@ -125,7 +191,22 @@ export default function ManageCourses() {
           onAddModule={handleAddModule}
           onFeatureRequest={handleFeatureRequest}
         />
+
+        {/* Pagination Controls */}
+        {((courses as any)?.data?.totalPages || 0) > 1 && (
+            <div className="border-t border-border/50 bg-muted/5">
+                <Pagination 
+                    currentPage={page}
+                    totalPages={(courses as any)?.data?.totalPages || 0}
+                    onPageChange={(newPage) => setPage(newPage)}
+                />
+            </div>
+        )}
+
+
+
       </div>
+
 
       {/* Create Course Modal */}
       {showCreateModal && (

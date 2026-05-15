@@ -13,7 +13,7 @@ export default function DashboardPage() {
   useEffect(() => {
     if (!loading) {
       if (!isAuthenticated) {
-        router.push("/login");
+        router.push(`/login?callbackUrl=${window.location.pathname}`);
       } else if (user) {
         // Redirect based on role
         switch (user.role) {

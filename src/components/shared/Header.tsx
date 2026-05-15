@@ -9,11 +9,13 @@ import { usePathname } from "next/navigation";
 
 import { RootState, AppDispatch } from "@/redux/store";
 import { logout } from "@/redux/features/auth/authSlice";
+import { useLogoutMutation } from "@/redux/features/auth/authApi";
 import { ThemeSwitcher } from "./ThemeSwitcher";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 
 import { auth } from "@/lib/firebase";
 import { GlobalSearch } from "./GlobalSearch";
+import { trackEvent } from "@/lib/gtag";
 
 // --- Main Component: Header ---
 export function Header() {
@@ -37,11 +39,20 @@ export function Header() {
 
 
   const pathname = usePathname();
+  const [logoutApi] = useLogoutMutation();
 
   const handleLogout = async () => {
-    await auth.signOut();
-    dispatch(logout());
-    window.location.href = "/";
+    try {
+      await auth.signOut();
+      await logoutApi(undefined).unwrap();
+      dispatch(logout());
+      trackEvent('logout', { method: 'Manual' });
+      window.location.href = "/";
+    } catch (error) {
+      console.error("Logout failed:", error);
+      dispatch(logout());
+      window.location.href = "/";
+    }
   };
 
   return (
@@ -100,10 +111,10 @@ export function Header() {
                   <ChevronDown className="w-3 h-3 transition-transform group-hover:rotate-180" />
                 </button>
                 <div className="absolute top-full right-0 mt-2 w-48 bg-background border border-border/50 rounded-2xl shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 py-2 z-50">
-                  <Link href="/refund-policy" className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.refund_policy")}</Link>
-                  <Link href="/privacy-policy" className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.privacy")}</Link>
-                  <Link href="/terms-of-service" className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.terms")}</Link>
-                  <Link href="/cookie-policy" className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.cookie")}</Link>
+                  <Link href="/refund-policy" onClick={() => trackEvent('policy_view', { type: 'refund' })} className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.refund_policy")}</Link>
+                  <Link href="/privacy-policy" onClick={() => trackEvent('policy_view', { type: 'privacy' })} className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.privacy")}</Link>
+                  <Link href="/terms-of-service" onClick={() => trackEvent('policy_view', { type: 'terms' })} className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.terms")}</Link>
+                  <Link href="/cookie-policy" onClick={() => trackEvent('policy_view', { type: 'cookie' })} className="block px-4 py-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors">{t("footer.cookie")}</Link>
                 </div>
               </div>
             </nav>
@@ -169,7 +180,7 @@ export function Header() {
             ) : (
               <div className="flex items-center gap-3">
                 <Link
-                  href="/login"
+                  href={`/login?callbackUrl=${pathname}`}
                   className="flex h-11 items-center justify-center rounded-xl bg-card border border-primary/10 px-6 text-[10px] font-black uppercase tracking-widest text-foreground shadow-sm hover:bg-primary/5 hover:border-primary/30 hover:-translate-y-0.5 transition-all active:translate-y-0"
                 >
                   {t("nav.login")}
@@ -247,7 +258,7 @@ export function Header() {
             </>
           ) : (
             <div className="grid grid-cols-2 gap-3 pt-3">
-              <Link href="/login" onClick={() => setIsMenuOpen(false)} className="flex h-12 items-center justify-center rounded-xl bg-secondary border border-border/50 text-[10px] font-black uppercase tracking-widest text-foreground">
+              <Link href={`/login?callbackUrl=${pathname}`} onClick={() => setIsMenuOpen(false)} className="flex h-12 items-center justify-center rounded-xl bg-secondary border border-border/50 text-[10px] font-black uppercase tracking-widest text-foreground">
                 {t("nav.login")}
               </Link>
               <Link href="/signup" onClick={() => setIsMenuOpen(false)} className="flex h-12 items-center justify-center rounded-xl bg-primary text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-primary/20">
@@ -267,6 +278,7 @@ function NavLink({ href, label, active }: { href: string; label: string; active?
   return (
     <Link
       href={href}
+      onClick={() => trackEvent('nav_click', { label, href })}
       className={`rounded-xl px-5 py-2.5 text-[10px] font-black uppercase tracking-widest transition-all duration-300 ${active
         ? "bg-primary text-white shadow-lg shadow-primary/20 scale-105"
         : "text-muted-foreground hover:bg-primary/5 hover:text-primary"

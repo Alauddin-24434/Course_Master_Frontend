@@ -3,7 +3,8 @@ import { IApiResponse } from "@/interfaces/course.interface";
 
 export const userApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    getAllUsers: build.query<IApiResponse<any>, { page?: number; limit?: number; role?: string } | void>({
+    getAllUsers: build.query<IApiResponse<any>, { page?: number; limit?: number; role?: string; search?: string } | void>({
+
       query: (params) => ({
         url: `/users`,
         params: params ? params : undefined,

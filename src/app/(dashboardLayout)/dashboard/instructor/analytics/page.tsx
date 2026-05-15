@@ -1,21 +1,20 @@
 "use client"
-
+import { useState, useMemo } from "react";
 import { useGetInstructorAnalyticsQuery } from "@/redux/features/dashboard/dashboardApi"
 import { useGetAllCoursesQuery } from "@/redux/features/course/courseAPi"
 import { useGetAllUsersQuery } from "@/redux/features/user/userApi"
 import { Users, BookOpen, DollarSign, Loader2, TrendingUp, Inbox } from "lucide-react"
 import { InstructorAnalytics } from "@/components/dashboard/InstructorAnalytics"
-import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute"
-import { Role } from "@/interfaces/user.interface"
 import { useSelector } from "react-redux"
 import { RootState } from "@/redux/store"
+import DashboardHeader from "@/components/common/DashboardHeader";
+import DashboardCard from "@/components/common/DashboardCard";
+import DashboardFilterBar from "@/components/common/DashboardFilterBar";
+import DataTable, { Column } from "@/components/common/DataTable";
+import Pagination from "@/components/common/Pagination";
 
 export default function InstructorAnalyticsPage() {
-  return (
-    <RoleProtectedRoute allowedRoles={[Role.instructor, Role.admin]}>
-      <InstructorAnalyticsContent />
-    </RoleProtectedRoute>
-  )
+  return <InstructorAnalyticsContent />
 }
 
 function InstructorAnalyticsContent() {
@@ -26,6 +25,20 @@ function InstructorAnalyticsContent() {
   const stats = analyticsData?.data?.statistics || {}
   const courses = coursesData?.data?.courses || []
 
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const itemsPerPage = 6;
+
+  const filteredCourses = useMemo(() => {
+    return courses.filter((c: any) => c.title.toLowerCase().includes(search.toLowerCase()));
+  }, [courses, search]);
+
+  const totalPages = Math.ceil(filteredCourses.length / itemsPerPage);
+  const paginatedCourses = useMemo(() => {
+    const start = (page - 1) * itemsPerPage;
+    return filteredCourses.slice(start, start + itemsPerPage);
+  }, [filteredCourses, page]);
+
   if (analyticsLoading || coursesLoading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
@@ -34,26 +47,72 @@ function InstructorAnalyticsContent() {
     )
   }
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-border">
-        <div className="space-y-3">
-            <div className="inline-flex items-center gap-2 px-6 py-2 bg-primary/10 rounded-full border border-primary/20 text-xs font-black uppercase tracking-[0.2em] text-primary">
-                Instructor Console
+  const columns: Column<any>[] = [
+    {
+      header: "Course Identity",
+      accessor: (course) => (
+        <div className="flex items-center gap-4">
+           <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary font-black">
+              <BookOpen className="w-5 h-5" />
+           </div>
+           <div>
+              <p className="text-sm font-black text-foreground">{course.title}</p>
+              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">{course.category?.name || "General"}</p>
+           </div>
+        </div>
+      )
+    },
+    {
+      header: "Enrollments",
+      align: "center",
+      accessor: (course) => (
+        <div className="flex flex-col items-center">
+            <span className="font-mono text-xs font-bold text-foreground">{course._count?.enrolledUsers || 0}</span>
+            <span className="text-[9px] font-black uppercase text-muted-foreground tracking-tighter">Students</span>
+        </div>
+      )
+    },
+    {
+      header: "Engagement",
+      align: "center",
+      accessor: (course) => (
+        <div className="flex items-center gap-2">
+            <div className="h-1 w-16 bg-muted rounded-full overflow-hidden">
+                <div className="h-full bg-emerald-500" style={{ width: '65%' }}></div>
             </div>
-            <h1 className="text-5xl font-black tracking-tighter text-foreground leading-[1.1]">
-                Performance Insights
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-xl font-medium">Evaluate your course success, students recruitment, and revenue streams.</p>
+            <span className="text-[10px] font-black text-emerald-500">65%</span>
         </div>
-        
-        <div className="flex gap-4">
-             <div className="flex flex-col items-end px-6 py-4 bg-muted/50 rounded-3xl border border-border">
-                <span className="text-[10px] font-black uppercase tracking-[0.1em] text-muted-foreground">Monthly Active Students</span>
-                <span className="text-2xl font-black text-foreground">1,245 +</span>
-             </div>
+      )
+    },
+    {
+      header: "Gross Revenue",
+      align: "right",
+      accessor: (course) => (
+        <div className="text-right">
+            <p className="text-base font-black text-foreground">${(course.price * (course._count?.enrolledUsers || 0)).toLocaleString()}</p>
+            <p className="text-[9px] font-black text-muted-foreground uppercase tracking-tighter">Attributed</p>
         </div>
-      </div>
+      )
+    }
+  ];
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-16 animate-in fade-in slide-in-from-bottom-6 duration-1000 pb-20">
+      
+      <DashboardHeader 
+        badgeIcon={<TrendingUp className="w-4 h-4" />}
+        badgeText="Performance Console"
+        title="Instructor Analytics."
+        subtitle="Evaluate your course success, student recruitment, and global impact across your intellectual property catalog."
+        action={
+            <div className="flex gap-4">
+                 <div className="flex flex-col items-end px-6 py-4 bg-muted/50 rounded-3xl border border-border">
+                    <span className="text-[10px] font-black uppercase tracking-[0.1em] text-muted-foreground">Global Reach</span>
+                    <span className="text-2xl font-black text-foreground">{stats.totalStudents || 0} Students</span>
+                 </div>
+            </div>
+        }
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <StatsTile
@@ -83,10 +142,45 @@ function InstructorAnalyticsContent() {
       </div>
 
       <div className="space-y-10">
-          <div className="flex items-center justify-between">
-              <h2 className="text-3xl font-black italic tracking-tighter text-foreground">Curriculum Insights</h2>
-          </div>
           <InstructorAnalytics courses={courses} statistics={stats} />
+      </div>
+
+      <div className="space-y-8 pt-10 border-t border-border/50">
+          <div className="flex items-center justify-between">
+              <div>
+                  <h2 className="text-3xl font-black tracking-tight text-foreground italic">Course Breakdown</h2>
+                  <p className="text-muted-foreground font-medium text-sm">Detailed performance metrics per curriculum asset.</p>
+              </div>
+          </div>
+
+          <DashboardFilterBar 
+            search={search}
+            onSearchChange={(val) => { setSearch(val); setPage(1); }}
+            searchPlaceholder="Search your analytics..."
+          />
+
+          <DashboardCard
+            footer={
+                totalPages > 1 && (
+                    <Pagination 
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageChange={(newPage) => setPage(newPage)}
+                    />
+                )
+            }
+          >
+            <DataTable
+              columns={columns}
+              data={paginatedCourses}
+              loadingMessage="Calculating metrics..."
+              emptyState={{
+                title: "No Data Available.",
+                description: "Start publishing courses to see performance insights.",
+                icon: <BookOpen className="w-12 h-12" />
+              }}
+            />
+          </DashboardCard>
       </div>
     </div>
   )

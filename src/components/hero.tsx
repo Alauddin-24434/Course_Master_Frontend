@@ -110,7 +110,10 @@ export function HeroAnimated() {
                 {/* PREMIUM PLAY BUTTON */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/0 group-hover/mockup:bg-black/10 transition-all duration-700">
                   <button
-                    onClick={() => setIsVideoOpen(true)}
+                    onClick={() => {
+                      setIsVideoOpen(true);
+                      trackEvent('hero_video_click');
+                    }}
                     className="relative group/play flex items-center justify-center scale-110 md:scale-125"
                   >
                     {/* Glow Effect */}

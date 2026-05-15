@@ -1,7 +1,7 @@
 "use client";
 
 import { useDebounce } from 'use-debounce';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Search,
@@ -42,10 +42,26 @@ export default function CoursesContent() {
   const categories = categoriesData?.data?.categories || categoriesData?.data || [];
   const totalPages = Math.ceil(totalCount / 12) || 1;
 
+  useEffect(() => {
+    if (courses.length > 0) {
+      trackEvent('view_item_list', {
+        item_list_id: 'courses_list',
+        item_list_name: 'All Courses List',
+        items: courses.map((course: any, idx: number) => ({
+          item_id: course.id,
+          item_name: course.title,
+          index: idx + 1,
+          price: course.price,
+          item_category: course.category?.name
+        }))
+      });
+    }
+  }, [courses]);
+
   return (
-    <main className="min-h-screen pt-32 pb-16 md:pt-40 md:pb-24 bg-background relative overflow-hidden">
-      <div className="container mx-auto px-4 md:px-8 space-y-24 md:space-y-32 relative z-10">
-        <div className="bg-card/50 backdrop-blur-2xl border border-primary/10 rounded-[2.5rem] p-4 lg:p-6 shadow-2xl shadow-primary/5 mb-16">
+    <main className="min-h-screen pt-24 pb-12 md:pt-28 md:pb-20 bg-background relative overflow-hidden">
+      <div className="container mx-auto px-4 md:px-8 space-y-12 md:space-y-16 relative z-10">
+        <div className="bg-card/50 backdrop-blur-2xl border border-primary/10 rounded-[2.5rem] p-4 lg:p-6 shadow-2xl shadow-primary/5 mb-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-5 relative group">
               <Search className="absolute left-6 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground group-focus-within:text-primary transition-colors" />
@@ -53,8 +69,12 @@ export default function CoursesContent() {
                 type="text"
                 value={search}
                 onChange={(e) => {
-                  setSearch(e.target.value);
+                  const val = e.target.value;
+                  setSearch(val);
                   setPage(1);
+                  if (val.length > 2) {
+                    trackEvent('search', { search_term: val });
+                  }
                 }}
                 placeholder={t("courses.search_placeholder") || "What do you want to learn today?"}
                 className="w-full h-14 pl-14 pr-6 bg-background/50 border border-primary/5 rounded-2xl text-sm font-bold focus:ring-2 focus:ring-primary/20 focus:border-primary/30 outline-none transition-all"
@@ -89,8 +109,10 @@ export default function CoursesContent() {
               <select
                 value={sortBy}
                 onChange={(e) => {
-                  setSortBy(e.target.value as any);
+                  const value = e.target.value as any;
+                  setSortBy(value);
                   setPage(1);
+                  trackEvent('sort_courses', { sort_by: value });
                 }}
                 className="w-full h-14 pl-14 pr-6 bg-background/50 border border-primary/5 rounded-2xl text-sm font-black uppercase tracking-widest appearance-none outline-none focus:ring-2 focus:ring-primary/20 transition-all cursor-pointer"
               >
@@ -174,7 +196,11 @@ export default function CoursesContent() {
                   return (
                     <button
                       key={p}
-                      onClick={() => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+                      onClick={() => { 
+                        setPage(p); 
+                        trackEvent('pagination_click', { page_number: p });
+                        window.scrollTo({ top: 0, behavior: "smooth" }); 
+                      }}
                       className={`w-12 h-12 rounded-2xl text-xs font-black transition-all duration-300 ${
                         isActive 
                           ? "bg-primary text-white shadow-lg shadow-primary/30 scale-110" 

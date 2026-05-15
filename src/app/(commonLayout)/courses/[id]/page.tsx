@@ -65,12 +65,28 @@ export default function EnhancedCourseDetailsPage() {
    const course = courseResponse?.data;
    const isEnrolled = course?.isEnrolled;
 
+   useEffect(() => {
+      if (course) {
+         trackEvent('view_item', {
+            currency: 'USD',
+            value: course.price,
+            items: [{
+               item_id: course.id,
+               item_name: course.title,
+               price: course.price,
+               item_category: course.category?.name
+            }]
+         });
+      }
+   }, [course]);
+
    const handleEnrollment = async () => {
-      // Track the click event
+      // GA4: Track Click event
       trackEvent('enroll_button_click', {
-         category: 'Engagement',
-         label: course?.title,
-         value: course?.price
+        course_name: course?.title,
+        course_id: courseId,
+        price: course?.price,
+        is_free: course?.price === 0
       });
 
       try {
@@ -78,9 +94,25 @@ export default function EnhancedCourseDetailsPage() {
 
          if (isFree) {
             await enrollCourse(courseId).unwrap();
+            
+            // GA4: Track Purchase (Free)
+            trackEvent('purchase', {
+              transaction_id: `free_${courseId}_${Date.now()}`,
+              value: 0,
+              currency: 'USD',
+              items: [{ item_id: courseId, item_name: course?.title, price: 0 }]
+            });
+
             toast.success("Successfully enrolled in the free course!");
             refetch();
          } else {
+            // GA4: Track Begin Checkout
+            trackEvent('begin_checkout', {
+              value: course?.price,
+              currency: 'USD',
+              items: [{ item_id: courseId, item_name: course?.title, price: course?.price }]
+            });
+
             const res = await createCheckout(courseId).unwrap();
             console.log("checkout", res);
             if (res.data?.paymentUrl) {
@@ -92,7 +124,7 @@ export default function EnhancedCourseDetailsPage() {
       } catch (err: any) {
          if (err?.status === 401) {
             toast.error("Please login to enroll.");
-            router.push("/login");
+            router.push(`/login?callbackUrl=${window.location.pathname}`);
          } else {
             toast.error(err?.data?.message || "Failed to enroll. Please try again.");
          }
@@ -100,7 +132,11 @@ export default function EnhancedCourseDetailsPage() {
    };
 
    const toggleModule = (moduleId: string) => {
+      const isOpening = activeModule !== moduleId;
       setActiveModule(activeModule === moduleId ? null : moduleId);
+      if (isOpening) {
+         trackEvent('expand_curriculum_module', { course_id: courseId, module_id: moduleId });
+      }
    };
 
    const handleSubmitReview = async (e: React.FormEvent) => {
@@ -174,7 +210,10 @@ export default function EnhancedCourseDetailsPage() {
 
                <div className="max-w-4xl space-y-8">
                   <button
-                     onClick={() => router.push("/courses")}
+                     onClick={() => {
+                        trackEvent('back_to_courses', { from_course_id: courseId });
+                        router.push("/courses");
+                     }}
                      className="group flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-primary transition-all mb-4"
                   >
                      <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
@@ -468,7 +507,12 @@ export default function EnhancedCourseDetailsPage() {
 
                      {/* Thumbnail / Video Preview Box */}
                      <div
-                        onClick={() => course.previewVideo && setShowVideoModal(true)}
+                        onClick={() => {
+                           if (course.previewVideo) {
+                              setShowVideoModal(true);
+                              trackEvent('preview_video_click', { course_id: courseId, course_name: course.title });
+                           }
+                        }}
                         className={`relative aspect-video rounded-[2rem] overflow-hidden bg-secondary mb-10 border border-border/50 ${course.previewVideo ? 'cursor-pointer group' : ''} shadow-lg`}
                      >
                         <img

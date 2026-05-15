@@ -4,9 +4,13 @@
 
 import { useTranslation } from "react-i18next";
 import { LoginForm } from "@/components/auth-Form/login-form";
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginPage() {
   const { t } = useTranslation();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
 
   return (
     <main className="min-h-screen bg-background flex items-center justify-center py-12 px-4 relative overflow-hidden">
@@ -29,7 +33,7 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-xs text-muted-foreground mt-8 font-medium">
-          Don't have an account? <a href="/signup" className="text-primary font-bold hover:underline">Create an account</a>
+          Don't have an account? <Link href={`/signup${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`} className="text-primary font-bold hover:underline">Create an account</Link>
         </p>
       </div>
     </main>

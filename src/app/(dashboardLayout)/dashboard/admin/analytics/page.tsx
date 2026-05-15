@@ -6,15 +6,8 @@ import { useGetAllUsersQuery } from "@/redux/features/user/userApi"
 import { Users, BookOpen, DollarSign, Loader2, TrendingUp, Inbox, ShieldCheck, UserCheck } from "lucide-react"
 import { useTranslation } from "react-i18next"
 import { AdminAnalytics } from "@/components/dashboard/AdminAnalytics"
-import { RoleProtectedRoute } from "@/components/shared/RoleProtectedRoute"
-import { Role } from "@/interfaces/user.interface"
-
 export default function AdminAnalyticsPage() {
-  return (
-    <RoleProtectedRoute allowedRoles={[Role.admin]}>
-      <AdminAnalyticsContent />
-    </RoleProtectedRoute>
-  )
+  return <AdminAnalyticsContent />
 }
 
 function AdminAnalyticsContent() {
